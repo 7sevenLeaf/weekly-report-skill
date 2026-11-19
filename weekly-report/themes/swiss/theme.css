@@ -1,0 +1,99 @@
+/* 编辑部：瑞士国际主义风格。纸灰底、炭黑墨、发丝线、唯一一个橙色。
+   大数字和网格撑起版面，图表代替文字堆砌。橙色每屏只标一个主角。 */
+:root{
+  --bg:#F0EFEB; --bg2:#E5E3DD; --ink:#1C1C1A; --ink2:#4A4945; --mute:#8A8883; --rule:rgba(28,28,26,.16);
+  --accent:#F5572F; --accent-ink:#fff;
+  --c-study:var(--accent); --c-star:var(--ink); --c-sport:color-mix(in oklab,var(--ink) 55%,var(--bg));
+  --c-life:color-mix(in oklab,var(--ink) 30%,var(--bg)); --c-sleep:color-mix(in oklab,var(--ink) 12%,var(--bg));
+  --font:"Inter","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --font-num:"Inter","Noto Sans SC",system-ui,sans-serif;
+  --mono:"Inter",system-ui,sans-serif;
+  --gap:88px;
+}
+.wr-progress{height:2px;background:var(--ink)}
+
+/* 封面：一个占满版面的周数 + 三格数据 */
+.sw-cover{display:grid;grid-template-columns:1fr;gap:0;min-height:min(88vh,780px);align-content:space-between}
+.sw-top{display:grid;grid-template-columns:1fr auto;border-top:1px solid var(--ink);padding-top:10px;font-size:13px;color:var(--ink2)}
+.sw-top b{color:var(--ink);font-weight:700}
+.sw-num{font-family:var(--font-num);font-weight:800;font-size:clamp(200px,62vw,360px);line-height:.8;letter-spacing:-.06em;margin:18px 0 0 -.05em;color:var(--ink)}
+.sw-num span{color:var(--accent)}
+.sw-title{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:end;margin-top:8px}
+.sw-title h1{margin:0;font-weight:900;font-size:clamp(40px,12vw,64px);line-height:1;letter-spacing:-.02em}
+.sw-title p{margin:0 0 6px;font-size:14px;color:var(--ink2);line-height:1.5}
+.sw-stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);margin-top:28px}
+.sw-stats div{padding:12px 10px 0 0}
+.sw-stats div+div{border-left:1px solid var(--rule);padding-left:12px}
+.sw-stats b{display:block;font-weight:800;font-size:clamp(28px,8.6vw,42px);line-height:1.05;letter-spacing:-.03em}
+.sw-stats span{display:block;font-size:13px;color:var(--ink2);margin-top:4px}
+.sw-stats em{display:block;font-style:normal;font-size:12px;color:var(--mute)}
+.sw-stats div:first-child b{color:var(--accent)}
+
+/* 小标题：编号 + 标题，左重 */
+.wr-h{display:grid;grid-template-columns:44px 1fr;align-items:baseline;border-top:1px solid var(--ink);border-bottom:0;padding:10px 0 0;margin-bottom:26px}
+.wr-h::before{content:attr(data-n);font-size:13px;font-weight:700;color:var(--ink)}
+.wr-h h2{font-size:30px;font-weight:900;letter-spacing:-.02em}
+.wr-hint{grid-column:2;font-size:13px;color:var(--mute);margin-top:2px}
+
+.wr-tab{border-radius:0;border:0;border-bottom:2px solid transparent;padding:6px 0;margin-right:14px;font-size:15px;color:var(--mute)}
+.wr-tab[aria-pressed="true"]{background:transparent;color:var(--ink);border-bottom-color:var(--accent)}
+.wr-big{font-weight:800;letter-spacing:-.05em;color:var(--ink)}
+.wr-bars{border-bottom-color:var(--ink)}
+.wr-bar i{max-width:18px;background:var(--ink);border-radius:0}
+.wr-bar.on i{opacity:1;background:var(--accent)}
+
+/* 时间花在哪 */
+.wr-stack{height:56px;gap:1px}
+.wr-li{grid-template-columns:14px 1fr auto 46px}
+.wr-li b{font-weight:800}
+
+/* 成就：编号小，大数字占版面，小画在网格里 */
+.wr-a{padding:34px 0;border-bottom:1px solid var(--rule)}
+.wr-a-top{grid-template-columns:44px 1fr}
+.wr-rank{font-family:var(--font);font-weight:700;color:var(--ink);font-size:13px}
+.wr-a-big{font-weight:800;font-size:clamp(52px,16vw,88px);letter-spacing:-.05em;line-height:.95}
+.wr-a:first-child .wr-a-big{color:var(--accent)}
+.wr-a-what,.wr-fig,.wr-a-detail,.wr-say{margin-left:60px}
+.wr-fig{background:transparent;padding:14px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);border-radius:0}
+.wr-say{border-left:0;padding-left:0;font-weight:700}
+.wr-say::before{content:"→ ";color:var(--accent)}
+
+/* 时间线 */
+.wr-now b{font-weight:800;letter-spacing:-.02em}
+.wr-track{background:transparent;box-shadow:inset 0 -1px 0 var(--rule);border-radius:0}
+.wr-row.on .wr-track{box-shadow:inset 0 -1px 0 var(--ink)}
+.wr-blk{border-radius:0}
+
+/* 热力 */
+.wr-cell{border-radius:0;background:color-mix(in oklab,var(--accent) calc(var(--a)*100%),var(--bg2))}
+
+/* 目标 */
+.wr-stamp{border:0;padding:0;font-size:13px;color:var(--ink2)}
+.wr-g[data-s="done"] .wr-stamp{background:transparent;color:var(--accent)}
+.wr-g-bar{height:2px;background:var(--rule)}
+.wr-g-bar i{background:var(--ink)}
+.wr-g[data-s="done"] .wr-g-bar i{background:var(--accent)}
+
+/* 起伏 */
+.wr-area{opacity:.07}
+.wr-line{stroke-width:2.5}
+.wr-pt{r:7}
+.wr-her{font-weight:800;letter-spacing:-.01em}
+
+/* 话：大字引文 */
+.wr-q-t{font-weight:800;font-size:clamp(28px,8vw,40px);letter-spacing:-.02em}
+.wr-q-t::before{content:"“";color:var(--accent)}
+.wr-q-t::after{content:"”";color:var(--accent)}
+
+.wr-rlist li::before{font-family:var(--font);font-weight:700;color:var(--ink);font-size:13px}
+.wr-letter{columns:1}
+.wr-letter p:first-child::first-line{font-weight:800}
+.wr-letter .wr-sign{font-weight:800}
+.wr-fict{background:var(--ink)}
+
+/* v8：原话卡保持编辑部的克制，暖一点的白，红色只做引号 */
+.wr-qcard{--q1:#FFFFFF;--q2:#FFF4EF;--qmark:var(--accent);--qr:6px;box-shadow:none;border:1px solid var(--rule)}
+.wr-qcard .wr-q-t::before,.wr-qcard .wr-q-t::after{content:none}
+.wr-q-note{background:transparent;border-left:3px solid var(--accent);border-radius:0;padding:4px 0 4px 12px}
+.wr-ltag{border-radius:0;background:var(--ink);color:#fff}
+.wr-letter p.wr-lsec:first-child::first-line{font-weight:inherit}

@@ -1,0 +1,287 @@
+/* 云白（第四版）：沉浸版 + 意象可视化。
+   第三版打 6 分：「简洁高级还行，但普通，没有眼前一亮；要炫技动画、数据交互、元素意象的可视化」。
+   实测第三版叙事部分图形只占画面 1.8%、41 屏里 39 屏没有能点的东西，所以这一版让画面被「数据画成的东西」占满：
+   168 个小时方块拼出周数、每天一片真的天空（太阳按时钟走、月亮圆缺=睡够没有、星星数=睡了几小时、天气=情绪）、
+   学习一小时掉一本书、运动时心跳线跳起来、成就卡 3D 倾斜 + 数字滚轮 + 彩纸、一周天气收拢。
+   配色仍按四张参考量出的三层：中性浅灰底、粉彩意象、一个钴蓝主角。 */
+:root{
+  --bg:#F2F3F5; --bg2:#E9EBEF; --card:#FFFFFF; --ink:#16181D; --ink2:#5A5F6B; --mute:#8E93A0; --rule:rgba(22,24,29,.08);
+  --accent:#3D6BF2; --accent-ink:#fff;
+  --t-study:#DCE7FB; --t-sport:#D6F2E7; --t-sleep:#E8E1F8; --t-life:#FCE3DA; --t-star:#FBF3C8;
+  --c-study:#8FB2F2; --c-sport:#8DD9BF; --c-sleep:#C9BCEF; --c-life:#F5B9A6; --c-star:#EFD46A; --c-none:#E3E5EA;
+  --sun:#FFC95C; --moon:#FFF7E3; --hill1:#C3E9D9; --hill2:rgba(255,255,255,.82);
+  --font:"Inter","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --font-num:"Inter","Noto Sans SC",system-ui,sans-serif;
+  --shadow:0 1px 2px rgba(22,24,29,.04),0 10px 30px rgba(22,24,29,.06);
+  --gap:24px; --r:24px;
+}
+body{background:var(--bg)}
+#wr{display:block;max-width:none;padding:0 0 90px;gap:0}
+#wr>*:not(.cl-intro):not(.cl-day):not(.cl-ach):not(.cl-sum){max-width:620px;margin-left:auto;margin-right:auto;width:calc(100% - 32px)}
+.wr-progress{display:none}
+
+/* 时钟 */
+.cl-clock{position:fixed;left:16px;top:14px;z-index:20;display:flex;align-items:baseline;gap:8px;padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.72);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);box-shadow:var(--shadow);opacity:0;transform:translateY(-8px);transition:opacity .4s var(--ease),transform .4s var(--ease);pointer-events:none}
+.cl-clock.on{opacity:1;transform:none}
+.cl-clock b{font-size:15px;font-weight:700}
+.cl-clock span{font-family:var(--font-num);font-weight:800;font-size:20px;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+
+/* 开场：168 个小时 */
+.cl-intro{position:relative;height:100vh;min-height:640px;overflow:hidden}
+.cl-ipin{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 16px}
+.cl-kick{font-size:14px;color:var(--ink2)}
+.cl-kick b{color:var(--ink)}
+.cl-cells{position:relative;width:360px;height:250px;margin:22px auto 0;touch-action:pan-y}
+.cl-cell{position:absolute;left:0;top:0;width:13px;height:13px;border-radius:3.5px;background:var(--c);will-change:transform}
+.cl-cell.hit{outline:2px solid var(--accent);outline-offset:1px;z-index:2}
+.cl-gdays{position:absolute;left:-18px;top:0;display:flex;flex-direction:column;font-size:11px;color:var(--mute);opacity:0}
+.cl-gdays span{height:15px;line-height:13px}
+.cl-gaxis{position:absolute;left:0;right:0;display:flex;justify-content:space-between;font-size:10px;color:var(--mute);opacity:0;font-family:var(--font-num)}
+.cl-leads{position:relative;height:56px;width:100%;margin-top:14px}
+.cl-lead{position:absolute;left:0;right:0;margin:0;font-size:17px;color:var(--ink2)}
+.cl-lead b{color:var(--ink)}
+.cl-read{min-height:22px;font-size:14px;color:var(--ink);margin-top:2px}
+.cl-read b{color:var(--accent);font-family:var(--font-num)}
+.cl-key{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 12px;font-size:12px;color:var(--ink2);margin-top:10px;opacity:0}
+.cl-key span{display:inline-flex;align-items:center;gap:5px}
+.cl-key i{width:10px;height:10px;border-radius:3px}
+.cl-down{position:absolute;bottom:24px;left:50%;margin-left:-12px;width:24px;height:36px;border:2px solid var(--mute);border-radius:12px;opacity:.7}
+.cl-down::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:7px;margin-left:-2px;border-radius:2px;background:var(--mute)}
+.wr-move .cl-down::after{animation:cl-wheel 1.6s var(--ease) 4}
+@keyframes cl-wheel{from{transform:translateY(0);opacity:1}to{transform:translateY(12px);opacity:0}}
+
+/* 一天：上面一片天空，下面这一天的事 */
+.cl-day{position:relative;height:100vh;min-height:640px;overflow-x:clip}
+.cl-din{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--sky,#EEF2F8);overflow:hidden}
+.cl-stage{position:relative;width:100%;max-width:560px;margin:0 auto;aspect-ratio:400/330;max-height:46vh;flex:none;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.cl-stage svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+.cl-stage canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cl-dhead{position:absolute;left:18px;top:66px;display:flex;align-items:baseline;gap:10px;pointer-events:none}
+.cl-dn{font-weight:900;font-size:clamp(44px,13vw,66px);line-height:1;letter-spacing:-.02em;color:var(--ink)}
+.cl-dd{font-size:13px;color:var(--ink2)}
+.cl-tip{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);padding:5px 12px;border-radius:99px;background:rgba(255,255,255,.85);box-shadow:var(--shadow);font-size:12px;color:var(--ink);white-space:nowrap;opacity:0;transition:opacity .25s;pointer-events:none;max-width:92%;overflow:hidden;text-overflow:ellipsis}
+.cl-tip.on{opacity:1}
+.cl-hint{position:absolute;right:14px;top:72px;font-size:11px;color:var(--ink2);background:rgba(255,255,255,.6);padding:3px 9px;border-radius:99px}
+.sky-star{fill:#fff}
+.wr-move .sky-star{animation:cl-tw 2.4s ease-in-out infinite alternate}
+@keyframes cl-tw{from{opacity:.35}to{opacity:1}}
+.sky-sun{cursor:grab}
+.sky-rays line{stroke:var(--sun);stroke-width:3;stroke-linecap:round}
+.wr-move .sky-rays{animation:cl-spin 14s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes cl-spin{to{transform:rotate(360deg)}}
+.sky-cloud{fill:#fff}
+.sky-book{cursor:pointer}
+.sky-book.on{stroke:var(--accent);stroke-width:2}
+.sky-ecg{fill:none;stroke:var(--c-sport);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.cl-dbody{flex:1;min-height:0;width:100%;max-width:560px;margin:0 auto;padding:10px 18px 18px;display:flex;flex-direction:column;justify-content:flex-start}
+.cl-say{padding:10px 14px;border-radius:18px 18px 18px 6px;background:rgba(255,255,255,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:var(--shadow);font-weight:700;font-size:16px;line-height:1.45;align-self:flex-start;max-width:100%}
+.cl-say small{display:block;font-weight:400;font-size:12px;color:var(--mute);margin-top:2px}
+.cl-say .cl-wx{display:inline-block;width:22px;height:22px;vertical-align:-5px;margin-right:6px}
+.cl-evs{list-style:none;margin:10px 0 0;padding:8px;border-radius:20px;background:rgba(255,255,255,.62);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:2px}
+.cl-ev{display:grid;grid-template-columns:44px 26px 1fr auto;align-items:center;gap:8px;padding:5px 8px;border-radius:12px;font-size:14px;cursor:pointer;transition:background .35s var(--ease),opacity .35s,transform .45s var(--ease)}
+.cl-ev time{font-family:var(--font-num);font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.cl-ev i{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--tint)}
+.cl-ev i svg{width:15px;height:15px}
+.cl-ev span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cl-ev b{font-family:var(--font-num);font-size:12px;font-weight:600;color:var(--ink2)}
+.cl-ev[data-c="study"]{--tint:var(--t-study)} .cl-ev[data-c="sport"]{--tint:var(--t-sport)} .cl-ev[data-c="life"]{--tint:var(--t-life)}
+.cl-ev[data-c="star"]{--tint:var(--t-star)} .cl-ev[data-c="sleep"]{--tint:var(--t-sleep)}
+.cl-live .cl-ev{opacity:.25}
+.cl-live .cl-ev.on{opacity:1}
+.cl-ev.now{background:var(--tint)}
+.cl-ev.now time{color:var(--accent);font-weight:700}
+.cl-dsum{margin-top:8px;font-size:12px;color:var(--ink2);font-family:var(--font-num)}
+.cl-dsum b{color:var(--ink)}
+
+/* 成就：3D 卡 */
+.cl-ach{position:relative;padding:14vh 16px;perspective:1100px;overflow-x:clip}
+.cl-acard{position:relative;max-width:560px;margin:0 auto;background:var(--card);border-radius:28px;box-shadow:0 2px 4px rgba(22,24,29,.04),0 30px 60px rgba(22,24,29,.10);padding:26px 22px 24px;transform-style:preserve-3d;will-change:transform;touch-action:pan-y}
+.cl-glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at var(--gx,30%) var(--gy,20%),rgba(255,255,255,.75),rgba(255,255,255,0) 45%);mix-blend-mode:soft-light;opacity:.9}
+.cl-atag{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:color-mix(in oklab,var(--accent) 10%,#fff);padding:3px 10px;border-radius:99px}
+.cl-abig{margin:14px 0 0;font-family:var(--font-num);font-weight:800;font-size:clamp(60px,18vw,104px);line-height:1;letter-spacing:-.04em;white-space:nowrap}
+.cl-abig>span{display:inline-block;vertical-align:top}
+.cl-slot{height:1em;overflow:hidden}
+.cl-reel{display:flex;flex-direction:column}
+.cl-reel span{display:block;height:1em}
+.cl-awhat{margin-top:8px;font-weight:700;font-size:18px}
+.cl-afig{margin:18px 0 0;padding:16px;border-radius:18px;background:var(--tint,var(--t-study));overflow:hidden;transform:translateZ(30px)}
+.cl-afig svg{display:block;width:100%;height:auto;overflow:visible}
+.cl-afig text{font-family:var(--font);font-size:11px;fill:var(--ink)}
+.cl-adetail{margin:14px 0 0;font-size:16px;line-height:1.7;color:var(--ink2)}
+.cl-asay{margin:10px 0 0;font-weight:700;font-size:17px;line-height:1.6}
+.cl-tiltme{position:absolute;right:18px;top:24px;font-size:11px;color:var(--mute)}
+.cl-confetti{position:fixed;inset:0;z-index:15;pointer-events:none;width:100vw;height:100vh}
+
+/* 收拢：一周天气 */
+.cl-sum{position:relative;height:100vh;min-height:640px;overflow-x:clip}
+.cl-sin{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 16px}
+.cl-sin h2{margin:0;font-weight:900;font-size:clamp(40px,12vw,64px);letter-spacing:-.02em}
+.cl-sin>p{margin:6px 0 0;color:var(--ink2)}
+.cl-tiles{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;width:min(100%,520px);margin-top:22px;perspective:800px}
+.cl-tile{all:unset;cursor:pointer;position:relative;aspect-ratio:3/4.2;transform-style:preserve-3d;transition:transform .7s var(--ease)}
+.cl-tile.flip{transform:rotateY(180deg)}
+.cl-tile>span{position:absolute;inset:0;border-radius:14px;background:var(--card);box-shadow:var(--shadow);backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;color:var(--ink2)}
+.cl-tile>span b{font-size:13px;color:var(--ink)}
+.cl-tile svg{width:30px;height:30px}
+.cl-tile .bk{transform:rotateY(180deg);background:linear-gradient(160deg,#fff,var(--dt));color:var(--ink);font-family:var(--font-num);font-size:10.5px;line-height:1.35;padding:4px}
+.cl-tile .bk b{color:var(--da);font-size:11px}
+.cl-snums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(100%,560px);margin-top:20px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.cl-snums div{position:relative;background:var(--card);border-radius:22px;box-shadow:var(--shadow);padding:16px 8px 14px;cursor:pointer;transition:transform .2s}
+.cl-snums b{display:block;font-family:var(--font-num);font-weight:800;font-size:clamp(28px,8.6vw,44px);letter-spacing:-.04em;line-height:1}
+.cl-snums div:first-child b{color:var(--accent)}
+.cl-snums span{display:block;margin-top:6px;font-size:13px;color:var(--ink2)}
+.cl-snums em{display:block;font-style:normal;font-size:12px;color:var(--mute);min-height:16px}
+.cl-snums.cmp div{transform:scale(.97)}
+.cl-snums.cmp b{color:var(--mute)!important}
+.cl-shint{margin-top:10px;font-size:12px;color:var(--mute)}
+
+/* 后面接的套件模块 */
+.wr-sec{margin-top:16px;background:var(--card);border-radius:28px;box-shadow:var(--shadow);padding:24px 20px}
+.wr-h{border-bottom:0;padding-bottom:0}
+.wr-h h2{font-size:24px}
+.wr-tab{border:0;background:var(--bg);color:var(--ink2)}
+.wr-tab[aria-pressed="true"]{background:var(--ink);color:#fff}
+.wr-stack{height:40px;border-radius:12px;overflow:hidden;gap:2px}
+.wr-stamp{border:0;background:var(--bg);color:var(--ink2)}
+.wr-g[data-s="done"] .wr-stamp{background:color-mix(in oklab,var(--accent) 12%,#fff);color:var(--accent)}
+.wr-g-bar{background:var(--bg);height:6px;border-radius:3px}
+.wr-g-bar i{background:var(--c-study);border-radius:3px}
+.wr-g[data-s="done"] .wr-g-bar i{background:var(--accent)}
+.wr-q-t{font-weight:800;letter-spacing:-.01em}
+.wr-rlist li::before{color:var(--accent);font-family:var(--font-num);font-weight:700}
+.wr-letter p{font-size:17px}
+.wr-fict{background:rgba(22,24,29,.78);backdrop-filter:blur(10px)}
+.wr-foot{margin-top:40px}
+
+/* 静止版：全部摊开，意象画成静态 */
+.cl-static .cl-intro,.cl-static .cl-day,.cl-static .cl-sum{height:auto;min-height:0}
+.cl-static .cl-din,.cl-static .cl-sin{position:relative;inset:auto}
+.cl-static .cl-din{padding-bottom:20px}
+.cl-static .cl-ipin{padding:70px 16px 40px}
+.cl-static .cl-down,.cl-static .cl-clock,.cl-static .cl-hint{display:none}
+.cl-static .cl-gdays,.cl-static .cl-gaxis,.cl-static .cl-key{opacity:1}
+.cl-static .cl-sin{padding:60px 16px}
+.cl-static .cl-reel{transform:translateY(-95%)}
+
+/* ====== 第五版（第四版打 7 分后）：每天自己的色调和主题元素、活动动效、心情特效、大块主题转场、毛玻璃、每天不同的数据面板 ====== */
+.cl-day{--da:var(--accent);--dt:var(--t-study)}
+.cl-din{background:linear-gradient(180deg,var(--sky,#EEF2F8) 0%,var(--sky,#EEF2F8) 38%,color-mix(in oklab,var(--dt) 70%,var(--sky,#EEF2F8)) 100%)}
+.cl-day[data-sig="rain"] .cl-din{background:linear-gradient(180deg,color-mix(in oklab,var(--sky) 55%,#8F9BB5) 0%,color-mix(in oklab,var(--sky) 70%,#A9B3C9) 45%,color-mix(in oklab,var(--dt) 70%,#C9D0DE) 100%)}
+.cl-stage{max-height:37vh}
+/* 毛玻璃（Apple 风格）：半透明白 + 背景模糊增饱和 + 一道内高光 */
+.cl-glass,.cl-say,.cl-evs,.cl-panel,.cl-clock,.cl-tile>span,.cl-snums div{background:rgba(255,255,255,.42)!important;backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid rgba(255,255,255,.7);box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 8px 32px rgba(40,50,90,.10)}
+.cl-tile .bk{background:linear-gradient(160deg,rgba(255,255,255,.9),var(--dt))!important;border-color:rgba(255,255,255,.7)}
+.cl-blob{position:absolute;border-radius:50%;filter:blur(38px);opacity:.75;pointer-events:none;will-change:transform}
+.cl-dbody{position:relative;gap:8px;padding-top:6px}
+.cl-dbody>*{position:relative}
+.cl-say{font-size:15px;padding:9px 13px}
+.cl-say .q{display:inline}
+.cl-say .q span{display:inline-block;white-space:pre}
+.cl-evs{margin-top:0;padding:6px}
+.cl-ev{padding:3px 8px;font-size:13.5px;grid-template-columns:42px 24px 1fr auto}
+.cl-ev i{width:24px;height:24px}
+.cl-ev.now{background:color-mix(in oklab,var(--da) 18%,rgba(255,255,255,.6))}
+.cl-ev.now time{color:var(--da)}
+.cl-dsum{display:none}
+/* 当天数据面板 */
+.cl-panel{border-radius:20px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;min-height:118px}
+.cl-panel.wide{grid-template-columns:1fr}
+.cl-panel svg{display:block;overflow:visible}
+.cl-panel h4{margin:0 0 6px;font-size:12px;font-weight:700;color:var(--ink2);letter-spacing:.02em}
+.cl-panel h4 b{color:var(--da);font-family:var(--font-num)}
+.cl-leg{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;font-size:12px}
+.cl-leg li{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.cl-leg i{width:9px;height:9px;border-radius:3px;flex:none}
+.cl-leg b{margin-left:auto;font-family:var(--font-num);font-weight:700}
+.cl-bars{display:flex;flex-direction:column;gap:6px}
+.cl-bar{display:grid;grid-template-columns:52px 1fr 40px;align-items:center;gap:8px;font-size:12px}
+.cl-bar s{position:relative;height:10px;border-radius:5px;background:rgba(22,24,29,.07);text-decoration:none;overflow:visible}
+.cl-bar s i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--da);transform-origin:0 50%}
+.cl-bar s i.avg{background:rgba(22,24,29,.22);height:4px;top:3px}
+.cl-bar s u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);border-radius:1px}
+.cl-bar b{font-family:var(--font-num);text-align:right}
+.cl-big{font-family:var(--font-num);font-weight:800;font-size:28px;letter-spacing:-.03em;line-height:1;color:var(--da)}
+.cl-sub{font-size:12px;color:var(--ink2);margin-top:4px}
+/* 活动动效、转场元素 */
+.v-act{opacity:0;transition:opacity .45s}
+.v-act.on{opacity:1}
+.cl-trans{position:absolute;left:0;right:0;top:0;height:100vh;z-index:4;pointer-events:none;overflow:visible}
+.cl-trans svg{position:absolute;width:190px;height:190px;left:0;top:0;overflow:visible;filter:drop-shadow(0 18px 30px rgba(30,40,80,.18))}
+.cl-static .cl-trans{display:none}
+
+/* ====== 第六版（第五版打 8 分后）：更通透的玻璃、极光底、更大胆的转场、总结区重做 ====== */
+/* 玻璃：更透（白 18–26%）、更强的模糊和饱和、渐变描边、左上角高光、边缘光 */
+.cl-glass,.cl-say,.cl-evs,.cl-panel,.cl-clock,.cl-tile>span,.cl-snums div,.wr-sec{position:relative;background:linear-gradient(135deg,rgba(255,255,255,.34),rgba(255,255,255,.12))!important;
+  backdrop-filter:blur(30px) saturate(210%) brightness(1.04);-webkit-backdrop-filter:blur(30px) saturate(210%) brightness(1.04);
+  border:1px solid rgba(255,255,255,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(255,255,255,.18),inset 1px 0 0 rgba(255,255,255,.35),0 12px 40px rgba(30,40,90,.12)!important}
+.cl-say::before,.cl-evs::before,.cl-panel::before,.wr-sec::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(120% 60% at 0% 0%,rgba(255,255,255,.55),rgba(255,255,255,0) 55%);mix-blend-mode:soft-light}
+.cl-tile .bk{background:linear-gradient(160deg,rgba(255,255,255,.92),var(--dt))!important;color:var(--ink)!important}
+.cl-blob{filter:blur(46px);opacity:.85}
+.cl-din .cl-blob:nth-of-type(1){opacity:.42!important}
+/* 极光底：总结区后面流动的色块，让玻璃看得出来 */
+.cl-aurora{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity 1s var(--ease)}
+.cl-aurora.on{opacity:1}
+.cl-aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.75}
+body{isolation:isolate}
+/* 两层大块转场：主色色带领先，新的一天跟在后面 */
+.cl-wash{position:absolute;inset:0;z-index:0;pointer-events:none}
+.cl-din{z-index:1}
+.cl-trans svg.big{width:min(72vw,430px);height:min(72vw,430px);filter:drop-shadow(0 30px 50px rgba(30,40,80,.22))}
+.cl-trans .pt{position:absolute;left:0;top:0;border-radius:50%;pointer-events:none}
+/* 面板交互 */
+.cl-panel [data-k],.cl-panel .cl-bar,.cl-panel .pd,.cl-panel svg{cursor:pointer}
+.cl-panel .pr.dim{opacity:.25}
+.cl-panel .cl-bar.on span{color:var(--da);font-weight:800}
+.cl-panel .cl-pop{grid-column:1/-1;font-size:12px;color:var(--ink2);min-height:16px}
+.cl-panel .cl-pop b{color:var(--ink)}
+.cl-panel .pd.hit{stroke:var(--ink);stroke-width:2}
+.cl-panel .spark{grid-column:1/-1}
+/* 总结区 */
+.cl-donut{display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:center}
+.cl-donut svg{width:200px;height:200px;overflow:visible}
+.cl-donut .seg{cursor:pointer;transition:opacity .25s,stroke-width .25s}
+.cl-donut .seg.dim{opacity:.22}
+.cl-donut .ctr b{font-family:var(--font-num);font-weight:800}
+@media (max-width:460px){.cl-donut{grid-template-columns:1fr;justify-items:center}}
+.wr-s-goals .wr-goals{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wr-s-goals .wr-g{border:0;border-radius:20px;padding:14px;background:rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+.wr-s-goals .wr-g-top{flex-direction:column;align-items:flex-start;gap:8px}
+.wr-s-goals .wr-g-bar{display:none}
+.cl-gring{width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--gc,var(--accent)) calc(var(--p)*1turn),rgba(22,24,29,.08) 0);display:grid;place-items:center;
+  -webkit-mask:radial-gradient(circle,transparent 21px,#000 22px);mask:radial-gradient(circle,transparent 21px,#000 22px)}
+.cl-gwrap{position:relative;width:64px;height:64px}
+.cl-gwrap b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-num);font-size:13px;font-weight:800}
+.cl-qtrack{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 10px;scrollbar-width:none;margin:0 -4px}
+.cl-qtrack::-webkit-scrollbar{display:none}
+.cl-qcard{flex:0 0 86%;scroll-snap-align:center;border-radius:24px;padding:22px 20px;color:#fff;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.cl-qcard::before{content:"“";position:absolute;right:10px;top:-30px;font-size:160px;font-family:Georgia,serif;opacity:.22}
+.cl-qcard p{margin:0;font-weight:800;font-size:22px;line-height:1.45}
+.cl-qcard small{opacity:.85;font-size:13px}
+.cl-qdots{display:flex;gap:6px;justify-content:center}
+.cl-qdots i{width:6px;height:6px;border-radius:3px;background:rgba(22,24,29,.2);transition:width .3s,background .3s}
+.cl-qdots i.on{width:18px;background:var(--accent)}
+.cl-stack{position:relative;height:190px;margin-top:14px;perspective:900px}
+.cl-scard{position:absolute;left:0;right:0;top:0;border-radius:22px;padding:20px 18px;min-height:150px;background:rgba(255,255,255,.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.7);box-shadow:0 14px 34px rgba(30,40,90,.14);font-size:16px;line-height:1.6;cursor:pointer;transform-origin:50% 120%}
+.cl-scard em{display:block;font-style:normal;font-family:var(--font-num);font-weight:800;font-size:28px;color:var(--accent);margin-bottom:6px}
+.cl-scard small{position:absolute;right:16px;bottom:12px;font-size:11px;color:var(--mute)}
+.wr-s-review .wr-rlist{display:none}
+.wr-letter p{transition:opacity .4s}
+.cl-sign{display:block;margin-left:auto;width:120px;height:44px}
+.cl-static .cl-qcard{flex-basis:100%}
+
+.cl-clock{position:fixed!important}
+.cl-tile>span{position:absolute!important}
+
+/* 第七版：主角标签排在周几下面；天气格翻面由 GSAP 控制 */
+.cl-dhead{flex-wrap:wrap;row-gap:6px;max-width:calc(100% - 140px)}
+.cl-lead-tag{flex-basis:100%;width:max-content;max-width:100%;font-size:12px;font-weight:700;background:rgba(255,255,255,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:3px 10px;border-radius:99px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cl-tile.flip{transform:none}
+.cl-tiles{perspective:900px}
+.cl-tile{transform-style:preserve-3d}
+
+/* ====== v8：温馨的原话卡、目标百分比 ====== */
+#wr-quotes .wr-qcard{--q1:#FFFBF5}
+.wr-s-goals .wr-g-pct{display:none}   /* 这里用进度环上的数字 */

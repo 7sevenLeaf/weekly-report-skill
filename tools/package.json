@@ -1,0 +1,14 @@
+{
+  "name": "weekly-report-tools",
+  "private": true,
+  "type": "module",
+  "description": "开发用：截图检查样张、录制宣传视频。skill 本身不需要这些。",
+  "devDependencies": {
+    "ffmpeg-static": "5.2.0",
+    "gsap": "^3.15.0",
+    "playwright-core": "^1.64.1"
+  },
+  "allowScripts": {
+    "ffmpeg-static@5.2.0": true
+  }
+}

@@ -1,0 +1,499 @@
+{
+  "meta": {
+    "title": "个人周报",
+    "week": 15,
+    "start": "2027-04-12",
+    "end": "2027-04-18",
+    "name": "小满",
+    "reader": "助手",
+    "fictional": true,
+    "source": "示例数据：虚构人物「林小满」（生物科学大二）这一周的日历和对话"
+  },
+  "core": [
+    {
+      "key": "study",
+      "label": "有效学习",
+      "kind": "hours",
+      "value": 32,
+      "goal": 35,
+      "prev": 27.5,
+      "daily_goal": 5,
+      "daily": [
+        5.5,
+        6,
+        7,
+        4,
+        3,
+        2,
+        4.5
+      ],
+      "note": "上课本身不计入，只算自习和复习。"
+    },
+    {
+      "key": "sport",
+      "label": "运动",
+      "kind": "count",
+      "value": 4,
+      "goal": 4,
+      "prev": 3,
+      "daily": [
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "key": "sleep",
+      "label": "平均睡眠",
+      "kind": "avg_hours",
+      "value": 7.37,
+      "goal": 8,
+      "prev": 7.1,
+      "daily": [
+        7.2,
+        6.5,
+        7,
+        5.8,
+        8.5,
+        9,
+        7.6
+      ],
+      "note": "按醒来那天算。周四那晚只睡了 5 小时 48 分。"
+    }
+  ],
+  "achievements": [
+    {
+      "big": "92",
+      "what": "有机化学期中",
+      "when": "周四",
+      "detail": "满分 100，班级平均 71。最后一道亲核取代的大题拿了满分。",
+      "say": "那道大题，正是你周二晚上专门重画过的那一类。",
+      "figure": "<svg viewBox='0 0 300 96' role='img' aria-label='分数轴上，班级平均 71，你 92'><line x1='10' x2='290' y1='60' y2='60' stroke='var(--ink)' stroke-width='2'/><line x1='10' x2='10' y1='55' y2='65' stroke='var(--ink)' stroke-width='1.5'/><text x='10' y='84' text-anchor='middle'>0</text><line x1='80' x2='80' y1='55' y2='65' stroke='var(--ink)' stroke-width='1.5'/><text x='80' y='84' text-anchor='middle'>25</text><line x1='150' x2='150' y1='55' y2='65' stroke='var(--ink)' stroke-width='1.5'/><text x='150' y='84' text-anchor='middle'>50</text><line x1='220' x2='220' y1='55' y2='65' stroke='var(--ink)' stroke-width='1.5'/><text x='220' y='84' text-anchor='middle'>75</text><line x1='290' x2='290' y1='55' y2='65' stroke='var(--ink)' stroke-width='1.5'/><text x='290' y='84' text-anchor='middle'>100</text><path d='M216 60 H254' stroke='var(--accent)' stroke-width='3'/><circle cx='208.8' cy='60' r='6' fill='var(--bg)' stroke='var(--ink2)' stroke-width='2'/><text x='196' y='40' text-anchor='middle' style='fill:var(--ink2)'>班级平均 71</text><circle cx='267.6' cy='60' r='11' fill='var(--accent)'/><text x='267.6' y='36' text-anchor='middle' style='font-size:22px;font-weight:700;fill:var(--accent)'>92</text></svg>"
+    },
+    {
+      "big": "全对",
+      "what": "细胞生物学小测",
+      "when": "周二",
+      "detail": "10 道选择、2 道简答，一道没错。",
+      "say": "有机复习最紧的时候，另一门也没丢。",
+      "figure": "<svg viewBox='0 0 300 108' role='img' aria-label='12 道题全部打勾'><g fill='none' stroke='var(--ink)' stroke-width='1.5'><rect x='10' y='14' width='22' height='22'/><rect x='38' y='14' width='22' height='22'/><rect x='66' y='14' width='22' height='22'/><rect x='94' y='14' width='22' height='22'/><rect x='122' y='14' width='22' height='22'/><rect x='150' y='14' width='22' height='22'/><rect x='178' y='14' width='22' height='22'/><rect x='206' y='14' width='22' height='22'/><rect x='234' y='14' width='22' height='22'/><rect x='262' y='14' width='22' height='22'/><rect x='10' y='64' width='134' height='36'/><rect x='156' y='64' width='134' height='36'/></g><g fill='none' stroke='var(--accent)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M14 25 l5 5 l9 -11'/><path d='M42 25 l5 5 l9 -11'/><path d='M70 25 l5 5 l9 -11'/><path d='M98 25 l5 5 l9 -11'/><path d='M126 25 l5 5 l9 -11'/><path d='M154 25 l5 5 l9 -11'/><path d='M182 25 l5 5 l9 -11'/><path d='M210 25 l5 5 l9 -11'/><path d='M238 25 l5 5 l9 -11'/><path d='M266 25 l5 5 l9 -11'/><path d='M110 82 l7 7 l14 -16'/><path d='M256 82 l7 7 l14 -16'/></g><text x='147' y='54' text-anchor='middle' style='fill:var(--ink2)'>选择题 1–10</text><text x='22' y='87'>简答 1</text><text x='168' y='87'>简答 2</text></svg>"
+    },
+    {
+      "big": "3 页",
+      "what": "有机反应机理总结",
+      "when": "周一到周三",
+      "detail": "把第 8–13 章的 31 个反应，按「取代、消除、加成」三类机理重新归了一遍，写满 3 页。",
+      "say": "从按章节背，变成按机理推。这是这周最值钱的一个改变。",
+      "figure": "<svg viewBox='0 0 300 116' role='img' aria-label='六章的内容汇成三页：取代、消除、加成'><g fill='none' stroke='var(--accent)' stroke-width='2'><path d='M26 32 C26 55 48 55 48 78'/><path d='M75 32 C75 55 48 55 48 78'/><path d='M124 32 C124 55 150 55 150 78'/><path d='M173 32 C173 55 252 55 252 78'/><path d='M222 32 C222 55 48 55 48 78'/><path d='M271 32 C271 55 150 55 150 78'/></g><g fill='var(--bg)' stroke='var(--ink)' stroke-width='1.5'><rect x='4' y='10' width='44' height='22'/><rect x='53' y='10' width='44' height='22'/><rect x='102' y='10' width='44' height='22'/><rect x='151' y='10' width='44' height='22'/><rect x='200' y='10' width='44' height='22'/><rect x='249' y='10' width='44' height='22'/></g><g text-anchor='middle'><text x='26' y='25'>8 章</text><text x='75' y='25'>9 章</text><text x='124' y='25'>10 章</text><text x='173' y='25'>11 章</text><text x='222' y='25'>12 章</text><text x='271' y='25'>13 章</text></g><g fill='var(--accent)'><rect x='6' y='78' width='84' height='34'/><rect x='108' y='78' width='84' height='34'/><rect x='210' y='78' width='84' height='34'/></g><g text-anchor='middle' style='fill:var(--bg);font-size:14px;font-weight:700'><text x='48' y='100'>取代</text><text x='150' y='100'>消除</text><text x='252' y='100'>加成</text></g></svg>"
+    },
+    {
+      "big": "24:58",
+      "what": "5 公里第一次跑进 25 分钟",
+      "when": "周六",
+      "detail": "比一个月前快了 1 分 14 秒。考试周的四次运动一次没少。",
+      "say": "考完第二天就去跑，状态是你自己找回来的。",
+      "figure": "<svg viewBox='0 0 300 118' role='img' aria-label='四次 5 公里成绩：26 分 12、25 分 50、25 分 39、24 分 58，最后一次跑进 25 分钟'><line x1='10' x2='290' y1='27.8' y2='27.8' stroke='var(--ink2)' stroke-width='1.5' stroke-dasharray='4 5'/><text x='12' y='44' style='fill:var(--ink2)'>目标 25:00</text><path d='M30 83.8 L110 66.7 L190 58.1 L270 26.2' fill='none' stroke='var(--accent)' stroke-width='3' stroke-linejoin='round'/><circle cx='30' cy='83.8' r='5' fill='var(--bg)' stroke='var(--accent)' stroke-width='2.5'/><circle cx='110' cy='66.7' r='5' fill='var(--bg)' stroke='var(--accent)' stroke-width='2.5'/><circle cx='190' cy='58.1' r='5' fill='var(--bg)' stroke='var(--accent)' stroke-width='2.5'/><circle cx='270' cy='26.2' r='8' fill='var(--accent)'/><g text-anchor='middle'><text x='30' y='73'>26:12</text><text x='110' y='56'>25:50</text><text x='190' y='48'>25:39</text><text x='270' y='12' style='font-size:15px;font-weight:700;fill:var(--accent)'>24:58</text><text x='30' y='110' style='fill:var(--ink2)'>3.14</text><text x='110' y='110' style='fill:var(--ink2)'>3.28</text><text x='190' y='110' style='fill:var(--ink2)'>4.04</text><text x='270' y='110' style='fill:var(--ink2)'>4.17</text></g></svg>"
+    }
+  ],
+  "timeline": [
+    {
+      "day": 0,
+      "start": "00:10",
+      "end": "07:20",
+      "cat": "sleep"
+    },
+    {
+      "day": 0,
+      "start": "08:30",
+      "end": "11:30",
+      "cat": "study",
+      "text": "有机 · 整理亲核取代",
+      "icon": "lab"
+    },
+    {
+      "day": 0,
+      "start": "14:00",
+      "end": "16:30",
+      "cat": "study",
+      "text": "有机 · 消除反应",
+      "icon": "lab"
+    },
+    {
+      "day": 0,
+      "start": "19:00",
+      "end": "19:40",
+      "cat": "sport",
+      "text": "慢跑 5 公里",
+      "icon": "run"
+    },
+    {
+      "day": 0,
+      "start": "21:00",
+      "end": "22:30",
+      "cat": "life",
+      "text": "乐队排练",
+      "icon": "music"
+    },
+    {
+      "day": 1,
+      "start": "00:30",
+      "end": "07:00",
+      "cat": "sleep"
+    },
+    {
+      "day": 1,
+      "start": "09:00",
+      "end": "10:00",
+      "cat": "star",
+      "text": "细胞生物学小测 · 全对",
+      "icon": "pen"
+    },
+    {
+      "day": 1,
+      "start": "10:30",
+      "end": "12:30",
+      "cat": "study",
+      "text": "细胞 · 预习第 7 章",
+      "icon": "lab"
+    },
+    {
+      "day": 1,
+      "start": "14:00",
+      "end": "16:00",
+      "cat": "study",
+      "text": "有机 · 加成反应",
+      "icon": "lab"
+    },
+    {
+      "day": 1,
+      "start": "19:30",
+      "end": "21:30",
+      "cat": "study",
+      "text": "有机 · 重画亲核取代的箭头",
+      "icon": "pen"
+    },
+    {
+      "day": 2,
+      "start": "00:00",
+      "end": "07:00",
+      "cat": "sleep"
+    },
+    {
+      "day": 2,
+      "start": "08:30",
+      "end": "12:00",
+      "cat": "study",
+      "text": "有机 · 做一套往年真题",
+      "icon": "pen"
+    },
+    {
+      "day": 2,
+      "start": "14:30",
+      "end": "16:00",
+      "cat": "study",
+      "text": "有机 · 错题",
+      "icon": "pen"
+    },
+    {
+      "day": 2,
+      "start": "17:30",
+      "end": "18:30",
+      "cat": "sport",
+      "text": "力量 · 练腿",
+      "icon": "gym"
+    },
+    {
+      "day": 2,
+      "start": "19:00",
+      "end": "21:00",
+      "cat": "study",
+      "text": "有机 · 六章归成三页",
+      "icon": "book"
+    },
+    {
+      "day": 3,
+      "start": "01:10",
+      "end": "07:00",
+      "cat": "sleep"
+    },
+    {
+      "day": 3,
+      "start": "09:00",
+      "end": "11:00",
+      "cat": "star",
+      "text": "有机化学期中 · 92",
+      "icon": "pen"
+    },
+    {
+      "day": 3,
+      "start": "14:00",
+      "end": "16:00",
+      "cat": "study",
+      "text": "细胞 · 第 7 章",
+      "icon": "lab"
+    },
+    {
+      "day": 3,
+      "start": "20:00",
+      "end": "22:00",
+      "cat": "study",
+      "text": "英语 · 精读两篇",
+      "icon": "book"
+    },
+    {
+      "day": 3,
+      "start": "23:30",
+      "end": "24:00",
+      "cat": "sleep"
+    },
+    {
+      "day": 4,
+      "start": "00:00",
+      "end": "08:00",
+      "cat": "sleep"
+    },
+    {
+      "day": 4,
+      "start": "10:00",
+      "end": "11:30",
+      "cat": "study",
+      "text": "细胞 · 写实验报告",
+      "icon": "lab"
+    },
+    {
+      "day": 4,
+      "start": "15:00",
+      "end": "16:30",
+      "cat": "study",
+      "text": "英语 · 单词",
+      "icon": "book"
+    },
+    {
+      "day": 4,
+      "start": "17:00",
+      "end": "18:00",
+      "cat": "sport",
+      "text": "游泳 1000 米",
+      "icon": "swim"
+    },
+    {
+      "day": 4,
+      "start": "19:30",
+      "end": "23:00",
+      "cat": "life",
+      "text": "乐队排练 + 夜宵",
+      "icon": "music"
+    },
+    {
+      "day": 5,
+      "start": "00:00",
+      "end": "09:00",
+      "cat": "sleep"
+    },
+    {
+      "day": 5,
+      "start": "10:00",
+      "end": "12:00",
+      "cat": "study",
+      "text": "细胞 · 第 7 章收尾",
+      "icon": "lab"
+    },
+    {
+      "day": 5,
+      "start": "16:00",
+      "end": "16:25",
+      "cat": "sport",
+      "text": "5 公里配速跑 · 24:58",
+      "icon": "run"
+    },
+    {
+      "day": 5,
+      "start": "19:00",
+      "end": "22:00",
+      "cat": "life",
+      "text": "和室友看电影",
+      "icon": "heart"
+    },
+    {
+      "day": 6,
+      "start": "00:24",
+      "end": "08:00",
+      "cat": "sleep"
+    },
+    {
+      "day": 6,
+      "start": "09:00",
+      "end": "11:30",
+      "cat": "study",
+      "text": "有机 · 订正期中试卷",
+      "icon": "pen"
+    },
+    {
+      "day": 6,
+      "start": "14:00",
+      "end": "16:00",
+      "cat": "study",
+      "text": "细胞 · 精读一篇文献",
+      "icon": "book"
+    },
+    {
+      "day": 6,
+      "start": "16:30",
+      "end": "17:30",
+      "cat": "life",
+      "text": "和奶奶视频",
+      "icon": "heart"
+    },
+    {
+      "day": 6,
+      "start": "20:00",
+      "end": "21:00",
+      "cat": "life",
+      "text": "排下周计划",
+      "icon": "pen"
+    }
+  ],
+  "goals": [
+    {
+      "name": "有机化学期中 90 分以上",
+      "result": "92",
+      "status": "done",
+      "good": "考前三天按机理复习，最难的大题拿满。"
+    },
+    {
+      "name": "运动 4 次",
+      "result": "4 / 4 次",
+      "status": "done",
+      "good": "慢跑、练腿、游泳、配速跑，考试周一次没少。"
+    },
+    {
+      "name": "每天有效学习 5 小时",
+      "result": "3 / 7 天",
+      "status": "partial",
+      "good": "考前三天都过了 5 小时，周三 7 小时。",
+      "gap": "考完后三天降到 2–4.5 小时，没有提前排好考后的计划。"
+    },
+    {
+      "name": "英语每天 30 分钟",
+      "result": "2 天",
+      "status": "moved",
+      "good": "考前主动停了三天，考完补了两次。",
+      "gap": "周末两天没接上。"
+    },
+    {
+      "name": "每晚 12 点前睡",
+      "result": "2 / 7 晚",
+      "status": "missed",
+      "good": "周四考完那晚 11 点半就睡了。",
+      "gap": "考前一晚 1:10 才睡，第二天只睡了 5 小时 48 分。"
+    }
+  ],
+  "mood": {
+    "source": "read",
+    "days": [
+      {
+        "level": 3,
+        "quote": "这周把有机拿下。",
+        "reading": "开头的话很硬，下午按计划学了 5 个半小时，晚上还去排练。"
+      },
+      {
+        "level": 4,
+        "quote": "小测全对，但有机还差两章。",
+        "reading": "高兴只用了半句，后半句已经在想下一件事。"
+      },
+      {
+        "level": 2,
+        "quote": "亲核取代还是会错，有点慌。",
+        "reading": "这周的低点。你没有接着刷题，而是停下来把三类机理重新归了一遍。"
+      },
+      {
+        "level": 4,
+        "quote": "最后一题我会！",
+        "reading": "考前只睡了不到 6 小时，出考场这句话里全是松一口气。"
+      },
+      {
+        "level": 3,
+        "quote": null,
+        "reading": "补了 8 个半小时的觉，下午学得不多，晚上排练到 11 点。这天没留下话，是从做的事里读的。"
+      },
+      {
+        "level": 5,
+        "quote": "跑进 25 分钟了！！",
+        "reading": "两个感叹号。这周最亮的一刻，不在考场上。"
+      },
+      {
+        "level": 3,
+        "quote": "考完别急着放松，先把卷子订正了。",
+        "reading": "平静地收尾，还给下周排好了计划。"
+      }
+    ]
+  },
+  "quotes": [
+    {
+      "text": "按机理整理，不按章节整理。",
+      "when": "周三",
+      "after": "后来成了复习新课的固定做法。",
+      "note": "这句话把复习从「背」变成了「推」。它是你这周最值钱的发现，下次学新课也用得上。"
+    },
+    {
+      "text": "慌的时候就去重画一遍，不要只看。",
+      "when": "周三晚上",
+      "note": "慌不是坏事，你给了它一个出口：动手。很多人慌的时候只会多看几遍，你选了重新画一遍。"
+    },
+    {
+      "text": "考完别急着放松，先把卷子订正了。",
+      "when": "周日",
+      "after": "当天上午就订正完了。",
+      "note": "能在松一口气的时候还记得收尾，说明你想要的不只是考完，而是真的会。"
+    }
+  ],
+  "review": {
+    "good": [
+      "考前把 31 个反应按机理归成 3 页，复习从背变成推。",
+      "考试周四次运动一次没少，周六的配速纪录就是这么攒出来的。",
+      "慌的那天没有硬刷题，先停下来换方法。"
+    ],
+    "improve": [
+      "考前一晚 1:10 才睡。下次考前一晚 12 点收工，第二天的状态比多看一小时值钱。",
+      "考完三天学习掉到每天 2–4.5 小时：考后的计划要在考前就排好。"
+    ],
+    "next": [
+      "细胞生物学期中：周三前把第 5–7 章各画一张机理图。",
+      "每晚 12 点前睡，先做到 5 晚。",
+      "英语恢复每天 30 分钟。"
+    ]
+  },
+  "letter": {
+    "paragraphs": [
+      {
+        "tag": "学习",
+        "text": "这周有效学习 32 小时，比上周多 4 个半小时。前三天每天都过了 5 小时；最难的亲核取代，你在周二晚上重画了一遍，周四就在考场上用上了。"
+      },
+      {
+        "tag": "身体",
+        "text": "四次运动一次没少：慢跑、练腿、游泳，还有周六那个 24:58。考试周还守住训练，是这周最不容易的事之一。"
+      },
+      {
+        "tag": "睡眠",
+        "text": "平均 7 小时 22 分，离 8 小时差一点。最短的是期中前那晚的 5 小时 48 分，下次考前一晚，早点收工。"
+      },
+      {
+        "tag": "心情",
+        "text": "周三你说有点慌，没有硬刷题，而是停下来换了方法。周六跑进 25 分钟时那两个感叹号，我也替你高兴。"
+      },
+      {
+        "tag": "高光",
+        "text": "92 分、小测全对、3 页机理总结、5 公里新纪录。四件事，每一件都找得到来处。"
+      },
+      {
+        "tag": "下周",
+        "text": "细胞生物学期中、每晚 12 点前睡、英语恢复每天 30 分钟。照这周的方法来就好。"
+      }
+    ],
+    "sign": "助手"
+  }
+}

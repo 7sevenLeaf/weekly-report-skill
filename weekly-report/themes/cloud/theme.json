@@ -1,0 +1,12 @@
+{
+  "name": "云白",
+  "when": "任何一周；想要沉浸地把这一周再过一遍时用。滑动就是时间在走",
+  "fonts": "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap",
+  "scripts": [
+    "gsap.min.js",
+    "ScrollTrigger.min.js"
+  ],
+  "parts": [
+    "lead.js"
+  ]
+}

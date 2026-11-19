@@ -1,0 +1,468 @@
+{
+  "meta": {
+    "title": "个人周报",
+    "week": 23,
+    "start": "2027-06-07",
+    "end": "2027-06-13",
+    "name": "小满",
+    "reader": "助手",
+    "fictional": true,
+    "source": "示例数据：虚构人物「林小满」（生物科学大二）这一周的日历和对话"
+  },
+  "core": [
+    {
+      "key": "study",
+      "label": "有效学习",
+      "kind": "hours",
+      "value": 38,
+      "goal": 35,
+      "prev": 24,
+      "daily_goal": 5,
+      "daily": [
+        5,
+        5.5,
+        4,
+        6,
+        6,
+        7.5,
+        4
+      ],
+      "note": "黑客松写代码的时间算进学习。"
+    },
+    {
+      "key": "sport",
+      "label": "运动",
+      "kind": "count",
+      "value": 2,
+      "goal": 4,
+      "prev": 3,
+      "daily": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "key": "sleep",
+      "label": "平均睡眠",
+      "kind": "avg_hours",
+      "value": 6.8,
+      "goal": 8,
+      "prev": 7.21,
+      "daily": [
+        7.5,
+        7.2,
+        7.4,
+        7,
+        7.5,
+        5,
+        6
+      ],
+      "note": "按醒来那天算。黑客松那两晚只睡了 5 和 6 小时。"
+    }
+  ],
+  "achievements": [
+    {
+      "big": "二等奖",
+      "what": "生物信息黑客松",
+      "when": "周日",
+      "detail": "三人队，48 小时，32 支队伍里拿了第 2。",
+      "say": "第一次参赛，就把东西做完了，还讲清楚了。",
+      "figure": "<svg viewBox='0 0 300 112' role='img' aria-label='32 支队伍，你们是第 2'><g fill='var(--mute)'><circle cx='30' cy='20' r='5'/><circle cx='98' cy='20' r='5'/><circle cx='132' cy='20' r='5'/><circle cx='166' cy='20' r='5'/><circle cx='200' cy='20' r='5'/><circle cx='234' cy='20' r='5'/><circle cx='268' cy='20' r='5'/><circle cx='30' cy='44' r='5'/><circle cx='64' cy='44' r='5'/><circle cx='98' cy='44' r='5'/><circle cx='132' cy='44' r='5'/><circle cx='166' cy='44' r='5'/><circle cx='200' cy='44' r='5'/><circle cx='234' cy='44' r='5'/><circle cx='268' cy='44' r='5'/><circle cx='30' cy='68' r='5'/><circle cx='64' cy='68' r='5'/><circle cx='98' cy='68' r='5'/><circle cx='132' cy='68' r='5'/><circle cx='166' cy='68' r='5'/><circle cx='200' cy='68' r='5'/><circle cx='234' cy='68' r='5'/><circle cx='268' cy='68' r='5'/><circle cx='30' cy='92' r='5'/><circle cx='64' cy='92' r='5'/><circle cx='98' cy='92' r='5'/><circle cx='132' cy='92' r='5'/><circle cx='166' cy='92' r='5'/><circle cx='200' cy='92' r='5'/><circle cx='234' cy='92' r='5'/><circle cx='268' cy='92' r='5'/></g><circle cx='64' cy='20' r='14' fill='var(--accent)' opacity='.25'/><circle cx='64' cy='20' r='8' fill='var(--accent)'/><text x='84' y='12' style='font-size:12px;font-weight:700;fill:var(--accent)'>第 2 · 你们</text></svg>"
+    },
+    {
+      "big": "3 分钟",
+      "what": "引物设计小工具 primer-quick",
+      "when": "周五到周日",
+      "detail": "手工设计一对 PCR 引物大约要 2 小时，用它 3 分钟。600 行 Python，核心的打分函数是你写的。",
+      "say": "题目选得小，所以 48 小时里做得完、讲得清。",
+      "figure": "<svg viewBox='0 0 300 96' role='img' aria-label='手工 120 分钟，工具 3 分钟'><text x='0' y='16' style='fill:var(--ink2)'>手工</text><rect x='0' y='22' width='260' height='22' rx='4' fill='var(--mute)' opacity='.6'/><text x='266' y='38'>120′</text><text x='0' y='66' style='fill:var(--ink2)'>primer-quick</text><rect x='0' y='72' width='6.5' height='22' rx='3' fill='var(--accent)'/><text x='14' y='88' style='font-size:15px;font-weight:700;fill:var(--accent)'>3′</text></svg>"
+    },
+    {
+      "big": "11 个",
+      "what": "第一次写单元测试",
+      "when": "周三",
+      "detail": "给打分函数写了 11 个测试。周日早上它们抓到一个退火温度算错的 bug，路演前修好了。",
+      "say": "周三觉得无聊的事，周日救了场。",
+      "figure": "<svg viewBox='0 0 300 92' role='img' aria-label='11 个测试，第 7 个曾经失败，后来修好'><g fill='var(--ink2)'><circle cx='20' cy='34' r='8'/><circle cx='45' cy='34' r='8'/><circle cx='70' cy='34' r='8'/><circle cx='95' cy='34' r='8'/><circle cx='120' cy='34' r='8'/><circle cx='145' cy='34' r='8'/><circle cx='195' cy='34' r='8'/><circle cx='220' cy='34' r='8'/><circle cx='245' cy='34' r='8'/><circle cx='270' cy='34' r='8'/></g><circle cx='170' cy='34' r='8' fill='var(--ink2)'/><circle cx='170' cy='34' r='13' fill='none' stroke='var(--accent)' stroke-width='2.5'/><line x1='170' y1='47' x2='170' y2='60' stroke='var(--accent)' stroke-width='2'/><text x='170' y='76' text-anchor='middle' style='fill:var(--accent)'>退火温度 bug · 抓到并修好</text><text x='0' y='12' style='fill:var(--ink2)'>11 / 11 通过</text></svg>"
+    },
+    {
+      "big": "6 章",
+      "what": "分子生物学期末复习过半",
+      "when": "周一到周四",
+      "detail": "11 章里复习完 6 章，每章留了一页总结。",
+      "say": "黑客松之前先把复习推过半，后面不慌。",
+      "figure": "<svg viewBox='0 0 300 84' role='img' aria-label='11 章里完成了 6 章'><g fill='var(--accent)'><rect x='6' y='16' width='22' height='40' rx='3'/><rect x='32' y='16' width='22' height='40' rx='3'/><rect x='58' y='16' width='22' height='40' rx='3'/><rect x='84' y='16' width='22' height='40' rx='3'/><rect x='110' y='16' width='22' height='40' rx='3'/><rect x='136' y='16' width='22' height='40' rx='3'/></g><g fill='none' stroke='var(--mute)' stroke-width='1.5'><rect x='162' y='16' width='22' height='40' rx='3'/><rect x='188' y='16' width='22' height='40' rx='3'/><rect x='214' y='16' width='22' height='40' rx='3'/><rect x='240' y='16' width='22' height='40' rx='3'/><rect x='266' y='16' width='22' height='40' rx='3'/></g><g text-anchor='middle' style='font-size:10px'><text x='17' y='72'>1</text><text x='43' y='72'>2</text><text x='69' y='72'>3</text><text x='95' y='72'>4</text><text x='121' y='72'>5</text><text x='147' y='72'>6</text><text x='173' y='72'>7</text><text x='199' y='72'>8</text><text x='225' y='72'>9</text><text x='251' y='72'>10</text><text x='277' y='72'>11</text></g></svg>"
+    }
+  ],
+  "timeline": [
+    {
+      "day": 0,
+      "start": "00:00",
+      "end": "07:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 0,
+      "start": "09:00",
+      "end": "12:00",
+      "cat": "study",
+      "text": "分子 · 第 1–2 章",
+      "icon": "book"
+    },
+    {
+      "day": 0,
+      "start": "14:00",
+      "end": "16:00",
+      "cat": "study",
+      "text": "Python · 序列处理练习",
+      "icon": "code"
+    },
+    {
+      "day": 0,
+      "start": "18:00",
+      "end": "18:40",
+      "cat": "sport",
+      "text": "慢跑",
+      "icon": "run"
+    },
+    {
+      "day": 0,
+      "start": "21:00",
+      "end": "22:00",
+      "cat": "life",
+      "text": "和队友定题：引物设计",
+      "icon": "meet"
+    },
+    {
+      "day": 1,
+      "start": "00:18",
+      "end": "07:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 1,
+      "start": "09:00",
+      "end": "11:30",
+      "cat": "study",
+      "text": "分子 · 第 3 章",
+      "icon": "book"
+    },
+    {
+      "day": 1,
+      "start": "14:00",
+      "end": "17:00",
+      "cat": "study",
+      "text": "黑客松 · 写引物打分函数",
+      "icon": "code"
+    },
+    {
+      "day": 1,
+      "start": "19:00",
+      "end": "21:00",
+      "cat": "life",
+      "text": "乐队排练",
+      "icon": "music"
+    },
+    {
+      "day": 2,
+      "start": "00:06",
+      "end": "07:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 2,
+      "start": "09:00",
+      "end": "11:00",
+      "cat": "study",
+      "text": "分子 · 第 4 章",
+      "icon": "book"
+    },
+    {
+      "day": 2,
+      "start": "15:00",
+      "end": "17:00",
+      "cat": "study",
+      "text": "给打分函数写 11 个测试",
+      "icon": "code"
+    },
+    {
+      "day": 2,
+      "start": "17:30",
+      "end": "18:30",
+      "cat": "sport",
+      "text": "游泳",
+      "icon": "swim"
+    },
+    {
+      "day": 3,
+      "start": "00:30",
+      "end": "07:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 3,
+      "start": "08:30",
+      "end": "11:30",
+      "cat": "study",
+      "text": "分子 · 第 5–6 章",
+      "icon": "book"
+    },
+    {
+      "day": 3,
+      "start": "14:00",
+      "end": "17:00",
+      "cat": "study",
+      "text": "黑客松 · 读 Primer3 文档",
+      "icon": "code"
+    },
+    {
+      "day": 3,
+      "start": "20:00",
+      "end": "21:00",
+      "cat": "life",
+      "text": "和家里视频",
+      "icon": "heart"
+    },
+    {
+      "day": 4,
+      "start": "00:00",
+      "end": "07:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 4,
+      "start": "14:00",
+      "end": "16:00",
+      "cat": "study",
+      "text": "分子 · 前六章回顾",
+      "icon": "book"
+    },
+    {
+      "day": 4,
+      "start": "18:00",
+      "end": "19:00",
+      "cat": "star",
+      "text": "黑客松开幕",
+      "icon": "meet"
+    },
+    {
+      "day": 4,
+      "start": "19:00",
+      "end": "23:00",
+      "cat": "study",
+      "text": "黑客松 · 搭项目骨架",
+      "icon": "code"
+    },
+    {
+      "day": 5,
+      "start": "00:00",
+      "end": "02:00",
+      "cat": "study",
+      "text": "黑客松 · 读比赛数据",
+      "icon": "code"
+    },
+    {
+      "day": 5,
+      "start": "02:30",
+      "end": "07:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 5,
+      "start": "09:00",
+      "end": "12:00",
+      "cat": "study",
+      "text": "黑客松 · 打分函数接进流程",
+      "icon": "code"
+    },
+    {
+      "day": 5,
+      "start": "14:00",
+      "end": "16:30",
+      "cat": "study",
+      "text": "黑客松 · 结果页面",
+      "icon": "code"
+    },
+    {
+      "day": 5,
+      "start": "20:00",
+      "end": "23:00",
+      "cat": "life",
+      "text": "和队友排练路演",
+      "icon": "meet"
+    },
+    {
+      "day": 6,
+      "start": "01:00",
+      "end": "07:00",
+      "cat": "sleep"
+    },
+    {
+      "day": 6,
+      "start": "08:00",
+      "end": "12:00",
+      "cat": "study",
+      "text": "黑客松 · 修退火温度 bug",
+      "icon": "code"
+    },
+    {
+      "day": 6,
+      "start": "14:00",
+      "end": "15:00",
+      "cat": "star",
+      "text": "路演 5 分钟",
+      "icon": "meet"
+    },
+    {
+      "day": 6,
+      "start": "17:00",
+      "end": "18:00",
+      "cat": "star",
+      "text": "颁奖 · 二等奖",
+      "icon": "star"
+    }
+  ],
+  "goals": [
+    {
+      "name": "黑客松交出能用的东西",
+      "result": "二等奖",
+      "status": "done",
+      "good": "primer-quick 能跑、有测试，路演讲清楚了。"
+    },
+    {
+      "name": "分子生物学复习到第 6 章",
+      "result": "6 / 11 章",
+      "status": "done",
+      "good": "周四复习完，周五下午又回顾了一遍。"
+    },
+    {
+      "name": "每晚睡够 7 小时",
+      "result": "5 / 7 晚",
+      "status": "partial",
+      "good": "工作日五晚都做到了。",
+      "gap": "黑客松两晚只睡了 5 和 6 小时。"
+    },
+    {
+      "name": "乐队排练两次",
+      "result": "1 次",
+      "status": "moved",
+      "good": "周二去了。",
+      "gap": "周六和比赛冲突，提前请了假。"
+    },
+    {
+      "name": "运动 4 次",
+      "result": "2 / 4 次",
+      "status": "missed",
+      "good": "周一慢跑、周三游泳。",
+      "gap": "后半周没有给运动留时间。"
+    }
+  ],
+  "mood": {
+    "source": "read",
+    "days": [
+      {
+        "level": 3,
+        "quote": "定了题目：引物设计。",
+        "reading": "平静地开工，题目选得很小。"
+      },
+      {
+        "level": 4,
+        "quote": "打分函数跑通了！",
+        "reading": "第一个感叹号出现在周二。"
+      },
+      {
+        "level": 3,
+        "quote": "写测试好无聊，但是好像有用。",
+        "reading": "嫌无聊还是写完了 11 个。"
+      },
+      {
+        "level": 3,
+        "quote": null,
+        "reading": "复习两章、读文档三小时，没留下话。按计划走的一天。"
+      },
+      {
+        "level": 4,
+        "quote": "开幕了，有点兴奋。",
+        "reading": "兴奋压过了紧张。"
+      },
+      {
+        "level": 2,
+        "quote": "凌晨两点，数据格式全是乱的。",
+        "reading": "这周的低点。睡了 5 个小时，早上回来接着把打分函数接上了。"
+      },
+      {
+        "level": 5,
+        "quote": "二等奖！！测试救了我们。",
+        "reading": "高兴的同时，你把功劳记给了周三的那 11 个测试。"
+      }
+    ]
+  },
+  "quotes": [
+    {
+      "text": "测试不是写给别人看的，是给凌晨两点的自己用的。",
+      "when": "周日",
+      "note": "这是这周学到的最贵的一课。下次再写测试，你不会再觉得它无聊了。"
+    },
+    {
+      "text": "先做能跑的最小版本，再加功能。",
+      "when": "周五开幕后",
+      "after": "成了三个人分工的原则。",
+      "note": "先跑起来再变好，这句话在比赛之外也成立。"
+    },
+    {
+      "text": "题目选小一点，才做得完。",
+      "when": "周一",
+      "note": "会把题目选小的人，往往才是做完的人。"
+    }
+  ],
+  "review": {
+    "good": [
+      "题目选得小：48 小时里做完、测完、讲完。",
+      "周三写的 11 个测试，周日抓到了一个会让结果出错的 bug。",
+      "比赛前先把复习推过半，后面不慌。"
+    ],
+    "improve": [
+      "两晚睡不到 6 小时，周日路演时嗓子是哑的。",
+      "后半周一次运动都没有：比赛周也要给运动留一个固定时段。"
+    ],
+    "next": [
+      "分子生物学复习第 7–11 章，每章一页总结。",
+      "把 primer-quick 整理成开源仓库，写好 README。",
+      "先补两晚觉，睡回 7 小时。"
+    ]
+  },
+  "letter": {
+    "paragraphs": [
+      {
+        "tag": "学习",
+        "text": "这周有效学习 38 小时，比目标多 3 小时：分子生物学复习到第 6 章，剩下的时间都给了黑客松。"
+      },
+      {
+        "tag": "身体",
+        "text": "运动只有 2 次，后半周一次都没有。比赛周也要给身体留一个固定时段。"
+      },
+      {
+        "tag": "睡眠",
+        "text": "工作日都睡够了 7 小时，比赛那两晚只有 5 和 6 小时，周日路演时嗓子都哑了。"
+      },
+      {
+        "tag": "心情",
+        "text": "凌晨两点数据格式全乱的时候是这周的低点，第二天早上你回来接着把打分函数接上了。"
+      },
+      {
+        "tag": "高光",
+        "text": "32 支队伍里的第 2 名，一个把 2 小时压到 3 分钟的小工具，还有 11 个救了场的测试。"
+      },
+      {
+        "tag": "下周",
+        "text": "复习第 7–11 章、把 primer-quick 整理成开源仓库、先补两晚觉。"
+      }
+    ],
+    "sign": "助手"
+  }
+}
