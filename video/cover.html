@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>周报 skill 封面</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@700;900&display=swap">
+<style>
+/* 小红书封面 3:4（1080×1440）。手机截图由 cover.mjs 先拍好放在 out/cover-src.png。 */
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1440px;overflow:hidden;font-family:"Noto Sans SC",sans-serif;color:#16181D;background:#F3F5FA}
+i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.6}
+.t{position:absolute;left:70px;top:110px;width:520px}
+.t h1{margin:0;font-size:116px;line-height:1.08;font-weight:900;letter-spacing:-.02em}
+.t h1 b{color:#3D6BF2}
+.t p{margin:34px 0 0;font-size:40px;font-weight:700;color:#5B6170;line-height:1.5}
+.t .chip{display:inline-block;margin-top:40px;font-size:30px;font-weight:900;padding:12px 26px;border-radius:99px;background:#16181D;color:#fff}
+.phone{position:absolute;right:46px;top:96px;width:484px;height:1046px;border-radius:52px;background:#15171C;padding:12px;transform:rotate(4deg);box-shadow:0 40px 90px rgba(30,40,80,.25)}
+.phone img{width:460px;height:1022px;border-radius:42px;object-fit:cover;object-position:top;display:block}
+.foot{position:absolute;left:70px;right:70px;bottom:80px;display:flex;gap:16px;flex-wrap:wrap}
+.foot span{font-size:30px;font-weight:700;padding:12px 24px;border-radius:18px;background:#fff;box-shadow:0 10px 30px rgba(30,40,80,.08)}
+</style>
+</head>
+<body>
+<i style="width:620px;height:620px;left:-160px;top:-60px;background:#BFD3FF"></i><i style="width:560px;height:560px;right:-160px;top:620px;background:#CDEFE6"></i><i style="width:500px;height:500px;left:140px;bottom:-200px;background:#E6DDFB"></i>
+<div class="t"><h1>我的周报<br><b>会动</b></h1><p>让 Claude 把一周的日历<br>做成一个能滑、能点的网页</p><div class="chip">开源 skill · 免费装</div></div>
+<div class="phone"><img src="../out/cover-src.png" alt=""></div>
+<div class="foot"><span>每天换场景</span><span>每周换主题</span><span>Claude / ChatGPT / Codex</span></div>
+</body>
+</html>

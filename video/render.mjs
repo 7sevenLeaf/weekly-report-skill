@@ -38,7 +38,8 @@ try {
   mkdirSync(frames, { recursive: true });
 
   const all = [...Array(Math.round(dur * FPS)).keys()].map(i => i / FPS);
-  const keep = preview ? new Set([1.5, 4.4, 7.4, 9.6, 12.5, 15.2, 17.6, 20.2, 22.8, 25.6, 28.4, 31.6, 35.4, 39].map(v => Math.round(v * FPS))) : null;
+  const PV = (process.env.PREVIEW || "").split("-").map(Number);   // PREVIEW=9-25 只看这一段，每秒一张；不给就整片每 2 秒一张
+  const keep = preview ? new Set(PV.length === 2 ? [...Array(Math.ceil(PV[1] - PV[0])).keys()].map(k => Math.round((PV[0] + k + .5) * FPS)) : [...Array(Math.ceil(dur / 2)).keys()].map(k => Math.round((k * 2 + 1.5) * FPS))) : null;
   let n = 0;
   for (let f = 0; f < all.length; f++) {
     const t = all[f];
