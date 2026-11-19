@@ -5,132 +5,312 @@
 <title>周报 skill 宣传视频</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500;700;900&family=Inter:wght@800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500;700;900&family=Noto+Serif+SC:wght@500&family=Inter:wght@600;800&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
 <script src="../tools/node_modules/gsap/dist/gsap.min.js"></script>
 <style>
-/* 竖屏 1080×1920。整条片子是一根暂停的 GSAP 时间线，录制时逐帧 seek：画面 = f(时间)。
-   手机里的周报照常运行自己的动效；录制脚本用假时钟推进，每帧把页面里的动画对齐到同一个时间，所以动效也逐帧确定。 */
+/* 竖屏 1080×1920，小红书版。整条片子是一根暂停的 GSAP 时间线，录制时逐帧 seek：画面 = f(时间)。
+   手机里的周报照常跑自己的动效（录制脚本用假时钟推进）。
+   安全区：上 130px、下 300px 会被平台的标题和按钮盖住，重要的字都放在中间。 */
 *{box-sizing:border-box}
-html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#F3F2EE;font-family:"Noto Sans SC",system-ui,sans-serif;color:#1C1C1A}
-#bg{position:absolute;inset:0;background:#F3F2EE}
-.phone{position:absolute;left:162px;top:330px;width:756px;height:1404px;border-radius:64px;background:#111;padding:18px;box-shadow:0 30px 70px rgba(0,0,0,.22),0 0 0 3px rgba(255,255,255,.14);transform-origin:50% 50%}
-.phone .scr{width:720px;height:1368px;border-radius:48px;overflow:hidden;position:relative;background:#fff}
-.phone iframe{width:400px;height:760px;border:0;transform:scale(1.8);transform-origin:0 0;display:block}
-.cap{position:absolute;left:0;right:0;top:96px;text-align:center}
-.cap .k{display:block;font-weight:900;font-size:78px;line-height:1.1;letter-spacing:-.01em}
-.cap .s{display:block;font-weight:700;font-size:40px;margin-top:14px;opacity:.7}
-.sub{position:absolute;left:60px;right:60px;bottom:70px;text-align:center;font-weight:900;font-size:44px;line-height:1.35}
-.sub span{background:#1C1C1A;color:#fff;padding:8px 22px;-webkit-box-decoration-break:clone;box-decoration-break:clone;border-radius:10px}
-#intro{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 90px}
-#intro .l{font-weight:900;font-size:120px;line-height:1.1;letter-spacing:-.02em}
-#intro .l b{color:#F5572F}
-#intro .m{font-weight:700;font-size:44px;margin-top:40px;color:#4A4945;line-height:1.5}
-#outro{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 90px;background:#1C1C1A;color:#F0EFEB}
-#outro .n{font-family:Inter,sans-serif;font-weight:800;font-size:300px;line-height:.8;letter-spacing:-.06em}
-#outro .n span{color:#F5572F}
-#outro .z{font-weight:900;font-size:84px;margin-top:40px}
-#outro ul{list-style:none;padding:0;margin:50px 0 0;font-weight:700;font-size:44px;line-height:1.85;border-top:2px solid #F0EFEB;padding-top:24px}
-#outro li::before{content:"→ ";color:#F5572F}
-#outro .gh{margin-top:60px;font-size:38px;font-weight:700;opacity:.6}
-.tag{position:absolute;right:40px;top:36px;font-size:26px;font-weight:700;padding:6px 18px;border-radius:99px;background:rgba(0,0,0,.72);color:#fff;z-index:9}
-.tap{position:absolute;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;border:6px solid #F5572F;opacity:0;pointer-events:none;z-index:8}
+:root{--ink:#16181D;--ink2:#5B6170;--accent:#3D6BF2}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;font-family:"Noto Sans SC",system-ui,sans-serif;color:var(--ink);background:#F3F5FA}
+#bg{position:absolute;inset:0;background:#F3F5FA;overflow:hidden}
+#bg i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+.scene{position:absolute;inset:0;opacity:0}
+/* 手机 */
+.phone{position:absolute;left:194px;top:330px;width:692px;height:1319px;border-radius:66px;background:#15171C;padding:16px;
+  box-shadow:0 40px 90px rgba(30,40,80,.22),0 0 0 3px rgba(255,255,255,.5);transform-origin:50% 50%}
+.phone .scr{width:660px;height:1287px;border-radius:52px;overflow:hidden;position:relative;background:#fff}
+.phone iframe{width:400px;height:780px;border:0;transform:scale(1.65);transform-origin:0 0;display:block}
+/* 字幕 */
+.cap{position:absolute;left:60px;right:60px;top:140px;text-align:center;z-index:5}
+.cap .k{display:block;font-weight:900;font-size:66px;line-height:1.15;letter-spacing:-.01em}
+.cap .s{display:block;font-weight:700;font-size:35px;margin-top:12px;color:var(--ink2)}
+.sub{position:absolute;left:60px;right:60px;top:1676px;text-align:center;font-weight:900;font-size:42px;line-height:1.4;z-index:6}
+.sub span{background:rgba(22,24,29,.86);color:#fff;padding:10px 26px;-webkit-box-decoration-break:clone;box-decoration-break:clone;border-radius:18px}
+.tag{display:none;position:absolute;right:214px;top:352px;   /* 周报页面自己底部已经标了「示例数据 · 人物虚构」 */font-size:22px;font-weight:700;padding:5px 16px;border-radius:99px;background:rgba(0,0,0,.6);color:#fff;z-index:7}
+.tap{position:absolute;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;border:7px solid #fff;box-shadow:0 0 0 4px var(--accent),0 10px 30px rgba(0,0,0,.25);opacity:0;pointer-events:none;z-index:8}
+/* 以前：一堆记录 */
+#old .card{position:absolute;left:150px;width:780px;border-radius:36px;background:#fff;box-shadow:0 24px 60px rgba(30,40,80,.14);padding:34px 40px}
+#old .cal{top:470px} #old .memo{top:1010px;transform:rotate(3deg);background:#FFFBEF}
+#old h4{margin:0 0 18px;font-size:30px;color:var(--ink2);font-weight:700}
+#old .ev{display:grid;grid-template-columns:150px 1fr;font-size:32px;line-height:1.75}
+#old .ev b{font-family:Inter,sans-serif;font-weight:600;color:var(--ink2)}
+#old .memo p{margin:0;font-family:"LXGW WenKai",serif;font-size:38px;line-height:1.6;color:#3B2A22}
+#old .x{position:absolute;right:120px;top:420px;font-size:130px;font-weight:900;color:#E5484D;transform:rotate(12deg);opacity:0}
+/* 对话：手机上的 Claude App 录屏的样子（暖白底、回答用衬线字、工具调用折叠成灰色小行、底部输入框） */
+#chat .note{position:absolute;left:0;right:0;top:288px;text-align:center;font-size:23px;color:var(--ink2)}
+#pc .scr{background:#FAF9F5;font-family:"Noto Sans SC",sans-serif;color:#1F1E1D}
+#pc .sb{height:58px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 48px 4px;font:600 24px Inter,sans-serif}
+#pc .sb i{display:inline-block;width:40px;height:20px;border:2.5px solid #1F1E1D;border-radius:6px;position:relative;vertical-align:-3px;margin-left:10px}
+#pc .sb i::after{content:"";position:absolute;inset:2px;right:9px;background:#1F1E1D;border-radius:2px}
+#pc .tb{height:92px;display:flex;align-items:center;justify-content:space-between;padding:0 30px}
+#pc .tb svg{width:40px;height:40px;stroke:#1F1E1D;stroke-width:2.2;fill:none;stroke-linecap:round}
+#pc .tb b{font-size:28px;font-weight:700}
+#pc .tb b small{font-size:20px;color:#87867F;margin-left:6px}
+#pc .view{position:absolute;left:0;right:0;top:150px;bottom:190px;overflow:hidden}
+#pc .feed{padding:10px 32px 40px;display:flex;flex-direction:column;gap:26px;will-change:transform}
+#pc .it.on{display:block} #pc .u.on,#pc .think.on,#pc .file.on{display:flex} #pc .it:not(.on){display:none!important}
+#pc .u{align-self:flex-end;max-width:84%;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+#pc .u p{margin:0;background:#F0EEE6;border-radius:26px;padding:18px 24px;font-size:27px;line-height:1.55}
+#pc .att{display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid #E5E2D8;border-radius:18px;padding:12px 16px;font-size:24px;font-weight:600}
+#pc .att i{width:46px;height:54px;border-radius:9px;background:#E8F0FE;color:#3D6BF2;display:grid;place-items:center;font:800 15px Inter,sans-serif;font-style:normal}
+#pc .att small{display:block;font-size:19px;color:#87867F;font-weight:400}
+#pc .c{font-family:"Noto Serif SC",serif;font-size:28px;line-height:1.7;min-height:48px}
+#pc .tool{font-size:23px;color:#73726C;line-height:1.45;padding-left:4px}
+#pc .tool .h{display:flex;align-items:center;gap:12px}
+#pc .tool .h i{width:34px;height:34px;border-radius:9px;border:1.5px solid #DAD7CC;display:grid;place-items:center;font:600 15px "JetBrains Mono",monospace;font-style:normal;color:#73726C;background:#fff}
+#pc .tool .h code{font-family:"JetBrains Mono",monospace;font-size:21px;background:#F0EEE6;border-radius:6px;padding:1px 8px}
+#pc .tool .h em{margin-left:auto;font-style:normal;color:#B0AEA5}
+#pc .tool .r{display:block;margin:6px 0 0 46px;color:#1F1E1D;font-size:23px}
+#pc .tool .r b{color:#2E7D52;font-weight:600}
+#pc .file{display:flex;align-items:center;gap:18px;background:#fff;border:1.5px solid #E5E2D8;border-radius:22px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+#pc .file i{width:58px;height:58px;border-radius:12px;background:#F0EEE6;display:grid;place-items:center;font:600 20px "JetBrains Mono",monospace;font-style:normal;color:#73726C}
+#pc .file b{font-size:27px;font-weight:700} #pc .file small{display:block;font-size:20px;color:#87867F}
+#pc .file span{margin-left:auto;font-size:22px;font-weight:600;border:1.5px solid #DAD7CC;border-radius:14px;padding:8px 18px}
+#pc .spark{color:#D97757;font-size:44px;line-height:1}
+#pc .think{font-size:23px;color:#87867F;display:flex;align-items:center;gap:12px}
+#pc .think .spark{font-size:34px}
+#pc .inp{position:absolute;left:22px;right:22px;bottom:28px;height:150px;border-radius:30px;background:#fff;border:1.5px solid #E5E2D8;box-shadow:0 4px 18px rgba(0,0,0,.05);padding:22px 24px}
+#pc .inp .ph{font-size:27px;color:#9C9A92}
+#pc .inp .row{position:absolute;left:20px;right:20px;bottom:16px;display:flex;align-items:center;gap:14px}
+#pc .inp .row i{width:46px;height:46px;border-radius:50%;border:1.5px solid #E5E2D8;display:grid;place-items:center;font-style:normal;font-size:28px;color:#73726C}
+#pc .inp .row em{margin-left:auto;font-style:normal;font-size:21px;color:#73726C}
+#pc .inp .row b{width:52px;height:52px;border-radius:14px;background:#D97757;opacity:.45;color:#fff;display:grid;place-items:center;font-size:28px}
+/* skill */
+#skill{display:flex;flex-direction:column;align-items:center;padding:330px 80px 0;text-align:center}
+#skill .big{font-weight:900;font-size:84px;line-height:1.2;letter-spacing:-.01em}
+#skill .big b{color:var(--accent)}
+#skill .repo{margin-top:56px;width:100%;border-radius:36px;background:#fff;box-shadow:0 24px 60px rgba(30,40,80,.12);padding:40px 44px;text-align:left}
+#skill .repo .n{font:800 40px Inter,sans-serif} #skill .repo .n span{color:var(--ink2);font-weight:600}
+#skill .repo p{margin:14px 0 0;font-size:30px;color:var(--ink2);line-height:1.5}
+#skill .cmd{margin-top:26px;border-radius:20px;background:#16181D;color:#E8EAF0;padding:22px 26px;font:500 27px "JetBrains Mono",monospace}
+#skill .cmd span{color:#7FD8C6}
+#skill .plats{display:flex;gap:18px;justify-content:center;margin-top:44px}
+#skill .plats b{font:800 32px Inter,sans-serif;padding:16px 30px;border-radius:99px;background:#fff;box-shadow:0 10px 30px rgba(30,40,80,.1)}
+#skill .say{margin-top:44px;font-size:36px;font-weight:700;line-height:1.6}
+#skill .say q{font-family:"LXGW WenKai",serif;font-weight:400;font-size:46px;color:var(--accent);quotes:none}
+/* 结尾 */
+#end{display:flex;flex-direction:column;justify-content:center;padding:0 100px 260px}
+#end .t{font-weight:900;font-size:40px;color:var(--ink2)}
+#end .l{margin-top:28px;font-family:"LXGW WenKai",serif;font-size:48px;line-height:1.7}
+#end svg{width:240px;height:88px;margin:30px 0 0 auto;display:block}
+#end .bye{margin-top:60px;font-weight:900;font-size:96px;letter-spacing:-.02em}
+#end .bye span{color:var(--accent)}
+#end .gh{margin-top:24px;font-size:32px;color:var(--ink2);font-weight:700}
 </style>
 </head>
 <body>
-<div id="bg"></div>
-<div id="intro">
-  <div class="l">每一周的周报，<br>都长得<b>不一样</b>。</div>
-  <div class="m">一个 Claude skill：把你一周的日历，<br>做成一份会动、能点的周报网页。</div>
+<div id="bg"><i style="width:620px;height:620px;left:-160px;top:120px;background:#BFD3FF"></i><i style="width:560px;height:560px;right:-180px;top:820px;background:#CDEFE6"></i><i style="width:520px;height:520px;left:120px;bottom:-120px;background:#E6DDFB"></i></div>
+
+<div class="scene" id="old">
+  <div class="card cal"><h4>日历 · 4 月 12 日 – 18 日</h4>
+    <div class="ev"><b>08:30</b>有机 · 整理亲核取代</div><div class="ev"><b>14:00</b>有机 · 消除反应</div><div class="ev"><b>19:00</b>慢跑 5 公里</div><div class="ev"><b>21:00</b>乐队排练</div><div class="ev"><b>…</b>还有 30 条</div></div>
+  <div class="card memo"><h4>备忘录</h4><p>周三：亲核取代还是会错，有点慌。<br>周六：跑进 25 分钟了！！</p></div>
+  <div class="x">✕</div>
 </div>
+
+<div class="scene" id="chat">
+  <div class="note">过程演示：按一次真实运行整理（示例日历，人物虚构）</div>
+</div>
+<div class="phone" id="pc"><div class="scr">
+  <div class="sb"><span>21:30</span><span>5G<i></i></span></div>
+  <div class="tb"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg><b>出这周的周报<small>⌄</small></b><svg viewBox="0 0 24 24"><path d="M12 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-6M17.5 3.5l3 3L12 15H9v-3z"/></svg></div>
+  <div class="view"><div class="feed" id="feed">
+    <div class="it u" data-at="0.6"><div class="att"><i>ICS</i><div>小满的日历.ics<small>ICS · 6.6 KB</small></div></div><p>出这周的周报</p></div>
+    <div class="it think" data-at="1.6" data-until="2.5"><span class="spark">✻</span>思考中…</div>
+    <div class="it c" data-at="2.5"><span class="ty" data-t="好。先问一句：这周的目标是什么？有没有想放进去的原话？"></span></div>
+    <div class="it u" data-at="4.4"><p>期中有机 90 分以上，运动 4 次，每天学 5 小时。周三那句「亲核取代还是会错，有点慌」也放进去</p></div>
+    <div class="it tool" data-at="5.6"><div class="h"><i>md</i>读取技能 <code>weekly-report</code><em>›</em></div></div>
+    <div class="it tool" data-at="6.3"><div class="h"><i>&gt;_</i>运行 <code>ics_to_week.py</code><em>›</em></div><span class="r" data-at="6.9"><b>✓</b> 34 条日程 · 学习 32 小时 · 运动 4 次</span></div>
+    <div class="it tool" data-at="7.6"><div class="h"><i>✎</i>写入 <code>week.json</code><em>›</em></div><span class="r" data-at="8.2"><b>✓</b> 4 件成就 · 5 个目标对账 · 7 天的心情</span></div>
+    <div class="it tool" data-at="8.9"><div class="h"><i>◐</i>选主题<em>›</em></div><span class="r" data-at="9.4">每天主角不一样（考试、实验、跑步）→ 云白沉浸版</span></div>
+    <div class="it tool" data-at="10.1"><div class="h"><i>&gt;_</i>运行 <code>build.py</code><em>›</em></div><span class="r" data-at="10.6"><b>✓</b> 检查通过</span></div>
+    <div class="it c" data-at="11.1"><span class="ty" data-t="做好了。这周的亮点：有机期中 92 分，周六 5 公里第一次跑进 25 分钟。"></span></div>
+    <div class="it file" id="m4" data-at="12.3"><i>&lt;/&gt;</i><div><b>周报</b><small>HTML · 293 KB</small></div><span>打开</span></div>
+    <div class="it spark" data-at="12.5">✻</div>
+  </div></div>
+  <div class="inp"><div class="ph">回复 Claude…</div><div class="row"><i>+</i><i>⚙</i><em>Opus 5.5 ⌄</em><b>↑</b></div></div>
+</div></div>
+
+<div class="scene" id="skill">
+  <div class="big">它是一个<br><b>开源 skill</b></div>
+  <div class="repo"><div class="n"><span>7sevenLeaf /</span> weekly-report-skill</div>
+    <p>把一周的日历变成一份每周换主题、会动、能点的个人周报网页</p>
+    <div class="cmd"><span>$</span> cp -r weekly-report ~/.claude/skills/</div></div>
+  <div class="plats"><b>Claude</b><b>ChatGPT</b><b>Codex</b></div>
+  <div class="say">装好以后，只要说一句<br><q>「出这周的周报」</q></div>
+</div>
+
+<div class="scene" id="end">
+  <div class="t">写给这一周</div>
+  <div class="l" id="endl"></div>
+  <svg viewBox="0 0 120 44"><path d="M6 30 C 20 6, 30 40, 44 22 S 64 10, 70 28 S 92 36, 114 14" fill="none" stroke="#3D6BF2" stroke-width="3" stroke-linecap="round"/></svg>
+  <div class="bye">下周见<span>.</span></div>
+  <div class="gh">GitHub 搜 weekly-report-skill · 链接在评论区</div>
+</div>
+
 <div class="cap" id="cap"><span class="k" id="capk"></span><span class="s" id="caps"></span></div>
-<div class="phone" id="p0"><div class="scr"><iframe id="f0" src="../examples/exam.html"></iframe></div></div>
-<div class="phone" id="p1"><div class="scr"><iframe id="f1" src="../examples/swiss.html"></iframe></div></div>
-<div class="phone" id="p2"><div class="scr"><iframe id="f2" src="../examples/vinyl.html"></iframe></div></div>
-<div class="phone" id="p3"><div class="scr"><iframe id="f3" src="../examples/terminal.html"></iframe></div></div>
+<div class="phone" id="p0"><div class="scr"><iframe id="f0" src="../examples/cloud.html"></iframe></div></div>
+<div class="phone" id="p1"><div class="scr"><iframe id="f1" src="../examples/exam.html"></iframe></div></div>
+<div class="phone" id="p2"><div class="scr"><iframe id="f2" src="../examples/swiss.html"></iframe></div></div>
+<div class="phone" id="p3"><div class="scr"><iframe id="f3" src="../examples/vinyl.html"></iframe></div></div>
+<div class="phone" id="p4"><div class="scr"><iframe id="f4" src="../examples/terminal.html"></iframe></div></div>
+<div class="tag" id="tag">示例数据 · 人物虚构</div>
 <div class="tap" id="tap"></div>
 <div class="sub" id="sub"><span id="subt"></span></div>
-<div id="outro">
-  <div class="n">4<span>.</span></div>
-  <div class="z">四种主题，同一套数据</div>
-  <ul><li>主题从这一周里长出来</li><li>数字会滚，线会画，格子会亮</li><li>情绪是读出来的，标明出处</li><li>没记录就留空，不编</li></ul>
-  <div class="gh">个人周报 · 开源 Claude skill</div>
-</div>
-<div class="tag">示例数据 · 人物虚构</div>
 
 <script>
-const N = 4, F = [...Array(N).keys()].map(i => document.getElementById("f" + i));
+const S = 1.65, N = 5, F = [...Array(N).keys()].map(i => document.getElementById("f" + i));
 const W = i => F[i].contentWindow, D = i => F[i].contentDocument;
 const scroll = F.map(() => ({ y: 0 }));
 const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.inOut" } });
-const events = [], fired = new Set(), CAP = [], SUB = [];
-const cap = (t, k, s) => CAP.push([t, k, s]), sub = (t, s) => SUB.push([t, s]), at$ = (t, fn) => events.push([t, fn]);
-let ready = false;
+const events = [], CAP = [], SUB = [];
+const cap = (t, k, s = "") => CAP.push([t, k, s]), sub = (t, s) => SUB.push([t, s]), at$ = (t, fn) => events.push({ t, fn, done: false });
+let ready = false, tapAt = null, now = 0;
+
+/* 时间表（秒）：开场 4.6 · 以前 4.6 · 对话 15 · 云白 36.6 · 四个主题各 6.5 · skill 9.5 · 结尾 5.5 */
+const T = { old: 4.6, chat: 9.2, cloud: 24.4, cloudEnd: 61, themes: 61, skill: 87, end: 96.5, fin: 102 };
 
 function y(i, sel, pad = 30) { const el = D(i).querySelector(sel); return el ? Math.max(0, el.getBoundingClientRect().top + W(i).scrollY - pad) : 0; }
-function tap(i, sel) {
-  const el = D(i).querySelector(sel); if (!el) return;
+function tap(i, sel, k = 0) {
+  const el = D(i).querySelectorAll(sel)[k]; if (!el) return;
   el.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   const r = el.getBoundingClientRect(), p = document.getElementById("p" + i).getBoundingClientRect();
-  tapAt = [p.left + 18 + (r.left + r.width / 2) * 1.8, p.top + 18 + (r.top + r.height / 2) * 1.8, now];
+  tapAt = [p.left + 16 + (r.left + r.width / 2) * S, p.top + 16 + (r.top + r.height / 2) * S, now];
 }
-let tapAt = null, now = 0;
-function enter(i, t, from = 1) { tl.fromTo("#p" + i, { x: 1100 * from, y: 0, rotation: 6 * from }, { x: 0, rotation: 0, duration: .9 }, t); at$(t + .3, () => W(i).WR.replayCover()); }
+function enter(i, t) { tl.fromTo("#p" + i, { x: 1100, rotation: 6 }, { x: 0, rotation: 0, duration: .9 }, t); at$(t + .25, () => W(i).WR.replayCover && W(i).WR.replayCover()); }
 function leave(i, t) { tl.to("#p" + i, { x: -1100, rotation: -6, duration: .9 }, t); }
+const show = (sel, t, d = .5) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, t), hide = (sel, t, d = .4) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, t);
+
+/* 云白：滚动位置按真实排版算；字幕从页面自己读（每天的主角、成就、总结区、后面几块） */
+let C = null;
+function cloudPlan() {
+  const w = W(0), d = D(0), top = el => { const sp = el.closest(".pin-spacer") || el; return sp.getBoundingClientRect().top + w.scrollY; };
+  const H = d.documentElement.scrollHeight - w.innerHeight, marks = [];
+  d.querySelectorAll(".cl-day").forEach(s => { const m = (s.getAttribute("aria-label") || "").match(/^(周.)，主角是(.+)$/); if (m) marks.push([top(s), `${m[1]} · 今天的主角：${m[2]}`]); });
+  const sm = d.querySelector(".cl-sum"); if (sm) marks.push([top(sm), "七天的天气，点一下翻面"]);
+  [["#wr-split", "168 小时去了哪里"], ["#wr-goals", "目标对账：环一个个长满"], ["#wr-quotes", "值得记住的话，和一句走心的评价"], ["#wr-review", "复盘：一叠卡，点一下翻下一张"], ["#wr-letter", "最后，写给这一周的信"]]
+    .forEach(([s, txt]) => { const el = d.querySelector(s); if (el) marks.push([top(el), txt]); });
+  marks.sort((a, b) => a[0] - b[0]);
+  return { H, marks, once: {} };
+}
+function cloudAt(t) {
+  if (!C) C = cloudPlan();
+  const a = T.cloud + 1.2, b = T.cloudEnd - 1.4, p = Math.min(1, Math.max(0, (t - a) / (b - a)));
+  const e = q => q < .5 ? 2 * q * q : 1 - Math.pow(-2 * q + 2, 2) / 2;
+  const yy = Math.round(C.H * (p < .03 ? e(p / .03) * .03 : p > .97 ? .97 + e((p - .97) / .03) * .03 : p));
+  scroll[0].y = yy;
+  const mid = yy + W(0).innerHeight * .45; let txt = "往下滑，这一周开始过去";
+  for (const [m, s] of C.marks) if (m <= mid) txt = s;
+  /* 进到某一块 1.3 秒后，点一下里面的东西 */
+  const later = (key, sel, k) => { if (txt.startsWith(key)) { C.once[key] ??= t + 1.3; if (t >= C.once[key] && !C.once[key + "!"]) { C.once[key + "!"] = 1; tap(0, sel, k); } } };
+  later("七天的天气", ".cl-tile", 2); later("值得记住", ".wr-qdots i", 1);
+  return txt;
+}
 
 function build() {
-  gsap.set(".phone", { x: 1100, y: 0 }); gsap.set(["#cap", "#sub", "#outro"], { opacity: 0 });
-  /* 0–3s 开场 */
-  tl.from("#intro .l", { y: 80, opacity: 0, duration: .9, ease: "power3.out" }, .2)
-    .from("#intro .m", { y: 40, opacity: 0, duration: .8, ease: "power3.out" }, .9)
-    .to("#intro", { opacity: 0, y: -120, duration: .6 }, 2.8)
-    .to("#cap,#sub", { opacity: 1, duration: .4 }, 3.1);
+  gsap.set(".phone", { x: 1100 }); gsap.set("#p0", { x: 0, scale: .92, y: 40 }); gsap.set(["#sub", "#tag"], { opacity: 0 });
+  gsap.set("#pc", { x: 0, opacity: 0 });
 
-  /* 3–11s 考卷 */
-  enter(0, 3.0);
-  cap(3.1, "考试周", "一张批改过的周测卷"); sub(3.3, "墨色写数据，红笔只管批改");
-  tl.to(scroll[0], { y: y(0, "#wr-core"), duration: 1.2 }, 5.4);
-  at$(6.8, () => tap(0, '#wr-core .wr-tab[data-i="2"]')); sub(6.6, "点一下，换一组数据");
-  tl.to(scroll[0], { y: y(0, "#wr-achievements .wr-a:nth-child(4)"), duration: 1.3 }, 8.0); sub(8.2, "每件成就一张小画，一笔一笔画出来");
+  /* 0–4.6 开场：168 个小时聚成这一周 */
+  cap(0, "我让 Claude 把我的一周", "做成了一个会动的网页");
+  tl.from("#cap", { y: 40, opacity: 0, duration: .8, ease: "power3.out" }, .1).to("#tag", { opacity: 1, duration: .3 }, .4).to("#sub", { opacity: 1, duration: .3 }, 1.4);
+  at$(0, () => W(0).gsap && W(0).gsap.globalTimeline.resume());
+  sub(1.4, "这是一周的 168 个小时");
+  tl.to("#p0", { scale: .5, y: -40, x: -330, rotation: -8, opacity: 0, duration: .8 }, T.old - .6).to("#tag", { opacity: 0, duration: .2 }, T.old - .6);
 
-  /* 11–18s 编辑部（同一周，换个主题） */
-  leave(0, 11); enter(1, 11);
-  cap(11.1, "还是这一周", "换成瑞士编辑部风格"); sub(11.3, "纸、墨、一个橙色");
-  tl.to(scroll[1], { y: y(1, "#wr-split"), duration: 1.3 }, 13.4); sub(13.6, "168 小时去了哪里");
-  at$(15.0, () => tap(1, '#wr-split .wr-li[data-k="sleep"]'));
-  tl.to(scroll[1], { y: y(1, "#wr-heat"), duration: 1.3 }, 15.8); sub(16.0, "哪几个小时真的学进去了");
-  at$(17.3, () => tap(1, '#wr-heat .wr-cell[data-d="2"][data-h="9"]'));
+  /* 4.6–9.2 以前：一堆记录 */
+  cap(T.old, "以前的复盘", "日历一大堆，碎碎念散在备忘录里"); sub(T.old, "翻完就忘");
+  show("#old", T.old - .2, .3);
+  tl.from("#old .cal", { y: 200, opacity: 0, duration: .7, ease: "power3.out" }, T.old)
+    .from("#old .memo", { y: 200, rotation: 12, opacity: 0, duration: .7, ease: "power3.out" }, T.old + .35)
+    .to("#old .x", { opacity: 1, scale: 1.2, duration: .3, ease: "back.out(3)" }, T.old + 2.6)
+    .to("#old .card", { scale: .3, y: -300, opacity: 0, stagger: .1, duration: .6, ease: "power3.in" }, T.chat - .8);
+  hide("#old", T.chat - .2, .2);
 
-  /* 18–26s 唱片 */
-  leave(1, 18.6); enter(2, 18.6);
-  tl.to("#bg", { backgroundColor: "#EEF0E8", duration: .9 }, 18.6);
-  cap(18.7, "演出周", "这一周被压成一张唱片"); sub(18.9, "唱片上三圈：学习、运动、睡眠");
-  tl.to(scroll[2], { y: y(2, "#wr-split"), duration: 1.3 }, 20.8); sub(21.0, "时间变成调音台的推子");
-  at$(22.4, () => tap(2, '.vn-ch[data-k="life"]'));
-  tl.to(scroll[2], { y: y(2, "#wr-timeline"), duration: 1.2 }, 23.2); sub(23.4, "按下播放，唱针走完一天");
-  at$(24.4, () => { const r = D(2).querySelectorAll("#wr-timeline .wr-row"); r[5].dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, clientX: r[5].getBoundingClientRect().left + 200, clientY: r[5].getBoundingClientRect().top + 10 })); W(2).dispatchEvent(new PointerEvent("pointerup")); tap(2, ".vn-play"); });
+  /* 9.2–24.4 对话：一句话交给 Claude */
+  cap(T.chat, "现在：交给 Claude", "发日历，说一句话"); sub(T.chat, "");
+  show("#chat", T.chat - .2, .3);
+  tl.fromTo("#pc", { x: 0, y: 160, opacity: 0 }, { y: 0, opacity: 1, duration: .7, ease: "power3.out", immediateRender: false }, T.chat);
+  document.querySelectorAll("#pc .ty").forEach(el => typeIn(el, T.chat + +el.closest(".it").dataset.at + .1, el.dataset.t.length * .04));
+  cap(T.chat + 5.6, "它自己一步步做", "读技能 · 整理日历 · 写内容 · 定主题 · 出页面");
+  cap(T.chat + 11.1, "几分钟后", "一个文件，手机直接打开");
+  at$(T.chat + 13.4, () => { const r = document.querySelector("#m4").getBoundingClientRect(); tapAt = [r.left + r.width / 2, r.top + r.height / 2, now]; });
+  /* 点开文件：同一台手机里换成周报 */
+  tl.to("#pc .scr", { opacity: 0, duration: .45, ease: "power2.in" }, T.cloud - 1.0)
+    .fromTo("#p0", { x: 0, y: 0, scale: .94, rotation: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .7, ease: "power3.out", immediateRender: false }, T.cloud - .75)
+    .to("#pc", { opacity: 0, duration: .01 }, T.cloud - .05)
+    .to("#chat", { opacity: 0, duration: .3 }, T.cloud - .9)   // 连同「过程演示」那行小字一起收掉
+    .to("#tag", { opacity: 1, duration: .3 }, T.cloud);
 
-  /* 26–33.5s 终端 */
-  leave(2, 26.6); enter(3, 26.6);
-  tl.to("#bg", { backgroundColor: "#111214", duration: .9 }, 26.6).to("#cap,#sub", { color: "#ECEAE4", duration: .9 }, 26.6);
-  cap(26.7, "写代码的一周", "变成一个终端"); sub(26.9, "命令敲下去，这周的数就出来了");
-  tl.to(scroll[3], { y: y(3, "#wr-heat"), duration: 1.4 }, 29.6); sub(29.8, "专注热力图，像代码贡献图");
-  at$(31.3, () => tap(3, '#wr-heat .wr-cell[data-d="5"][data-h="9"]'));
+  /* 24.4–61 云白：滑动就是这一周在过去（字幕实时从页面读） */
+  cap(T.cloud, "滑动 = 这一周在过去", "每天按当天的主角换颜色、场景和转场");
 
-  /* 33.5–37s 四台并排 */
-  tl.to(["#cap", "#sub"], { opacity: 0, duration: .3 }, 33.4).to("#bg", { backgroundColor: "#F3F2EE", duration: .8 }, 33.4)
-    .to(scroll, { y: 0, duration: .01 }, 33.8);
-  [[-390, -30, -6], [-130, -30, -2], [130, -30, 2], [390, -30, 6]].forEach(([x, yy, r], i) => tl.to("#p" + i, { x, y: yy, rotation: r, scale: .33, duration: 1 }, 33.8 + i * .08));
-  tl.to("#cap", { opacity: 1, color: "#1C1C1A", duration: .4 }, 34.2); cap(34.2, "主题从这一周里长出来", "不是一个模板换数字");
-  at$(34.3, () => F.forEach((_, i) => W(i).WR.replayCover()));
+  /* 61–87 另外四个主题，每个 6.5 秒 */
+  leave(0, T.themes);
+  const th = [
+    [3, "演出周 → 一张唱片", "168 小时变成调音台的推子", "#F1F0E6", "每周换一个样子", [["#wr-split", 1.6, '.vn-ch[data-k="life"]'], ["#wr-timeline", 3.8, ".vn-play"]]],
+    [1, "考试周 → 一张批改过的考卷", "红笔只管批改", "#F4F1EA", "点一下，换一组数据", [["#wr-core", 1.6, '#wr-core .wr-tab[data-i="2"]'], ["#wr-achievements .wr-a:nth-child(2)", 3.8]]],
+    [2, "同一周 → 编辑部版面", "纸、墨、一个强调色", "#F2F2F0", "主题从这一周里长出来，不是换皮", [["#wr-split", 1.6, '#wr-split .wr-li[data-k="sleep"]'], ["#wr-quotes", 3.9]]],
+    [4, "写代码的一周 → 一个终端", "命令敲下去，这周的数就出来了", "#EEF2F6", "专注热力图，像代码贡献图", [["#wr-heat", 2.0, '#wr-heat .wr-cell[data-d="5"][data-h="9"]'], ["#wr-letter", 4.2]]],
+  ];
+  th.forEach(([i, k, s, bg, sb, steps], n) => {
+    const t0 = T.themes + n * 6.5;
+    if (n) leave(th[n - 1][0], t0);
+    enter(i, t0); cap(t0 + .1, k, s); sub(t0 + .1, sb);
+    tl.to("#bg", { backgroundColor: bg, duration: .9 }, t0);
+    steps.forEach(([sel, dt, tp]) => {
+      tl.to(scroll[i], { y: () => y(i, sel), duration: 1.2 }, t0 + dt);
+      if (tp) at$(t0 + dt + 1.4, () => tap(i, tp));
+    });
+  });
+  leave(4, T.skill - .5);
+  tl.to("#tag,#sub", { opacity: 0, duration: .3 }, T.skill - .5).to("#bg", { backgroundColor: "#F3F5FA", duration: .8 }, T.skill - .5);
 
-  /* 37–41s 结尾 */
-  tl.to("#outro", { opacity: 1, duration: .5 }, 37.2)
-    .from("#outro > *", { y: 50, opacity: 0, stagger: .1, duration: .6, ease: "power3.out" }, 37.3)
-    .to({}, { duration: .1 }, 40.9);
+  /* 87–96.5 skill */
+  cap(T.skill, "", ""); sub(T.skill, "");
+  show("#skill", T.skill, .3);
+  tl.from("#skill .big", { y: 60, opacity: 0, duration: .7, ease: "power3.out" }, T.skill + .1)
+    .from("#skill .repo", { y: 80, opacity: 0, duration: .7, ease: "power3.out" }, T.skill + 1.0)
+    .from("#skill .plats b", { y: 40, opacity: 0, scale: .8, stagger: .15, duration: .5, ease: "back.out(2)" }, T.skill + 2.6)
+    .from("#skill .say", { y: 40, opacity: 0, duration: .6, ease: "power3.out" }, T.skill + 4.2);
+  hide("#skill", T.end - .4);
+
+  /* 96.5–102 结尾：信里的两段 */
+  const L = [...D(0).querySelectorAll("#wr-letter .wr-lsec")];
+  const pick = tag => L.find(p => p.querySelector(".wr-ltag")?.textContent === tag);
+  document.getElementById("endl").innerHTML = ["心情", "高光"].map(pick).filter(Boolean).map(p => p.lastChild.textContent).join("<br>");
+  show("#end", T.end, .4);
+  tl.from("#end .l", { y: 40, opacity: 0, duration: .8, ease: "power3.out" }, T.end + .2)
+    .fromTo("#end svg path", { strokeDasharray: 200, strokeDashoffset: 200 }, { strokeDashoffset: 0, duration: 1.2, ease: "power2.inOut" }, T.end + 1.4)
+    .from("#end .bye", { y: 50, opacity: 0, duration: .7, ease: "power3.out" }, T.end + 2.4)
+    .from("#end .gh", { opacity: 0, duration: .5 }, T.end + 3.1)
+    .to({}, { duration: .1 }, T.fin - .1);
   ready = true;
 }
 
-/* 把页面里所有动画（CSS 过渡、CSS 动画、Web Animations）对齐到片子的时间 */
+/* 打字 */
+const typing = [];
+function typeIn(el, t0, dur) { typing.push({ el, t0, dur, s: el.dataset.t }); }
+
+/* 对话：消息按时间出现，新消息把整列往上推（像真的在聊天） */
+let feedY = 0;
+function feedAt(t) {
+  const r = t - T.chat, feed = document.getElementById("feed");
+  if (r < -1 || t > T.cloud + .5) return;
+  for (const el of feed.querySelectorAll(".it")) {
+    const a = +el.dataset.at, u = el.dataset.until ? +el.dataset.until : 1e9, on = r >= a && r < u;
+    el.classList.toggle("on", on);
+    if (on) { const k = Math.min(1, (r - a) / .35); el.style.opacity = k; el.style.transform = `translateY(${((1 - k) * 18).toFixed(1)}px)`; }
+  }
+  for (const el of feed.querySelectorAll(".r[data-at]")) el.style.opacity = Math.max(0, Math.min(1, (r - +el.dataset.at) / .3));
+  const target = Math.max(0, feed.scrollHeight - feed.parentElement.clientHeight);
+  feedY += (target - feedY) * .2; feed.style.transform = `translateY(${(-feedY).toFixed(1)}px)`;
+}
+
+/* 把页面里所有 Web Animations / CSS 动画对齐到片子的时间 */
 const seen = new WeakMap();
 function syncAnims(doc, t) {
   for (const a of doc.getAnimations()) {
@@ -142,20 +322,25 @@ const textAt = (list, t) => { let v = null; for (const x of list) if (x[0] <= t)
 
 window.seek = t => {
   now = t;
-  for (const [et, fn] of events) if (t >= et && !fired.has(et)) { fired.add(et); fn(); }
+  for (const ev of events) if (t >= ev.t && !ev.done) { ev.done = true; ev.fn(); }
   tl.seek(t, false);
-  scroll.forEach((s, i) => W(i).scrollTo(0, s.y));
+  const live = t >= T.cloud && t < T.cloudEnd ? cloudAt(t) : null;
+  scroll.forEach((s, i) => { if (Math.abs(W(i).scrollY - s.y) > .5) W(i).scrollTo(0, s.y); });
   F.forEach((_, i) => syncAnims(D(i), t));
-  const c = textAt(CAP, t), s = textAt(SUB, t);
+  feedAt(t);
+  for (const x of typing) { const k = Math.max(0, Math.min(1, (t - x.t0) / x.dur)); x.el.textContent = x.s.slice(0, Math.round(x.s.length * k)); }
+  const c = textAt(CAP, t), s = textAt(SUB, t), st = live ?? (s ? s[1] : "");
   document.getElementById("capk").textContent = c ? c[1] : "";
   document.getElementById("caps").textContent = c ? c[2] : "";
-  document.getElementById("subt").textContent = s ? s[1] : "";
-  document.getElementById("sub").style.visibility = s ? "visible" : "hidden";
+  document.getElementById("subt").textContent = st || "";
+  document.getElementById("sub").style.visibility = st ? "visible" : "hidden";
   const k = tapAt ? (t - tapAt[2]) / .6 : 9;
   gsap.set("#tap", tapAt ? { left: tapAt[0], top: tapAt[1], scale: .4 + Math.min(k, 1), opacity: k >= 0 && k < 1 ? 1 - k : 0 } : { opacity: 0 });
 };
 window.duration = () => tl.duration();
 window.isReady = () => ready;
+/* 云白的开场动画先停住，片子一开始再放 */
+(function hold() { try { if (W(0).gsap) return W(0).gsap.globalTimeline.pause(); } catch (e) {} setTimeout(hold, 5); })();   // 动画库一出现就停住，开场动画还没开始
 window.addEventListener("load", () => Promise.all([document.fonts.ready, ...F.map((f, i) => new Promise(r => { const ok = () => W(i).WR ? r() : setTimeout(ok, 50); ok(); }))]).then(() => setTimeout(build, 600)));
 </script>
 </body>
