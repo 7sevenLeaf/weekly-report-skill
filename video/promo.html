@@ -5,7 +5,7 @@
 <title>周报 skill 宣传视频</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500;700;900&family=Inter:wght@600;800&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500;700;900&family=Noto+Serif+SC:wght@500&family=Inter:wght@600;800&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
 <script src="../tools/node_modules/gsap/dist/gsap.min.js"></script>
 <style>
@@ -39,26 +39,45 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;font-family:"Noto 
 #old .ev b{font-family:Inter,sans-serif;font-weight:600;color:var(--ink2)}
 #old .memo p{margin:0;font-family:"LXGW WenKai",serif;font-size:38px;line-height:1.6;color:#3B2A22}
 #old .x{position:absolute;right:120px;top:420px;font-size:130px;font-weight:900;color:#E5484D;transform:rotate(12deg);opacity:0}
-/* 对话 */
-#chat .win{position:absolute;left:70px;right:70px;top:330px;height:1320px;border-radius:48px;background:#fff;box-shadow:0 30px 80px rgba(30,40,80,.16);overflow:hidden}
-#chat .hd{height:110px;display:flex;align-items:center;gap:18px;padding:0 40px;border-bottom:2px solid #EEF0F5}
-#chat .av{width:58px;height:58px;border-radius:50%;background:#D97757;display:grid;place-items:center;color:#fff;font:800 30px Inter,sans-serif}
-#chat .hd b{font:800 36px Inter,sans-serif} #chat .hd em{margin-left:auto;font-style:normal;font-size:24px;color:var(--ink2)}
-#chat .body{position:absolute;left:0;right:0;top:110px;bottom:0;padding:32px 40px;display:flex;flex-direction:column;gap:20px}
-#chat .m{max-width:86%;font-size:32px;line-height:1.55}
-#chat .u{align-self:flex-end;background:#EAF0FF;border-radius:30px 30px 8px 30px;padding:20px 28px}
-#chat .file{display:flex;align-items:center;gap:16px;background:#fff;border-radius:20px;padding:14px 18px;margin-bottom:12px;font-size:28px}
-#chat .file i{width:54px;height:62px;border-radius:10px;background:#3D6BF2;color:#fff;display:grid;place-items:center;font:800 18px Inter,sans-serif;font-style:normal}
-#chat .file small{display:block;color:var(--ink2);font-size:22px}
-#chat .c{align-self:flex-start;min-height:50px}
-#chat .tool{align-self:flex-start;font-size:27px;border-radius:22px;background:#F4F6FA;padding:14px 24px;line-height:1.5;max-width:94%}
-#chat .tool code{font-family:"JetBrains Mono",monospace;font-size:23px;color:var(--ink2);margin-left:10px}
-#chat .tool .r{display:block;font-weight:700;color:var(--ink)}
-#chat .tool .r::before{content:"✓ ";color:#2BA471}
-#chat .out{align-self:flex-start;display:flex;align-items:center;gap:20px;border:3px solid #DDE3F0;border-radius:26px;padding:18px 26px;font-size:30px;font-weight:700}
-#chat .out i{width:62px;height:74px;border-radius:12px;background:linear-gradient(140deg,#7FD8C6,#8FB2F2,#C9BCEF)}
-#chat .out small{display:block;font-size:22px;color:var(--ink2);font-weight:500}
-#chat .note{position:absolute;left:0;right:0;top:282px;text-align:center;font-size:24px;color:var(--ink2)}
+/* 对话：手机上的 Claude App 录屏的样子（暖白底、回答用衬线字、工具调用折叠成灰色小行、底部输入框） */
+#chat .note{position:absolute;left:0;right:0;top:288px;text-align:center;font-size:23px;color:var(--ink2)}
+#pc .scr{background:#FAF9F5;font-family:"Noto Sans SC",sans-serif;color:#1F1E1D}
+#pc .sb{height:58px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 48px 4px;font:600 24px Inter,sans-serif}
+#pc .sb i{display:inline-block;width:40px;height:20px;border:2.5px solid #1F1E1D;border-radius:6px;position:relative;vertical-align:-3px;margin-left:10px}
+#pc .sb i::after{content:"";position:absolute;inset:2px;right:9px;background:#1F1E1D;border-radius:2px}
+#pc .tb{height:92px;display:flex;align-items:center;justify-content:space-between;padding:0 30px}
+#pc .tb svg{width:40px;height:40px;stroke:#1F1E1D;stroke-width:2.2;fill:none;stroke-linecap:round}
+#pc .tb b{font-size:28px;font-weight:700}
+#pc .tb b small{font-size:20px;color:#87867F;margin-left:6px}
+#pc .view{position:absolute;left:0;right:0;top:150px;bottom:190px;overflow:hidden}
+#pc .feed{padding:10px 32px 40px;display:flex;flex-direction:column;gap:26px;will-change:transform}
+#pc .it.on{display:block} #pc .u.on,#pc .think.on,#pc .file.on{display:flex} #pc .it:not(.on){display:none!important}
+#pc .u{align-self:flex-end;max-width:84%;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+#pc .u p{margin:0;background:#F0EEE6;border-radius:26px;padding:18px 24px;font-size:27px;line-height:1.55}
+#pc .att{display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid #E5E2D8;border-radius:18px;padding:12px 16px;font-size:24px;font-weight:600}
+#pc .att i{width:46px;height:54px;border-radius:9px;background:#E8F0FE;color:#3D6BF2;display:grid;place-items:center;font:800 15px Inter,sans-serif;font-style:normal}
+#pc .att small{display:block;font-size:19px;color:#87867F;font-weight:400}
+#pc .c{font-family:"Noto Serif SC",serif;font-size:28px;line-height:1.7;min-height:48px}
+#pc .tool{font-size:23px;color:#73726C;line-height:1.45;padding-left:4px}
+#pc .tool .h{display:flex;align-items:center;gap:12px}
+#pc .tool .h i{width:34px;height:34px;border-radius:9px;border:1.5px solid #DAD7CC;display:grid;place-items:center;font:600 15px "JetBrains Mono",monospace;font-style:normal;color:#73726C;background:#fff}
+#pc .tool .h code{font-family:"JetBrains Mono",monospace;font-size:21px;background:#F0EEE6;border-radius:6px;padding:1px 8px}
+#pc .tool .h em{margin-left:auto;font-style:normal;color:#B0AEA5}
+#pc .tool .r{display:block;margin:6px 0 0 46px;color:#1F1E1D;font-size:23px}
+#pc .tool .r b{color:#2E7D52;font-weight:600}
+#pc .file{display:flex;align-items:center;gap:18px;background:#fff;border:1.5px solid #E5E2D8;border-radius:22px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+#pc .file i{width:58px;height:58px;border-radius:12px;background:#F0EEE6;display:grid;place-items:center;font:600 20px "JetBrains Mono",monospace;font-style:normal;color:#73726C}
+#pc .file b{font-size:27px;font-weight:700} #pc .file small{display:block;font-size:20px;color:#87867F}
+#pc .file span{margin-left:auto;font-size:22px;font-weight:600;border:1.5px solid #DAD7CC;border-radius:14px;padding:8px 18px}
+#pc .spark{color:#D97757;font-size:44px;line-height:1}
+#pc .think{font-size:23px;color:#87867F;display:flex;align-items:center;gap:12px}
+#pc .think .spark{font-size:34px}
+#pc .inp{position:absolute;left:22px;right:22px;bottom:28px;height:150px;border-radius:30px;background:#fff;border:1.5px solid #E5E2D8;box-shadow:0 4px 18px rgba(0,0,0,.05);padding:22px 24px}
+#pc .inp .ph{font-size:27px;color:#9C9A92}
+#pc .inp .row{position:absolute;left:20px;right:20px;bottom:16px;display:flex;align-items:center;gap:14px}
+#pc .inp .row i{width:46px;height:46px;border-radius:50%;border:1.5px solid #E5E2D8;display:grid;place-items:center;font-style:normal;font-size:28px;color:#73726C}
+#pc .inp .row em{margin-left:auto;font-style:normal;font-size:21px;color:#73726C}
+#pc .inp .row b{width:52px;height:52px;border-radius:14px;background:#D97757;opacity:.45;color:#fff;display:grid;place-items:center;font-size:28px}
 /* skill */
 #skill{display:flex;flex-direction:column;align-items:center;padding:330px 80px 0;text-align:center}
 #skill .big{font-weight:900;font-size:84px;line-height:1.2;letter-spacing:-.01em}
@@ -94,18 +113,26 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;font-family:"Noto 
 
 <div class="scene" id="chat">
   <div class="note">过程演示：按一次真实运行整理（示例日历，人物虚构）</div>
-  <div class="win"><div class="hd"><div class="av">C</div><b>Claude</b><em>已装上 weekly-report</em></div>
-    <div class="body">
-      <div class="m u" id="m1"><div class="file"><i>ICS</i><div>小满的日历.ics<small>4 月 12 日 – 18 日</small></div></div>出这周的周报</div>
-      <div class="m c" id="m2"><span class="ty" data-t="好。先问一句：这周的目标是什么？有想放进去的原话吗？"></span></div>
-      <div class="m u" id="m3">期中有机 90 分以上，运动 4 次，每天学 5 小时。周三那句「亲核取代还是会错，有点慌」也放进去</div>
-      <div class="tool" id="k1">整理日历<code>ics_to_week.py</code><span class="r">34 条日程 · 学习 32 小时 · 运动 4 次</span></div>
-      <div class="tool" id="k2">写成就、对目标、读心情<span class="r">4 件成就 · 5 个目标 · 7 天的起伏</span></div>
-      <div class="tool" id="k3">定主题<span class="r">每天的主角都不一样（考试、实验、跑步）→ 云白沉浸版</span></div>
-      <div class="tool" id="k4">出页面<code>build.py</code><span class="r">检查通过</span></div>
-      <div class="out" id="m4"><i></i><div>周报.html<small>手机直接打开 · 293 KB</small></div></div>
-    </div></div>
 </div>
+<div class="phone" id="pc"><div class="scr">
+  <div class="sb"><span>21:30</span><span>5G<i></i></span></div>
+  <div class="tb"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg><b>出这周的周报<small>⌄</small></b><svg viewBox="0 0 24 24"><path d="M12 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-6M17.5 3.5l3 3L12 15H9v-3z"/></svg></div>
+  <div class="view"><div class="feed" id="feed">
+    <div class="it u" data-at="0.6"><div class="att"><i>ICS</i><div>小满的日历.ics<small>ICS · 6.6 KB</small></div></div><p>出这周的周报</p></div>
+    <div class="it think" data-at="1.6" data-until="2.5"><span class="spark">✻</span>思考中…</div>
+    <div class="it c" data-at="2.5"><span class="ty" data-t="好。先问一句：这周的目标是什么？有没有想放进去的原话？"></span></div>
+    <div class="it u" data-at="4.4"><p>期中有机 90 分以上，运动 4 次，每天学 5 小时。周三那句「亲核取代还是会错，有点慌」也放进去</p></div>
+    <div class="it tool" data-at="5.6"><div class="h"><i>md</i>读取技能 <code>weekly-report</code><em>›</em></div></div>
+    <div class="it tool" data-at="6.3"><div class="h"><i>&gt;_</i>运行 <code>ics_to_week.py</code><em>›</em></div><span class="r" data-at="6.9"><b>✓</b> 34 条日程 · 学习 32 小时 · 运动 4 次</span></div>
+    <div class="it tool" data-at="7.6"><div class="h"><i>✎</i>写入 <code>week.json</code><em>›</em></div><span class="r" data-at="8.2"><b>✓</b> 4 件成就 · 5 个目标对账 · 7 天的心情</span></div>
+    <div class="it tool" data-at="8.9"><div class="h"><i>◐</i>选主题<em>›</em></div><span class="r" data-at="9.4">每天主角不一样（考试、实验、跑步）→ 云白沉浸版</span></div>
+    <div class="it tool" data-at="10.1"><div class="h"><i>&gt;_</i>运行 <code>build.py</code><em>›</em></div><span class="r" data-at="10.6"><b>✓</b> 检查通过</span></div>
+    <div class="it c" data-at="11.1"><span class="ty" data-t="做好了。这周的亮点：有机期中 92 分，周六 5 公里第一次跑进 25 分钟。"></span></div>
+    <div class="it file" id="m4" data-at="12.3"><i>&lt;/&gt;</i><div><b>周报</b><small>HTML · 293 KB</small></div><span>打开</span></div>
+    <div class="it spark" data-at="12.5">✻</div>
+  </div></div>
+  <div class="inp"><div class="ph">回复 Claude…</div><div class="row"><i>+</i><i>⚙</i><em>Opus 5.5 ⌄</em><b>↑</b></div></div>
+</div></div>
 
 <div class="scene" id="skill">
   <div class="big">它是一个<br><b>开源 skill</b></div>
@@ -185,7 +212,7 @@ function cloudAt(t) {
 
 function build() {
   gsap.set(".phone", { x: 1100 }); gsap.set("#p0", { x: 0, scale: .92, y: 40 }); gsap.set(["#sub", "#tag"], { opacity: 0 });
-  gsap.set("#chat .m, #chat .tool, #chat .out", { opacity: 0, y: 24 });
+  gsap.set("#pc", { x: 0, opacity: 0 });
 
   /* 0–4.6 开场：168 个小时聚成这一周 */
   cap(0, "我让 Claude 把我的一周", "做成了一个会动的网页");
@@ -206,17 +233,16 @@ function build() {
   /* 9.2–24.4 对话：一句话交给 Claude */
   cap(T.chat, "现在：交给 Claude", "发日历，说一句话"); sub(T.chat, "");
   show("#chat", T.chat - .2, .3);
-  tl.from("#chat .win", { y: 120, opacity: 0, duration: .7, ease: "power3.out" }, T.chat);
-  const m = (sel, t) => tl.to(sel, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, T.chat + t);
-  m("#m1", .9); m("#m2", 2.4); typeIn("#m2 .ty", T.chat + 2.5, 1.4); m("#m3", 4.6);
-  cap(T.chat + 5.8, "它自己一步步做", "整理日历 · 写内容 · 定主题 · 出页面");
-  [["#k1", 6.2], ["#k2", 7.6], ["#k3", 9.0], ["#k4", 10.4]].forEach(([s, t]) => { m(s, t); tl.from(s + " .r", { opacity: 0, duration: .3 }, T.chat + t + .7); });
-  m("#m4", 11.6);
-  cap(T.chat + 11.6, "几分钟后", "一个文件，手机直接打开");
-  at$(T.chat + 13.2, () => { const r = document.querySelector("#m4").getBoundingClientRect(); tapAt = [r.left + r.width / 2, r.top + r.height / 2, now]; });
-  /* 点开文件：卡片放大成手机 */
-  tl.to("#chat", { opacity: 0, scale: 1.06, duration: .6, ease: "power2.in" }, T.cloud - 1.1)
-    .fromTo("#p0", { x: 0, y: 380, scale: .25, rotation: 0, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: .9, ease: "expo.out", immediateRender: false }, T.cloud - .7)
+  tl.fromTo("#pc", { x: 0, y: 160, opacity: 0 }, { y: 0, opacity: 1, duration: .7, ease: "power3.out", immediateRender: false }, T.chat);
+  document.querySelectorAll("#pc .ty").forEach(el => typeIn(el, T.chat + +el.closest(".it").dataset.at + .1, el.dataset.t.length * .04));
+  cap(T.chat + 5.6, "它自己一步步做", "读技能 · 整理日历 · 写内容 · 定主题 · 出页面");
+  cap(T.chat + 11.1, "几分钟后", "一个文件，手机直接打开");
+  at$(T.chat + 13.4, () => { const r = document.querySelector("#m4").getBoundingClientRect(); tapAt = [r.left + r.width / 2, r.top + r.height / 2, now]; });
+  /* 点开文件：同一台手机里换成周报 */
+  tl.to("#pc .scr", { opacity: 0, duration: .45, ease: "power2.in" }, T.cloud - 1.0)
+    .fromTo("#p0", { x: 0, y: 0, scale: .94, rotation: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .7, ease: "power3.out", immediateRender: false }, T.cloud - .75)
+    .to("#pc", { opacity: 0, duration: .01 }, T.cloud - .05)
+    .to("#chat", { opacity: 0, duration: .3 }, T.cloud - .9)   // 连同「过程演示」那行小字一起收掉
     .to("#tag", { opacity: 1, duration: .3 }, T.cloud);
 
   /* 24.4–61 云白：滑动就是这一周在过去（字幕实时从页面读） */
@@ -225,9 +251,9 @@ function build() {
   /* 61–87 另外四个主题，每个 6.5 秒 */
   leave(0, T.themes);
   const th = [
-    [1, "考试周 → 一张批改过的考卷", "红笔只管批改", "#F4F1EA", "每周换一个样子", [["#wr-core", 1.6, '#wr-core .wr-tab[data-i="2"]'], ["#wr-achievements .wr-a:nth-child(2)", 3.8]]],
+    [3, "演出周 → 一张唱片", "168 小时变成调音台的推子", "#F1F0E6", "每周换一个样子", [["#wr-split", 1.6, '.vn-ch[data-k="life"]'], ["#wr-timeline", 3.8, ".vn-play"]]],
+    [1, "考试周 → 一张批改过的考卷", "红笔只管批改", "#F4F1EA", "点一下，换一组数据", [["#wr-core", 1.6, '#wr-core .wr-tab[data-i="2"]'], ["#wr-achievements .wr-a:nth-child(2)", 3.8]]],
     [2, "同一周 → 编辑部版面", "纸、墨、一个强调色", "#F2F2F0", "主题从这一周里长出来，不是换皮", [["#wr-split", 1.6, '#wr-split .wr-li[data-k="sleep"]'], ["#wr-quotes", 3.9]]],
-    [3, "演出周 → 一张唱片", "168 小时变成调音台的推子", "#F1F0E6", "推一推推子，看时间怎么分", [["#wr-split", 1.6, '.vn-ch[data-k="life"]'], ["#wr-timeline", 3.8, ".vn-play"]]],
     [4, "写代码的一周 → 一个终端", "命令敲下去，这周的数就出来了", "#EEF2F6", "专注热力图，像代码贡献图", [["#wr-heat", 2.0, '#wr-heat .wr-cell[data-d="5"][data-h="9"]'], ["#wr-letter", 4.2]]],
   ];
   th.forEach(([i, k, s, bg, sb, steps], n) => {
@@ -267,7 +293,22 @@ function build() {
 
 /* 打字 */
 const typing = [];
-function typeIn(sel, t0, dur) { const el = document.querySelector(sel); typing.push({ el, t0, dur, s: el.dataset.t }); }
+function typeIn(el, t0, dur) { typing.push({ el, t0, dur, s: el.dataset.t }); }
+
+/* 对话：消息按时间出现，新消息把整列往上推（像真的在聊天） */
+let feedY = 0;
+function feedAt(t) {
+  const r = t - T.chat, feed = document.getElementById("feed");
+  if (r < -1 || t > T.cloud + .5) return;
+  for (const el of feed.querySelectorAll(".it")) {
+    const a = +el.dataset.at, u = el.dataset.until ? +el.dataset.until : 1e9, on = r >= a && r < u;
+    el.classList.toggle("on", on);
+    if (on) { const k = Math.min(1, (r - a) / .35); el.style.opacity = k; el.style.transform = `translateY(${((1 - k) * 18).toFixed(1)}px)`; }
+  }
+  for (const el of feed.querySelectorAll(".r[data-at]")) el.style.opacity = Math.max(0, Math.min(1, (r - +el.dataset.at) / .3));
+  const target = Math.max(0, feed.scrollHeight - feed.parentElement.clientHeight);
+  feedY += (target - feedY) * .2; feed.style.transform = `translateY(${(-feedY).toFixed(1)}px)`;
+}
 
 /* 把页面里所有 Web Animations / CSS 动画对齐到片子的时间 */
 const seen = new WeakMap();
@@ -286,6 +327,7 @@ window.seek = t => {
   const live = t >= T.cloud && t < T.cloudEnd ? cloudAt(t) : null;
   scroll.forEach((s, i) => { if (Math.abs(W(i).scrollY - s.y) > .5) W(i).scrollTo(0, s.y); });
   F.forEach((_, i) => syncAnims(D(i), t));
+  feedAt(t);
   for (const x of typing) { const k = Math.max(0, Math.min(1, (t - x.t0) / x.dur)); x.el.textContent = x.s.slice(0, Math.round(x.s.length * k)); }
   const c = textAt(CAP, t), s = textAt(SUB, t), st = live ?? (s ? s[1] : "");
   document.getElementById("capk").textContent = c ? c[1] : "";
