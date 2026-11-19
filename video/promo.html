@@ -170,10 +170,10 @@ const events = [], CAP = [], SUB = [];
 const cap = (t, k, s = "") => CAP.push([t, k, s]), sub = (t, s) => SUB.push([t, s]), at$ = (t, fn) => events.push({ t, fn, done: false });
 let ready = false, tapAt = null, now = 0;
 
-/* 时间表（秒）：开场 4.6 · 以前 4.6 · 对话 8.6 · 云白 36.6 · 四个主题各 6.5 · skill 9.5 · 结尾 5.5
+/* 时间表（秒）：开场 2.8 · 以前 2.4 · 对话 8.6 · 云白 36.6 · 四个主题各 6.5 · skill 9.5 · 结尾 5.5
    对话里每条消息的出现时间写在 data-at 上（按正常语速写），再整体乘 CS 加快。 */
 const CS = .55;
-const T = { old: 4.6, chat: 9.2, cloud: 17.8, cloudEnd: 54.4, themes: 54.4, skill: 80.4, end: 89.9, fin: 95.4 };
+const T = { old: 2.8, chat: 5.2, cloud: 13.8, cloudEnd: 50.4, themes: 50.4, skill: 76.4, end: 85.9, fin: 91.4 };
 
 function y(i, sel, pad = 30) { const el = D(i).querySelector(sel); return el ? Math.max(0, el.getBoundingClientRect().top + W(i).scrollY - pad) : 0; }
 function tap(i, sel, k = 0) {
@@ -200,7 +200,7 @@ function cloudPlan() {
 }
 function cloudAt(t) {
   if (!C) C = cloudPlan();
-  const a = T.cloud + 1.2, b = T.cloudEnd - 1.4, p = Math.min(1, Math.max(0, (t - a) / (b - a)));
+  const a = T.cloud + .5, b = T.cloudEnd - 1.4, p = Math.min(1, Math.max(0, (t - a) / (b - a)));
   const e = q => q < .5 ? 2 * q * q : 1 - Math.pow(-2 * q + 2, 2) / 2;
   const yy = Math.round(C.H * (p < .03 ? e(p / .03) * .03 : p > .97 ? .97 + e((p - .97) / .03) * .03 : p));
   scroll[0].y = yy;
@@ -218,17 +218,17 @@ function build() {
 
   /* 0–4.6 开场：168 个小时聚成这一周 */
   cap(0, "我让 Claude 把我的一周", "做成了一个会动的网页");
-  tl.from("#cap", { y: 40, opacity: 0, duration: .8, ease: "power3.out" }, .1).to("#tag", { opacity: 1, duration: .3 }, .4).to("#sub", { opacity: 1, duration: .3 }, 1.4);
+  tl.from("#cap", { y: 40, opacity: 0, duration: .8, ease: "power3.out" }, .1).to("#tag", { opacity: 1, duration: .3 }, .4).to("#sub", { opacity: 1, duration: .3 }, 1.0);
   at$(0, () => W(0).gsap && W(0).gsap.globalTimeline.resume());
-  sub(1.4, "这是一周的 168 个小时");
-  tl.to("#p0", { scale: .5, y: -40, x: -330, rotation: -8, opacity: 0, duration: .8 }, T.old - .6).to("#tag", { opacity: 0, duration: .2 }, T.old - .6);
+  sub(1.0, "这是一周的 168 个小时");
+  tl.to("#p0", { scale: .5, y: -40, x: -330, rotation: -8, opacity: 0, duration: .6 }, T.old - .45).to("#tag", { opacity: 0, duration: .2 }, T.old - .45);
 
   /* 4.6–9.2 以前：一堆记录 */
   cap(T.old, "以前的复盘", "日历一大堆，碎碎念散在备忘录里"); sub(T.old, "翻完就忘");
   show("#old", T.old - .2, .3);
-  tl.from("#old .cal", { y: 200, opacity: 0, duration: .7, ease: "power3.out" }, T.old)
-    .from("#old .memo", { y: 200, rotation: 12, opacity: 0, duration: .7, ease: "power3.out" }, T.old + .35)
-    .to("#old .x", { opacity: 1, scale: 1.2, duration: .3, ease: "back.out(3)" }, T.old + 2.6)
+  tl.from("#old .cal", { y: 200, opacity: 0, duration: .5, ease: "power3.out" }, T.old)
+    .from("#old .memo", { y: 200, rotation: 12, opacity: 0, duration: .5, ease: "power3.out" }, T.old + .2)
+    .to("#old .x", { opacity: 1, scale: 1.2, duration: .25, ease: "back.out(3)" }, T.old + 1.2)
     .to("#old .card", { scale: .3, y: -300, opacity: 0, stagger: .1, duration: .6, ease: "power3.in" }, T.chat - .8);
   hide("#old", T.chat - .2, .2);
 
