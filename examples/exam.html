@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>个人周报 第15周</title>
+<meta name="generator" content="weekly-report skill · 主题：考卷">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Long+Cang&amp;family=Noto+Serif+SC:wght@400;700;900&amp;display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+<style>
+/* 周报套件的骨架样式。颜色、字体、质感都用变量，交给主题定。
+   规矩：一个强调色 + 灰阶；正文不小于 15px，说明不小于 13px；数字等宽；不出现横向滚动；不发光。 */
+:root{
+  --bg:#F3F2EE; --bg2:#E9E7E1; --ink:#1C1C1A; --ink2:#4E4D49; --mute:#86847E; --rule:rgba(28,28,26,.14);
+  --accent:#E8552B; --accent-ink:#fff;
+  /* 类别：强调色深浅 + 中性灰，不再加新颜色 */
+  --c-study:var(--accent); --c-star:var(--ink); --c-sport:color-mix(in oklab,var(--accent) 55%,var(--bg));
+  --c-life:color-mix(in oklab,var(--ink) 28%,var(--bg)); --c-sleep:color-mix(in oklab,var(--ink) 12%,var(--bg)); --c-none:transparent;
+  --font:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --font-num:var(--font); --font-say:var(--font); --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.2,.8,.2,1); --gap:64px; --r:0px;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:clip;font-synthesis:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+svg{max-width:100%}
+h1,h2,h3{text-wrap:balance} p{text-wrap:pretty}
+#wr{position:relative;max-width:620px;margin:0 auto;padding:20px max(18px,env(safe-area-inset-right,0px)) 80px max(18px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:var(--gap);font-variant-numeric:tabular-nums}
+
+.wr-fict{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:5;padding:3px 12px;font-size:12px;letter-spacing:.06em;background:var(--ink);color:var(--bg);border-radius:99px;pointer-events:none;opacity:.9;white-space:nowrap}
+.wr-progress{position:fixed;left:0;right:0;top:0;height:3px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);z-index:6;pointer-events:none}
+
+/* 进场：默认可见，只做一次轻微上浮 */
+.wr-move .wr-sec{opacity:.001;transform:translateY(18px);transition:opacity .6s var(--ease),transform .7s var(--ease)}
+.wr-move .wr-sec.wr-in{opacity:1;transform:none}
+
+/* 封面（主题通常会改写） */
+.wr-cover{min-height:min(86vh,760px);display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.wr-kicker{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--ink2)}
+.wr-title{margin:0;font-weight:900;font-size:clamp(76px,25vw,150px);line-height:1;letter-spacing:-.02em}
+.wr-name{font-size:18px;font-weight:700}
+.wr-cover-nums{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}
+.wr-cover-nums div{padding:12px 10px 0 0}
+.wr-cover-nums div+div{border-left:1px solid var(--rule);padding-left:12px}
+.wr-cover-nums b{display:block;font-family:var(--font-num);font-size:clamp(28px,9vw,44px);line-height:1.05}
+.wr-cover-nums span{font-size:13px;color:var(--ink2)}
+
+/* 小标题 */
+.wr-h{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--ink)}
+.wr-h h2{margin:0;font-size:26px;line-height:1.2;font-weight:900;letter-spacing:-.01em}
+.wr-hint{font-size:13px;color:var(--mute)}
+.wr-note{font-size:13px;color:var(--mute);margin:10px 0 0;line-height:1.65}
+
+/* 切换按钮 */
+.wr-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.wr-tab{all:unset;cursor:pointer;padding:7px 14px;border:1px solid var(--rule);border-radius:99px;font-size:14px;font-weight:700;color:var(--ink2);transition:background .2s var(--ease),color .2s var(--ease),border-color .2s}
+.wr-tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.wr-tab:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wr-tab:active{transform:scale(.97)}
+
+/* 核心数据 */
+.wr-big{font-family:var(--font-num);font-weight:900;font-size:clamp(84px,27vw,150px);line-height:.95;margin-top:20px;letter-spacing:-.03em;color:var(--ink)}
+.wr-cmp{margin:8px 0 0;font-size:15px;color:var(--ink2)}
+.wr-cmp b{color:var(--ink)}
+.wr-bars{position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:8px;height:150px;align-items:end;margin-top:24px;border-bottom:1px solid var(--ink)}
+.wr-bar{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;height:100%;min-width:0}
+.wr-bar b{font-size:12px;font-weight:700;white-space:nowrap;color:var(--ink2)}
+.wr-bar i{display:block;width:100%;max-width:26px;background:var(--accent);border-radius:2px 2px 0 0;transition:height .8s var(--ease),opacity .2s}
+.wr-bar i.wr-zero{background:var(--rule)}
+.wr-bar.on i{opacity:.55}
+.wr-bar.on b{color:var(--accent)}
+.wr-goal{position:absolute;left:0;right:0;border-top:1px dashed var(--ink2);transition:bottom .6s var(--ease);pointer-events:none}
+.wr-goal span{position:absolute;left:0;top:-20px;font-size:12px;color:var(--ink2);background:var(--bg);padding-right:6px}
+.wr-days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;text-align:center;font-weight:700;font-size:13px;margin-top:6px;color:var(--ink2)}
+
+/* 时间花在哪 */
+.wr-stack{display:flex;height:44px;gap:2px}
+.wr-seg{all:unset;cursor:pointer;flex-basis:0;min-width:3px;transform-origin:0 50%;transition:opacity .2s}
+.wr-seg.off{opacity:.25}
+.wr-legend{display:flex;flex-direction:column;margin-top:14px}
+.wr-li{all:unset;cursor:pointer;display:grid;grid-template-columns:18px 1fr auto 46px;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:15px;transition:opacity .2s}
+.wr-li b{font-weight:700} .wr-li em{font-style:normal;color:var(--mute);text-align:right;font-size:13px}
+.wr-li.off{opacity:.45}
+.wr-mini{margin-top:16px;min-height:96px}
+.wr-mbars{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:96px}
+.wr-mbars div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;height:100%}
+.wr-mbars i{display:block;width:100%;max-width:22px;border-radius:2px 2px 0 0;transform-origin:50% 100%}
+.wr-mbars b{font-size:11px;color:var(--ink2);white-space:nowrap}
+.wr-mbars span{font-size:12px;font-weight:700;color:var(--mute)}
+
+/* 成就 */
+.wr-alist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.wr-a{padding:26px 0;border-bottom:1px solid var(--rule)}
+.wr-a:first-child{padding-top:4px}
+.wr-a-top{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline}
+.wr-rank{font-family:var(--mono);font-size:13px;color:var(--mute)}
+.wr-a-big{font-family:var(--font-num);font-weight:900;font-size:clamp(40px,12vw,64px);line-height:1;letter-spacing:-.02em;color:var(--ink)}
+.wr-a-what{font-weight:700;font-size:17px;margin-top:8px}
+.wr-a-what span{font-weight:400;color:var(--ink2);font-size:15px}
+.wr-fig{margin:18px 0 0;padding:16px;background:var(--bg2);border-radius:var(--r);cursor:pointer}
+.wr-fig svg{display:block;width:100%;height:auto;overflow:visible}
+.wr-fig text{font-family:var(--font);font-size:11px;fill:var(--ink)}
+.wr-a-detail{margin:14px 0 0;font-size:16px}
+.wr-say{margin:8px 0 0;font-family:var(--font-say);font-size:16px;font-weight:700;color:var(--ink);line-height:1.6;padding-left:12px;border-left:2px solid var(--accent)}
+
+/* 时间线 */
+.wr-now{display:flex;align-items:baseline;gap:12px;min-height:40px;margin-bottom:10px}
+.wr-now b{font-family:var(--font-num);font-size:26px;font-weight:900;white-space:nowrap}
+.wr-now span{font-size:15px;color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wr-tl{position:relative;display:flex;flex-direction:column;gap:5px;touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.wr-row{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:center}
+.wr-row b{font-size:13px;color:var(--mute)}
+.wr-row.on b{color:var(--ink)}
+.wr-track{position:relative;display:block;height:24px;background:var(--bg2);border-radius:var(--r);overflow:hidden}
+.wr-row.on .wr-track{box-shadow:inset 0 0 0 1px var(--ink)}
+.wr-blk{position:absolute;top:3px;bottom:3px;border-radius:2px;transform-origin:0 50%}
+.wr-cursor{position:absolute;top:-6px;bottom:-6px;width:2px;margin-left:-1px;background:var(--accent);pointer-events:none;transition:left .08s linear}
+.wr-axis{display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:11px;color:var(--mute);margin-top:6px}
+.wr-axis div{display:flex;justify-content:space-between}
+.wr-key{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--ink2);margin-top:12px}
+.wr-key span{display:inline-flex;align-items:center;gap:6px}
+.wr-dayd{margin-top:18px;padding-top:12px;border-top:1px solid var(--rule);min-height:150px}
+.wr-dayd h3{margin:0 0 8px;font-size:17px}
+.wr-dayd ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.wr-dayd li{display:grid;grid-template-columns:22px 92px 1fr;gap:6px;font-size:15px;align-items:start;padding:4px 6px;margin:0 -6px;border-radius:4px;transition:background .2s}
+.wr-dayd li.on{background:var(--bg2)}
+.wr-dayd li em{font-style:normal;color:var(--ink2);line-height:1.4}
+.wr-dayd li em svg{width:18px;height:18px;vertical-align:-4px}
+.wr-dayd li span:nth-child(2){font-size:13px;color:var(--mute);padding-top:2px}
+.wr-glyph{font-family:"Times New Roman",Times,serif;font-size:17px}
+
+/* 专注时段 7×24 */
+.wr-heat{display:grid;grid-template-columns:22px repeat(24,1fr);gap:2px;align-items:center}
+.wr-heat b{font-size:12px;color:var(--mute);font-weight:700}
+.wr-cell{all:unset;cursor:pointer;aspect-ratio:1;border-radius:2px;background:color-mix(in oklab,var(--accent) calc(var(--a)*100%),var(--bg2))}
+.wr-cell.on{outline:2px solid var(--ink);outline-offset:1px}
+.wr-hax{display:grid;grid-template-columns:22px 1fr;gap:2px;font-size:11px;color:var(--mute);margin-top:6px}
+.wr-hax div{display:flex;justify-content:space-between}
+.wr-hread{font-size:15px;margin:14px 0 0;min-height:26px}
+
+/* 目标 */
+.wr-goals{display:flex;flex-direction:column}
+.wr-g{all:unset;box-sizing:border-box;display:block;width:100%;cursor:pointer;padding:16px 0;border-bottom:1px solid var(--rule)}
+.wr-g-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.wr-g-n{display:block;font-weight:700;font-size:17px}
+.wr-g-r{display:block;font-size:14px;color:var(--ink2)}
+.wr-stamp{flex:none;font-weight:700;font-size:12px;padding:2px 10px;border:1px solid currentColor;border-radius:99px;color:var(--ink2)}
+.wr-g[data-s="done"] .wr-stamp{color:var(--accent-ink);background:var(--accent);border-color:var(--accent)}
+.wr-g[data-s="missed"] .wr-stamp{color:var(--mute)}
+.wr-g-bar{display:block;height:4px;margin-top:12px;background:var(--bg2);border-radius:2px;overflow:hidden}
+.wr-g-bar i{display:block;height:100%;width:calc(var(--p)*100%);background:var(--ink);border-radius:2px;transform-origin:0 50%}
+.wr-g[data-s="done"] .wr-g-bar i{background:var(--accent)}
+.wr-move .wr-s-goals:not(.wr-in) .wr-g-bar i{transform:scaleX(0)}
+.wr-move .wr-g-bar i{transition:transform 1s var(--ease) .2s}
+.wr-more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
+.wr-more>span{overflow:hidden}
+[aria-expanded="true"]>.wr-more{grid-template-rows:1fr}
+.wr-g-p{display:block;margin-top:8px;font-size:15px}
+
+/* 起伏 */
+.wr-curve{position:relative}
+.wr-curve svg{display:block;width:100%;height:auto;overflow:visible}
+.wr-grid{stroke:var(--rule);stroke-width:1}
+.wr-area{fill:var(--accent);opacity:.08;stroke:none}
+.wr-line{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round}
+.wr-pt{fill:var(--bg);stroke:var(--accent);stroke-width:3}
+.wr-pt.on{fill:var(--accent)}
+.wr-gap{font-size:22px;fill:var(--mute)}
+.wr-hit{all:unset;position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;cursor:pointer}
+.wr-hit:focus-visible{outline:2px solid var(--accent)}
+.wr-mdays span.on{color:var(--accent)}
+.wr-read{margin-top:16px;padding-top:12px;border-top:1px solid var(--rule);min-height:160px}
+.wr-who{font-size:13px;color:var(--mute)}
+.wr-her{font-weight:900;font-size:clamp(21px,6vw,27px);line-height:1.45;margin:2px 0 12px}
+.wr-mine{font-family:var(--font-say);font-size:16px;line-height:1.7;color:var(--ink)}
+
+/* 话 */
+.wr-q{all:unset;box-sizing:border-box;display:block;width:100%;cursor:pointer}
+.wr-q-t{display:block;font-weight:900;font-size:clamp(26px,7.4vw,36px);line-height:1.45;min-height:4.4em;letter-spacing:-.01em}
+.wr-q-m{display:block;font-size:14px;color:var(--ink2);margin-top:10px;min-height:22px}
+.wr-q-n{display:block;font-size:13px;color:var(--mute);margin-top:12px;text-align:right}
+
+/* 复盘 */
+.wr-rlist{margin:16px 0 0;padding:0;list-style:none;counter-reset:r}
+.wr-rlist li{counter-increment:r;display:grid;grid-template-columns:36px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid var(--rule);font-size:16px}
+.wr-rlist li::before{content:counter(r,decimal-leading-zero);font-family:var(--mono);font-size:13px;color:var(--mute);padding-top:4px}
+
+/* 信 */
+.wr-letter p{margin:0 0 14px;font-family:var(--font-say);font-size:17px;line-height:1.85}
+.wr-letter .wr-sign{text-align:right;font-weight:900;margin:0}
+
+.wr-foot{text-align:center;font-size:13px;color:var(--mute)}
+.wr-foot p{margin:4px 0}
+
+/* 类别色块：放在最后，免得被按钮的 all:unset 冲掉 */
+.wr-c-study{background:var(--c-study)} .wr-c-sport{background:var(--c-sport)} .wr-c-life{background:var(--c-life)} .wr-c-star{background:var(--c-star)}
+.wr-c-sleep{background:var(--c-sleep)} .wr-c-none{background:transparent;box-shadow:inset 0 0 0 1px var(--rule)}
+.wr-sw{display:inline-block;width:10px;height:10px;border-radius:2px;flex:none}
+
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ====== 第八版：所有主题共享的升级 ====== */
+/* 原话：暖色纸卡，文雅的字，下面一句走心的评价；左右滑 */
+.wr-qtrack{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 12px;scrollbar-width:none}
+.wr-qtrack::-webkit-scrollbar{display:none}
+.wr-qcard{position:relative;flex:0 0 86%;margin:0;scroll-snap-align:center;border-radius:var(--qr,22px);padding:24px 20px 18px;
+  background:linear-gradient(150deg,var(--q1,#FFF7EC),var(--q2,#FCE6DD));color:var(--qink,#3B2A22);box-shadow:0 10px 28px rgba(120,70,40,.10),inset 0 1px 0 rgba(255,255,255,.8);overflow:hidden}
+.wr-qcard::before{content:"“";position:absolute;left:12px;top:-18px;font-family:Georgia,serif;font-size:110px;line-height:1;color:var(--qmark,#F2A27E);opacity:.35}
+.wr-qdeco{position:absolute;right:14px;top:14px;width:26px;height:26px;fill:var(--qmark,#F2A27E);opacity:.55}
+.wr-qcard .wr-q-t{display:block;margin:0;padding-top:12px;font-family:var(--font-quote,"LXGW WenKai","Kaiti SC","STKaiti","KaiTi","Noto Serif SC",serif);font-weight:400;letter-spacing:.02em;font-size:clamp(22px,6.4vw,28px);line-height:1.55;color:inherit;min-height:0;background:none}
+.wr-qcard .wr-q-m{display:block;margin-top:10px;font-size:13px;opacity:.7}
+.wr-q-note{font-family:"LXGW WenKai",var(--font);margin:14px 0 0;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.55);font-size:14px;line-height:1.65}
+.wr-q-note b{color:var(--qmark,#E07A55);font-weight:700}
+.wr-qdots{display:flex;gap:6px;justify-content:center}
+.wr-qdots i{width:6px;height:6px;border-radius:3px;background:rgba(0,0,0,.18);cursor:pointer;transition:width .3s,background .3s}
+.wr-qdots i.on{width:18px;background:var(--accent)}
+/* 信：按方面分段 */
+.wr-lsec{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+.wr-ltag{display:inline-block;font-family:var(--font);font-size:12px;font-weight:800;padding:3px 9px;border-radius:99px;background:color-mix(in oklab,var(--accent) 14%,transparent);color:var(--accent);white-space:nowrap;margin-top:3px}
+/* 目标：百分比 */
+.wr-g-pct{display:block;font-style:normal;font-size:12px;font-weight:700;color:var(--ink2);margin-top:4px;text-align:right;font-variant-numeric:tabular-nums}
+.wr-move .wr-g-bar i{transition:transform 1.2s var(--ease) .15s}
+/* 168 小时大环图 */
+.wr-donut{display:grid;place-items:center;margin-bottom:6px}
+.wr-donut svg{width:200px;height:200px;overflow:visible}
+.wr-dseg{cursor:pointer;transition:opacity .25s}
+.wr-dseg.off{opacity:.22}
+.wr-dc1{font-size:13px;fill:var(--ink2)} .wr-dc2{font-size:26px;font-weight:800;fill:var(--ink);font-family:var(--font-num)}
+.wr-dc-study{stroke:var(--c-study)} .wr-dc-sport{stroke:var(--c-sport)} .wr-dc-life{stroke:var(--c-life)} .wr-dc-star{stroke:var(--c-star)} .wr-dc-sleep{stroke:var(--c-sleep)} .wr-dc-none{stroke:var(--rule)}
+
+/* —— 主题：考卷 —— */
+/* 考卷（第二版）：一张干净的周测卷。
+   第一版打 6 分，扣在「杂乱、数据和文字不清楚」：这版去掉密封线字、网格纸、注意事项框和大段手写。
+   墨色印刷体承载全部数据；红色只用来批改（勾、分数、短批注）；手写只出现在短的红笔批注上。 */
+:root{
+  --bg:#F6F5F0; --bg2:#ECEAE3; --ink:#1D1F24; --ink2:#4C4F57; --mute:#8B8D93; --rule:rgba(29,31,36,.14);
+  --accent:#C8302C; --accent-ink:#fff;
+  --c-study:var(--ink); --c-star:var(--accent); --c-sport:color-mix(in oklab,var(--ink) 50%,var(--bg));
+  --c-life:color-mix(in oklab,var(--ink) 25%,var(--bg)); --c-sleep:color-mix(in oklab,var(--ink) 10%,var(--bg));
+  --font:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --font-num:"Noto Serif SC","Songti SC",serif;
+  --hand:"Long Cang","Kaiti SC","STKaiti","KaiTi",cursive;
+  --gap:72px;
+}
+#wr{padding-left:max(30px,calc(env(safe-area-inset-left,0px) + 30px))}
+.ex-margin{position:absolute;left:14px;top:0;bottom:0;border-left:1px dashed var(--rule);pointer-events:none}
+.ex-red{position:fixed;top:0;bottom:0;left:max(13px,calc(50% - 310px + 13px));width:2px;background:var(--accent);transform-origin:top;transform:scaleY(0);z-index:3;pointer-events:none}
+.wr-progress{display:none}
+
+/* 卷头 */
+.ex-head{position:relative;padding-top:10px}
+.ex-term{font-size:13px;letter-spacing:.2em;color:var(--ink2)}
+.ex-head h1{font-weight:900;font-size:clamp(52px,15vw,80px);line-height:1.1;letter-spacing:.08em;margin:10px 0 6px}
+.ex-meta{display:flex;flex-wrap:wrap;gap:4px 20px;font-size:15px;color:var(--ink2)}
+.ex-meta b{color:var(--ink);font-weight:700}
+.ex-stamp{position:absolute;right:0;top:0;width:76px;height:76px;border:2.5px solid var(--accent);border-radius:50%;display:grid;place-items:center;transform:rotate(12deg);color:var(--accent);text-align:center}
+.ex-stamp b{display:block;font-weight:900;font-size:20px;letter-spacing:.1em;line-height:1}
+.ex-stamp small{display:block;font-size:10px;margin-top:4px}
+.wr-move .ex-stamp{animation:ex-thunk .45s var(--ease) .9s both}
+@keyframes ex-thunk{from{transform:rotate(-6deg) scale(1.8);opacity:0}}
+.ex-score{display:grid;grid-template-columns:repeat(3,1fr);margin-top:34px;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink)}
+.ex-score div{padding:12px 4px 14px}
+.ex-score div+div{border-left:1px solid var(--rule);padding-left:14px}
+.ex-score span{display:block;font-size:13px;color:var(--ink2)}
+.ex-score b{display:block;font-weight:900;font-size:clamp(32px,10vw,48px);line-height:1.15;letter-spacing:-.02em}
+.ex-score small{display:block;font-family:var(--hand);color:var(--accent);font-size:20px;line-height:1.1;margin-top:2px}
+
+/* 题目标题 */
+.wr-h{border-bottom:2px solid var(--ink)}
+.wr-h h2{font-size:24px;letter-spacing:.04em}
+
+/* 填空：大数下面一条答题线 */
+.wr-big{font-weight:900;display:inline-block;border-bottom:2px solid var(--ink);padding:0 6px 4px;letter-spacing:-.03em}
+.wr-tab{border-radius:0;border-color:var(--ink);color:var(--ink)}
+.wr-tab[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.wr-bar i{background:var(--ink);max-width:22px}
+.wr-goal{border-top-color:var(--accent)}
+.wr-goal span{color:var(--accent);font-family:var(--hand);font-size:17px;top:-24px}
+
+/* 解答题 */
+.wr-a{position:relative}
+.wr-rank{font-family:var(--font);font-size:17px;font-weight:700;color:var(--ink)}
+.wr-rank::after{content:"."}
+.wr-a-big{padding-right:56px}
+.ex-tick{position:absolute;right:0;top:22px;width:48px;height:42px;overflow:visible}
+.ex-tick path{fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:70;stroke-dashoffset:0}
+.wr-move .wr-a:not(.wr-in) .ex-tick path{stroke-dashoffset:70}
+.wr-move .ex-tick path{transition:stroke-dashoffset .6s var(--ease) .5s}
+.wr-fig{background:transparent;border:1px solid var(--rule);border-radius:0}
+.wr-a-detail::before{content:"解　";font-weight:900}
+.wr-say{border-left:0;padding-left:0;font-family:var(--hand);font-weight:400;font-size:22px;line-height:1.35;color:var(--accent)}
+
+/* 作图题 */
+.wr-track{border-radius:0;background:transparent;box-shadow:inset 0 0 0 1px var(--rule)}
+.wr-row.on .wr-track{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.wr-cursor{background:var(--accent)}
+
+/* 判断题：印章换成红笔 */
+.wr-stamp{border:0;background:transparent!important;padding:0;font-family:var(--hand);font-weight:400;font-size:26px;line-height:1;color:var(--accent)!important;transform:rotate(-5deg)}
+.wr-g-bar i{background:var(--ink2)!important}
+
+/* 阅读理解 */
+.wr-area{opacity:0}
+.wr-line{stroke:var(--ink);stroke-width:2.5}
+.wr-pt{stroke:var(--ink)}
+.wr-pt.on{fill:var(--accent);stroke:var(--accent)}
+.wr-mine{border-left:2px solid var(--accent);padding-left:12px}
+
+/* 草稿纸 */
+.wr-q{border-top:1px dashed var(--ink2);border-bottom:1px dashed var(--ink2);padding:18px 0}
+
+/* 错题本 */
+.wr-rlist[data-k="good"] li::before{content:"✓";font-family:var(--hand);font-size:24px;color:var(--accent);padding-top:0}
+.wr-rlist[data-k="improve"] li::before{content:"订正";font-family:var(--hand);font-size:18px;color:var(--accent);padding-top:2px}
+.wr-rlist[data-k="next"] li::before{content:"□";font-size:18px;color:var(--ink);padding-top:0}
+
+/* 阅卷人的话 */
+.wr-letter{border:1.5px solid var(--accent);padding:20px 18px}
+.wr-letter .wr-sign{font-family:var(--hand);font-weight:400;color:var(--accent);font-size:26px}
+.wr-fict{background:var(--accent)}
+
+/* v8：原话像夹在卷子里的便签，带一点手写的温度 */
+.wr-qcard{--q1:#FFFDF4;--q2:#FFF3D6;--qmark:var(--accent);--qr:4px;transform:rotate(-1deg);box-shadow:0 8px 18px rgba(60,40,10,.10)}
+.wr-qcard:nth-child(2n){transform:rotate(1deg)}
+.wr-qcard::after{content:"";position:absolute;left:50%;top:-6px;width:70px;height:18px;margin-left:-35px;background:rgba(255,220,150,.6);transform:rotate(-3deg)}
+.wr-q-note b{font-family:var(--hand);font-weight:400;font-size:18px}
+.wr-ltag{border-radius:2px;background:transparent;border:1.5px solid var(--accent)}
+.wr-g-pct{font-family:var(--hand);font-size:18px;font-weight:400;color:var(--accent)}
+
+</style>
+</head>
+<body>
+<main id="wr"></main>
+<script type="application/json" id="week">{"meta": {"title": "个人周报", "week": 15, "start": "2027-04-12", "end": "2027-04-18", "name": "小满", "reader": "助手", "fictional": true, "source": "示例数据：虚构人物「林小满」（生物科学大二）这一周的日历和对话"}, "core": [{"key": "study", "label": "有效学习", "kind": "hours", "value": 32, "goal": 35, "prev": 27.5, "daily_goal": 5, "daily": [5.5, 6, 7, 4, 3, 2, 4.5], "note": "上课本身不计入，只算自习和复习。"}, {"key": "sport", "label": "运动", "kind": "count", "value": 4, "goal": 4, "prev": 3, "daily": [1, 0, 1, 0, 1, 1, 0]}, {"key": "sleep", "label": "平均睡眠", "kind": "avg_hours", "value": 7.37, "goal": 8, "prev": 7.1, "daily": [7.2, 6.5, 7, 5.8, 8.5, 9, 7.6], "note": "按醒来那天算。周四那晚只睡了 5 小时 48 分。"}], "achievements": [{"big": "92", "what": "有机化学期中", "when": "周四", "detail": "满分 100，班级平均 71。最后一道亲核取代的大题拿了满分。", "say": "那道大题，正是你周二晚上专门重画过的那一类。", "figure": "<svg viewBox='0 0 300 96' role='img' aria-label='分数轴上，班级平均 71，你 92'><line x1='10' x2='290' y1='60' y2='60' stroke='var(--ink)' stroke-width='2'/><line x1='10' x2='10' y1='55' y2='65' stroke='var(--ink)' stroke-width='1.5'/><text x='10' y='84' text-anchor='middle'>0<\/text><line x1='80' x2='80' y1='55' y2='65' stroke='var(--ink)' stroke-width='1.5'/><text x='80' y='84' text-anchor='middle'>25<\/text><line x1='150' x2='150' y1='55' y2='65' stroke='var(--ink)' stroke-width='1.5'/><text x='150' y='84' text-anchor='middle'>50<\/text><line x1='220' x2='220' y1='55' y2='65' stroke='var(--ink)' stroke-width='1.5'/><text x='220' y='84' text-anchor='middle'>75<\/text><line x1='290' x2='290' y1='55' y2='65' stroke='var(--ink)' stroke-width='1.5'/><text x='290' y='84' text-anchor='middle'>100<\/text><path d='M216 60 H254' stroke='var(--accent)' stroke-width='3'/><circle cx='208.8' cy='60' r='6' fill='var(--bg)' stroke='var(--ink2)' stroke-width='2'/><text x='196' y='40' text-anchor='middle' style='fill:var(--ink2)'>班级平均 71<\/text><circle cx='267.6' cy='60' r='11' fill='var(--accent)'/><text x='267.6' y='36' text-anchor='middle' style='font-size:22px;font-weight:700;fill:var(--accent)'>92<\/text><\/svg>"}, {"big": "全对", "what": "细胞生物学小测", "when": "周二", "detail": "10 道选择、2 道简答，一道没错。", "say": "有机复习最紧的时候，另一门也没丢。", "figure": "<svg viewBox='0 0 300 108' role='img' aria-label='12 道题全部打勾'><g fill='none' stroke='var(--ink)' stroke-width='1.5'><rect x='10' y='14' width='22' height='22'/><rect x='38' y='14' width='22' height='22'/><rect x='66' y='14' width='22' height='22'/><rect x='94' y='14' width='22' height='22'/><rect x='122' y='14' width='22' height='22'/><rect x='150' y='14' width='22' height='22'/><rect x='178' y='14' width='22' height='22'/><rect x='206' y='14' width='22' height='22'/><rect x='234' y='14' width='22' height='22'/><rect x='262' y='14' width='22' height='22'/><rect x='10' y='64' width='134' height='36'/><rect x='156' y='64' width='134' height='36'/><\/g><g fill='none' stroke='var(--accent)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M14 25 l5 5 l9 -11'/><path d='M42 25 l5 5 l9 -11'/><path d='M70 25 l5 5 l9 -11'/><path d='M98 25 l5 5 l9 -11'/><path d='M126 25 l5 5 l9 -11'/><path d='M154 25 l5 5 l9 -11'/><path d='M182 25 l5 5 l9 -11'/><path d='M210 25 l5 5 l9 -11'/><path d='M238 25 l5 5 l9 -11'/><path d='M266 25 l5 5 l9 -11'/><path d='M110 82 l7 7 l14 -16'/><path d='M256 82 l7 7 l14 -16'/><\/g><text x='147' y='54' text-anchor='middle' style='fill:var(--ink2)'>选择题 1–10<\/text><text x='22' y='87'>简答 1<\/text><text x='168' y='87'>简答 2<\/text><\/svg>"}, {"big": "3 页", "what": "有机反应机理总结", "when": "周一到周三", "detail": "把第 8–13 章的 31 个反应，按「取代、消除、加成」三类机理重新归了一遍，写满 3 页。", "say": "从按章节背，变成按机理推。这是这周最值钱的一个改变。", "figure": "<svg viewBox='0 0 300 116' role='img' aria-label='六章的内容汇成三页：取代、消除、加成'><g fill='none' stroke='var(--accent)' stroke-width='2'><path d='M26 32 C26 55 48 55 48 78'/><path d='M75 32 C75 55 48 55 48 78'/><path d='M124 32 C124 55 150 55 150 78'/><path d='M173 32 C173 55 252 55 252 78'/><path d='M222 32 C222 55 48 55 48 78'/><path d='M271 32 C271 55 150 55 150 78'/><\/g><g fill='var(--bg)' stroke='var(--ink)' stroke-width='1.5'><rect x='4' y='10' width='44' height='22'/><rect x='53' y='10' width='44' height='22'/><rect x='102' y='10' width='44' height='22'/><rect x='151' y='10' width='44' height='22'/><rect x='200' y='10' width='44' height='22'/><rect x='249' y='10' width='44' height='22'/><\/g><g text-anchor='middle'><text x='26' y='25'>8 章<\/text><text x='75' y='25'>9 章<\/text><text x='124' y='25'>10 章<\/text><text x='173' y='25'>11 章<\/text><text x='222' y='25'>12 章<\/text><text x='271' y='25'>13 章<\/text><\/g><g fill='var(--accent)'><rect x='6' y='78' width='84' height='34'/><rect x='108' y='78' width='84' height='34'/><rect x='210' y='78' width='84' height='34'/><\/g><g text-anchor='middle' style='fill:var(--bg);font-size:14px;font-weight:700'><text x='48' y='100'>取代<\/text><text x='150' y='100'>消除<\/text><text x='252' y='100'>加成<\/text><\/g><\/svg>"}, {"big": "24:58", "what": "5 公里第一次跑进 25 分钟", "when": "周六", "detail": "比一个月前快了 1 分 14 秒。考试周的四次运动一次没少。", "say": "考完第二天就去跑，状态是你自己找回来的。", "figure": "<svg viewBox='0 0 300 118' role='img' aria-label='四次 5 公里成绩：26 分 12、25 分 50、25 分 39、24 分 58，最后一次跑进 25 分钟'><line x1='10' x2='290' y1='27.8' y2='27.8' stroke='var(--ink2)' stroke-width='1.5' stroke-dasharray='4 5'/><text x='12' y='44' style='fill:var(--ink2)'>目标 25:00<\/text><path d='M30 83.8 L110 66.7 L190 58.1 L270 26.2' fill='none' stroke='var(--accent)' stroke-width='3' stroke-linejoin='round'/><circle cx='30' cy='83.8' r='5' fill='var(--bg)' stroke='var(--accent)' stroke-width='2.5'/><circle cx='110' cy='66.7' r='5' fill='var(--bg)' stroke='var(--accent)' stroke-width='2.5'/><circle cx='190' cy='58.1' r='5' fill='var(--bg)' stroke='var(--accent)' stroke-width='2.5'/><circle cx='270' cy='26.2' r='8' fill='var(--accent)'/><g text-anchor='middle'><text x='30' y='73'>26:12<\/text><text x='110' y='56'>25:50<\/text><text x='190' y='48'>25:39<\/text><text x='270' y='12' style='font-size:15px;font-weight:700;fill:var(--accent)'>24:58<\/text><text x='30' y='110' style='fill:var(--ink2)'>3.14<\/text><text x='110' y='110' style='fill:var(--ink2)'>3.28<\/text><text x='190' y='110' style='fill:var(--ink2)'>4.04<\/text><text x='270' y='110' style='fill:var(--ink2)'>4.17<\/text><\/g><\/svg>"}], "timeline": [{"day": 0, "start": "00:10", "end": "07:20", "cat": "sleep"}, {"day": 0, "start": "08:30", "end": "11:30", "cat": "study", "text": "有机 · 整理亲核取代", "icon": "lab"}, {"day": 0, "start": "14:00", "end": "16:30", "cat": "study", "text": "有机 · 消除反应", "icon": "lab"}, {"day": 0, "start": "19:00", "end": "19:40", "cat": "sport", "text": "慢跑 5 公里", "icon": "run"}, {"day": 0, "start": "21:00", "end": "22:30", "cat": "life", "text": "乐队排练", "icon": "music"}, {"day": 1, "start": "00:30", "end": "07:00", "cat": "sleep"}, {"day": 1, "start": "09:00", "end": "10:00", "cat": "star", "text": "细胞生物学小测 · 全对", "icon": "pen"}, {"day": 1, "start": "10:30", "end": "12:30", "cat": "study", "text": "细胞 · 预习第 7 章", "icon": "lab"}, {"day": 1, "start": "14:00", "end": "16:00", "cat": "study", "text": "有机 · 加成反应", "icon": "lab"}, {"day": 1, "start": "19:30", "end": "21:30", "cat": "study", "text": "有机 · 重画亲核取代的箭头", "icon": "pen"}, {"day": 2, "start": "00:00", "end": "07:00", "cat": "sleep"}, {"day": 2, "start": "08:30", "end": "12:00", "cat": "study", "text": "有机 · 做一套往年真题", "icon": "pen"}, {"day": 2, "start": "14:30", "end": "16:00", "cat": "study", "text": "有机 · 错题", "icon": "pen"}, {"day": 2, "start": "17:30", "end": "18:30", "cat": "sport", "text": "力量 · 练腿", "icon": "gym"}, {"day": 2, "start": "19:00", "end": "21:00", "cat": "study", "text": "有机 · 六章归成三页", "icon": "book"}, {"day": 3, "start": "01:10", "end": "07:00", "cat": "sleep"}, {"day": 3, "start": "09:00", "end": "11:00", "cat": "star", "text": "有机化学期中 · 92", "icon": "pen"}, {"day": 3, "start": "14:00", "end": "16:00", "cat": "study", "text": "细胞 · 第 7 章", "icon": "lab"}, {"day": 3, "start": "20:00", "end": "22:00", "cat": "study", "text": "英语 · 精读两篇", "icon": "book"}, {"day": 3, "start": "23:30", "end": "24:00", "cat": "sleep"}, {"day": 4, "start": "00:00", "end": "08:00", "cat": "sleep"}, {"day": 4, "start": "10:00", "end": "11:30", "cat": "study", "text": "细胞 · 写实验报告", "icon": "lab"}, {"day": 4, "start": "15:00", "end": "16:30", "cat": "study", "text": "英语 · 单词", "icon": "book"}, {"day": 4, "start": "17:00", "end": "18:00", "cat": "sport", "text": "游泳 1000 米", "icon": "swim"}, {"day": 4, "start": "19:30", "end": "23:00", "cat": "life", "text": "乐队排练 + 夜宵", "icon": "music"}, {"day": 5, "start": "00:00", "end": "09:00", "cat": "sleep"}, {"day": 5, "start": "10:00", "end": "12:00", "cat": "study", "text": "细胞 · 第 7 章收尾", "icon": "lab"}, {"day": 5, "start": "16:00", "end": "16:25", "cat": "sport", "text": "5 公里配速跑 · 24:58", "icon": "run"}, {"day": 5, "start": "19:00", "end": "22:00", "cat": "life", "text": "和室友看电影", "icon": "heart"}, {"day": 6, "start": "00:24", "end": "08:00", "cat": "sleep"}, {"day": 6, "start": "09:00", "end": "11:30", "cat": "study", "text": "有机 · 订正期中试卷", "icon": "pen"}, {"day": 6, "start": "14:00", "end": "16:00", "cat": "study", "text": "细胞 · 精读一篇文献", "icon": "book"}, {"day": 6, "start": "16:30", "end": "17:30", "cat": "life", "text": "和奶奶视频", "icon": "heart"}, {"day": 6, "start": "20:00", "end": "21:00", "cat": "life", "text": "排下周计划", "icon": "pen"}], "goals": [{"name": "有机化学期中 90 分以上", "result": "92", "status": "done", "good": "考前三天按机理复习，最难的大题拿满。"}, {"name": "运动 4 次", "result": "4 / 4 次", "status": "done", "good": "慢跑、练腿、游泳、配速跑，考试周一次没少。"}, {"name": "每天有效学习 5 小时", "result": "3 / 7 天", "status": "partial", "good": "考前三天都过了 5 小时，周三 7 小时。", "gap": "考完后三天降到 2–4.5 小时，没有提前排好考后的计划。"}, {"name": "英语每天 30 分钟", "result": "2 天", "status": "moved", "good": "考前主动停了三天，考完补了两次。", "gap": "周末两天没接上。"}, {"name": "每晚 12 点前睡", "result": "2 / 7 晚", "status": "missed", "good": "周四考完那晚 11 点半就睡了。", "gap": "考前一晚 1:10 才睡，第二天只睡了 5 小时 48 分。"}], "mood": {"source": "read", "days": [{"level": 3, "quote": "这周把有机拿下。", "reading": "开头的话很硬，下午按计划学了 5 个半小时，晚上还去排练。"}, {"level": 4, "quote": "小测全对，但有机还差两章。", "reading": "高兴只用了半句，后半句已经在想下一件事。"}, {"level": 2, "quote": "亲核取代还是会错，有点慌。", "reading": "这周的低点。你没有接着刷题，而是停下来把三类机理重新归了一遍。"}, {"level": 4, "quote": "最后一题我会！", "reading": "考前只睡了不到 6 小时，出考场这句话里全是松一口气。"}, {"level": 3, "quote": null, "reading": "补了 8 个半小时的觉，下午学得不多，晚上排练到 11 点。这天没留下话，是从做的事里读的。"}, {"level": 5, "quote": "跑进 25 分钟了！！", "reading": "两个感叹号。这周最亮的一刻，不在考场上。"}, {"level": 3, "quote": "考完别急着放松，先把卷子订正了。", "reading": "平静地收尾，还给下周排好了计划。"}]}, "quotes": [{"text": "按机理整理，不按章节整理。", "when": "周三", "after": "后来成了复习新课的固定做法。", "note": "这句话把复习从「背」变成了「推」。它是你这周最值钱的发现，下次学新课也用得上。"}, {"text": "慌的时候就去重画一遍，不要只看。", "when": "周三晚上", "note": "慌不是坏事，你给了它一个出口：动手。很多人慌的时候只会多看几遍，你选了重新画一遍。"}, {"text": "考完别急着放松，先把卷子订正了。", "when": "周日", "after": "当天上午就订正完了。", "note": "能在松一口气的时候还记得收尾，说明你想要的不只是考完，而是真的会。"}], "review": {"good": ["考前把 31 个反应按机理归成 3 页，复习从背变成推。", "考试周四次运动一次没少，周六的配速纪录就是这么攒出来的。", "慌的那天没有硬刷题，先停下来换方法。"], "improve": ["考前一晚 1:10 才睡。下次考前一晚 12 点收工，第二天的状态比多看一小时值钱。", "考完三天学习掉到每天 2–4.5 小时：考后的计划要在考前就排好。"], "next": ["细胞生物学期中：周三前把第 5–7 章各画一张机理图。", "每晚 12 点前睡，先做到 5 晚。", "英语恢复每天 30 分钟。"]}, "letter": {"paragraphs": [{"tag": "学习", "text": "这周有效学习 32 小时，比上周多 4 个半小时。前三天每天都过了 5 小时；最难的亲核取代，你在周二晚上重画了一遍，周四就在考场上用上了。"}, {"tag": "身体", "text": "四次运动一次没少：慢跑、练腿、游泳，还有周六那个 24:58。考试周还守住训练，是这周最不容易的事之一。"}, {"tag": "睡眠", "text": "平均 7 小时 22 分，离 8 小时差一点。最短的是期中前那晚的 5 小时 48 分，下次考前一晚，早点收工。"}, {"tag": "心情", "text": "周三你说有点慌，没有硬刷题，而是停下来换了方法。周六跑进 25 分钟时那两个感叹号，我也替你高兴。"}, {"tag": "高光", "text": "92 分、小测全对、3 页机理总结、5 公里新纪录。四件事，每一件都找得到来处。"}, {"tag": "下周", "text": "细胞生物学期中、每晚 12 点前睡、英语恢复每天 30 分钟。照这周的方法来就好。"}], "sign": "助手"}}</script>
+
+<script>
+window.WR_THEME = {
+  labels: {
+    core: { title: "一、填空题", hint: "点一个选项，再点一根柱子" },
+    split: { title: "二、统计题", hint: "这周的 168 小时 · 点一类" },
+    achievements: { title: "三、解答题", hint: "本周做成的事 · 点图重画" },
+    timeline: { title: "四、作图题", hint: "按住左右拖，看任何一刻" },
+    goals: { title: "五、判断题", hint: "周初定的目标 · 点开看批注" },
+    mood: { title: "六、阅读理解", hint: "这一周是怎么过来的 · 点一天" },
+    quotes: { title: "草稿纸", hint: "值得记住的话 · 左右滑" },
+    review: { title: "错题本", hint: "" },
+    letter: { title: "阅卷人的话", hint: "" }
+  },
+  status: { done: "✓", partial: "半对", moved: "换了做法", missed: "留空" },
+  review: { good: "做对的", improve: "订正", next: "附加题" },
+  cover(c) {
+    const m = c.data.meta, core = c.data.core.slice(0, 3);
+    const mark = x => x.goal == null || x.value == null ? "" : x.value >= x.goal ? "达标" : `差 ${c.fmt(x.goal - x.value, x.kind)}`;
+    return `<header class="ex-head">
+      <div class="ex-term">${m.start.slice(0, 4)} 年 · 第 ${m.week} 周 · 周测卷</div>
+      <h1>${c.esc(m.title)}</h1>
+      <div class="ex-meta"><span>姓名 <b>${c.esc(m.name || "—")}</b></span><span>考试时间 <b>${m.start.slice(5).replace("-", ".")} — ${m.end.slice(5).replace("-", ".")}</b></span><span>满分 <b>168 小时</b></span></div>
+      <div class="ex-stamp" aria-label="已阅"><div><b>已阅</b><small>${c.esc(m.reader || "助手")}</small></div></div>
+      <div class="ex-score">${core.map(x => `<div><span>${c.esc(x.label)}</span><b class="wr-cu" data-v="${x.value ?? ""}" data-k="${x.kind}">${c.fmt(x.value, x.kind)}</b><small>${mark(x)}</small></div>`).join("")}</div>
+    </header>`;
+  },
+  replay(c) {
+    if (c.reduce) return;
+    c.$(".ex-stamp").animate([{ transform: "rotate(-6deg) scale(1.8)", opacity: 0 }, { transform: "rotate(12deg)", opacity: 1 }], { duration: 450, delay: 900, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" });
+  },
+  after(c) {
+    c.root.insertAdjacentHTML("afterbegin", `<i class="ex-margin" aria-hidden="true"></i>`);
+    document.body.insertAdjacentHTML("afterbegin", `<i class="ex-red" aria-hidden="true"></i>`);
+    c.$$(".wr-a").forEach(a => a.insertAdjacentHTML("beforeend", `<svg class="ex-tick" viewBox="0 0 48 42" aria-hidden="true"><path d="M4 23 L17 36 L44 4"/></svg>`));
+    const red = c.$(".ex-red");
+    const on = () => { const max = document.documentElement.scrollHeight - innerHeight; red.style.transform = `scaleY(${max > 0 ? c.clamp(scrollY / max) : 0})`; };
+    addEventListener("scroll", () => requestAnimationFrame(on), { passive: true }); on();
+  }
+};
+
+</script>
+<script>
+/* 周报页面套件：读 <script id="week"> 里的数据，按模块画出页面。
+   主题通过 window.WR_THEME 改标题、改封面、加额外模块、在画完后加装饰；样式交给主题的 CSS 变量。
+   动效原则：每个动效都在讲数据（数字滚动、柱子长出、线条画出、格子亮起），减少动效时直接给终态。 */
+(function () {
+  "use strict";
+  const data = JSON.parse(document.getElementById("week").textContent);
+  const T = window.WR_THEME || {};
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const root = document.getElementById("wr");
+  const DAYS = ["一", "二", "三", "四", "五", "六", "日"];
+  const CATS = [["study", "学习"], ["sport", "运动"], ["life", "个人"], ["star", "高光"], ["sleep", "睡眠"]];
+  const CATN = Object.fromEntries(CATS);
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+  const hm = h => { if (h == null) return "—"; const H = Math.floor(h + 1e-9), M = Math.round((h - H) * 60); return M === 60 ? `${H + 1}h` : H ? (M ? `${H}h${String(M).padStart(2, "0")}` : `${H}h`) : `${M}m`; };
+  const fmt = (v, kind) => v == null ? "—" : kind === "count" ? String(Math.round(v)) : hm(v);
+  const mins = t => { const [a, b] = t.split(":").map(Number); return a * 60 + b; };
+  const clock = m => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
+  const ease = t => 1 - Math.pow(1 - t, 3);
+  document.documentElement.classList.add(reduce ? "wr-still" : "wr-move");
+
+  /* 进场：一个元素第一次进入视野时触发 */
+  const enterFns = new WeakMap();
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add("wr-in"); io.unobserve(e.target);
+    (enterFns.get(e.target) || []).forEach(f => f());
+  }), { threshold: .18 });
+  const onEnter = (el, fn) => { if (!el) return; if (fn) enterFns.set(el, [...(enterFns.get(el) || []), fn]); io.observe(el); };
+
+  /* 数字滚动 */
+  function countUp(el, value, kind, dur = 900) {
+    if (value == null) { el.textContent = "—"; return; }
+    if (reduce) { el.textContent = fmt(value, kind); return; }
+    const t0 = performance.now(), id = (el._cu = (el._cu || 0) + 1);
+    (function step(t) { if (el._cu !== id) return; const p = clamp((t - t0) / dur);
+      const v = value * ease(p); el.textContent = kind === "count" ? String(Math.round(v)) : hm(Math.round(v * 60) / 60);
+      if (p < 1) requestAnimationFrame(step); else el.textContent = fmt(value, kind); })(t0);
+  }
+
+  /* 小画一笔一笔画出来：线条描边，块和点淡入；点一下重播 */
+  function drawSvg(svg) {
+    if (reduce || !svg) return;
+    const parts = $$("path,line,polyline,polygon,circle,ellipse,rect,text", svg).filter(n => !n.closest("defs"));
+    const n = parts.length, step = Math.min(40, 700 / Math.max(n, 1));
+    parts.forEach((p, i) => {
+      const cs = getComputedStyle(p), stroked = cs.stroke !== "none" && (cs.fill === "none" || p.getAttribute("fill") === "none");
+      const delay = 120 + i * step;
+      if (stroked && p.getTotalLength) {
+        let L = 0; try { L = p.getTotalLength(); } catch (e) { }
+        if (L > 0) { p.animate([{ strokeDasharray: L, strokeDashoffset: L }, { strokeDasharray: L, strokeDashoffset: 0 }], { duration: 700, delay, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" }); return; }
+      }
+      if (p.hasAttribute("transform")) { p.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 380, delay, fill: "backwards" }); return; }
+      p.style.transformBox = "fill-box"; p.style.transformOrigin = p.tagName === "rect" ? "50% 100%" : "50% 50%";
+      p.animate([{ opacity: 0, transform: p.tagName === "text" ? "translateY(4px)" : "scale(.6)" }, { opacity: 1, transform: "none" }], { duration: 420, delay, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" });
+    });
+  }
+
+  /* 小图标 */
+  const S = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+  const ICON = {
+    study: S('<path d="M3 6c3-1.5 6-1.5 9 0v13c-3-1.5-6-1.5-9 0zM21 6c-3-1.5-6-1.5-9 0v13c3-1.5 6-1.5 9 0z"/>'),
+    book: S('<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>'),
+    math: S('<path d="M18 5H7l6 7-6 7h11"/>'),
+    code: S('<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/>'),
+    lab: S('<path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path d="M7 15h10"/>'),
+    pen: S('<path d="M4 20l1-5L16 4l4 4L9 19z"/><path d="M13.5 6.5l4 4"/>'),
+    music: S('<path d="M9 18V5l10-2v13"/><ellipse cx="6.5" cy="18" rx="2.8" ry="2.1" fill="currentColor"/><ellipse cx="16.5" cy="16" rx="2.8" ry="2.1" fill="currentColor"/>'),
+    sing: S('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>'),
+    run: S('<circle cx="14" cy="4.5" r="2"/><path d="M6 20l4-5 3 2 1-5 4 3M10 8l3-1 2 4"/>'),
+    gym: S('<path d="M3 12h18"/><path d="M6 7v10M9 9v6M15 9v6M18 7v10" stroke-width="2.6"/>'),
+    ball: S('<circle cx="12" cy="12" r="9"/><path d="M12 7.5l4 3-1.5 4.7h-5L8 10.5z" fill="currentColor" stroke="none"/>'),
+    swim: S('<path d="M2 17c2 0 2-1.5 4-1.5S8 17 10 17s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><circle cx="16" cy="7" r="2"/><path d="M5 13l5-4 3 3"/>'),
+    bike: S('<circle cx="6" cy="16" r="3.5"/><circle cx="18" cy="16" r="3.5"/><path d="M6 16l4-7h5l3 7M10 9l3 7"/>'),
+    sleep: S('<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>'),
+    heart: S('<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>'),
+    game: S('<rect x="3" y="8" width="18" height="10" rx="5"/><path d="M8 11v4M6 13h4"/>'),
+    star: S('<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>'),
+    trip: S('<path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/>'),
+    meet: S('<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 19c.5-3 2.5-4.5 5-4.5s4.5 1.5 5 4.5M11 19c.5-3 2.5-4.5 5-4.5s4.5 1.5 5 4.5"/>')
+  };
+  const icon = k => k ? (ICON[k] || `<span class="wr-glyph">${esc(k)}</span>`) : "";
+
+  const LABEL = Object.assign({
+    core: { title: "这周的数", hint: "点一项，看每天" },
+    split: { title: "时间花在哪", hint: "168 小时 · 点一类看每天" },
+    achievements: { title: "本周成就", hint: "点小画重播" },
+    timeline: { title: "一周时间线", hint: "按住左右拖，看任何一刻" },
+    heat: { title: "专注时段", hint: "7 天 × 24 小时 · 点一格" },
+    goals: { title: "目标对账", hint: "先看做成的，再看差在哪" },
+    mood: { title: "这周的起伏", hint: "点一天" },
+    quotes: { title: "值得记住的话", hint: "左右滑，看下一句" },
+    review: { title: "复盘", hint: "" },
+    letter: { title: "写给这一周", hint: "" }
+  }, T.labels || {});
+  const STATUS = Object.assign({ done: "达成", partial: "部分", moved: "调整", missed: "没做" }, T.status || {});
+  const REVIEW = Object.assign({ good: "做得好", improve: "要改进", next: "下周三件事" }, T.review || {});
+  const reader = data.meta.reader || "助手";
+  const TL = data.timeline || [];
+
+  const head = k => `<div class="wr-h"><h2>${esc(LABEL[k].title)}</h2>${LABEL[k].hint ? `<span class="wr-hint">${esc(LABEL[k].hint)}</span>` : ""}</div>`;
+  const sec = (k, body) => `<section class="wr-sec wr-s-${k}" id="wr-${k}">${head(k)}${body}</section>`;
+  const ctx = { data, root, $, $$, esc, icon, fmt, hm, DAYS, reduce, clamp, countUp, onEnter, drawSvg, mins, clock };
+
+  /* 封面 */
+  function cover() {
+    if (T.cover) return T.cover(ctx);
+    const m = data.meta;
+    const nums = data.core.slice(0, 3).map(c => `<div><b class="wr-cu" data-v="${c.value ?? ""}" data-k="${c.kind}">${fmt(c.value, c.kind)}</b><span>${esc(c.label)}</span></div>`).join("");
+    return `<header class="wr-cover"><div class="wr-kicker"><span>第 ${m.week} 周</span><span>${m.start.replaceAll("-", ".")} — ${m.end.slice(5).replace("-", ".")}</span></div>
+      <h1 class="wr-title">${esc(m.title).replace(/(..)(..)/, "$1<br>$2")}</h1>${m.name ? `<div class="wr-name">${esc(m.name)}</div>` : ""}
+      <div class="wr-cover-nums">${nums}</div></header>`;
+  }
+
+  /* 核心数据 */
+  function core() {
+    const tabs = data.core.map((c, i) => `<button class="wr-tab" data-i="${i}" aria-pressed="${i === 0}">${esc(c.label)}</button>`).join("");
+    return sec("core", `<div class="wr-tabs" role="group" aria-label="切换数据">${tabs}</div>
+      <div class="wr-big" aria-live="polite"></div><p class="wr-cmp"></p>
+      <div class="wr-bars"><div class="wr-goal"><span></span></div>${DAYS.map(() => `<button class="wr-bar"><b></b><i></i></button>`).join("")}</div>
+      <div class="wr-days">${DAYS.map(d => `<span>${d}</span>`).join("")}</div><p class="wr-note wr-daynote" aria-live="polite"></p>`);
+  }
+  function wireCore() {
+    const el = $("#wr-core"); if (!el) return;
+    const bars = $$(".wr-bar", el), H = 120; let cur = 0, entered = reduce;
+    function show(i, fromTap) {
+      cur = i; const c = data.core[i];
+      $$(".wr-tab", el).forEach((b, k) => b.setAttribute("aria-pressed", k === i));
+      if (entered) countUp($(".wr-big", el), c.value, c.kind); else $(".wr-big", el).textContent = fmt(c.value, c.kind);
+      const parts = [];
+      if (c.goal != null) parts.push(`目标 ${fmt(c.goal, c.kind)}${c.kind === "count" ? " 次" : ""}`);
+      if (c.prev != null && c.value != null) { const d = c.value - c.prev; parts.push(`比上周 ${d >= 0 ? "+" : "−"}${fmt(Math.abs(d), c.kind)}`); }
+      $(".wr-cmp", el).innerHTML = `<b>${esc(c.label)}</b>${parts.length ? " · " + esc(parts.join(" · ")) : ""}`;
+      const vals = c.daily || [], max = Math.max(...vals.filter(v => v != null), c.kind === "avg_hours" ? (c.goal || 0) : 0, c.daily_goal || 0, 0.01) * 1.08;
+      bars.forEach((b, k) => { const v = vals[k], bar = $("i", b); $("b", b).textContent = v == null ? "没记" : v ? fmt(v, c.kind) : "0";
+        b.setAttribute("aria-label", `周${DAYS[k]} ${v == null ? "没记" : fmt(v, c.kind)}`); b.classList.remove("on");
+        bar.classList.toggle("wr-zero", !v); bar.style.height = entered ? (v ? Math.max(4, v / max * H) : 3) + "px" : "0px"; bar.style.transitionDelay = k * 45 + "ms"; });
+      const g = $(".wr-goal", el), daily = c.kind === "avg_hours" ? c.goal : c.daily_goal;
+      g.hidden = daily == null || !entered; if (daily != null) { g.style.bottom = daily / max * H + "px"; $("span", g).textContent = `目标 ${fmt(daily, c.kind)}`; }
+      $(".wr-daynote", el).textContent = c.note || "";
+    }
+    bars.forEach((b, k) => b.onclick = () => { const c = data.core[cur], v = (c.daily || [])[k];
+      bars.forEach((x, j) => x.classList.toggle("on", j === k));
+      const ev = TL.filter(e => e.day === k && e.cat === c.key).map(e => e.text).filter(Boolean);
+      $(".wr-daynote", el).textContent = `周${DAYS[k]}：${v == null ? "没有记录" : fmt(v, c.kind) + (c.kind === "count" ? " 次" : "")}${ev.length ? " · " + ev.join("、") : ""}`; });
+    $$(".wr-tab", el).forEach(b => b.onclick = () => show(+b.dataset.i, true));
+    show(0); onEnter(el, () => { entered = true; show(cur); });
+    ctx.showCore = show;
+  }
+
+  /* 时间花在哪：一周 168 小时按类别切开，横向堆叠条 */
+  function split() {
+    if (!TL.length) return "";
+    return sec("split", `<div class="wr-stack" role="group" aria-label="各类时间占比"></div><div class="wr-legend"></div><div class="wr-mini" aria-live="polite"></div>`);
+  }
+  function wireSplit() {
+    const el = $("#wr-split"); if (!el) return;
+    const tot = {}, per = {}; CATS.forEach(([k]) => { tot[k] = 0; per[k] = [0, 0, 0, 0, 0, 0, 0]; });
+    TL.forEach(e => { const h = (mins(e.end) - mins(e.start)) / 60; tot[e.cat] += h; per[e.cat][e.day] += h; });
+    const known = Object.values(tot).reduce((a, b) => a + b, 0), rest = Math.max(0, 168 - known);
+    const rows = CATS.filter(([k]) => tot[k] > 0).map(([k, n]) => [k, n, tot[k]]).concat(rest > .5 ? [["none", "没记录", rest]] : []);
+    const stack = $(".wr-stack", el);
+    stack.innerHTML = rows.map(([k, n, h]) => `<button class="wr-seg wr-c-${k}" data-k="${k}" style="flex-grow:${h}" aria-label="${n} ${hm(h)}"></button>`).join("");
+    $(".wr-legend", el).innerHTML = rows.map(([k, n, h]) => `<button class="wr-li" data-k="${k}"><i class="wr-sw wr-c-${k}"></i><span>${n}</span><b>${hm(h)}</b><em>${Math.round(h / 1.68)}%</em></button>`).join("");
+    const mini = $(".wr-mini", el);
+    function pick(k) {
+      $$("[data-k]", el).forEach(b => b.classList.toggle("off", b.dataset.k !== k));
+      if (k === "none") { mini.innerHTML = `<p class="wr-note">日历里没有记录的时间，不猜它做了什么。</p>`; return; }
+      const v = per[k], mx = Math.max(...v, .01);
+      mini.innerHTML = `<div class="wr-mbars">${v.map((h, i) => `<div><i class="wr-c-${k}" style="height:${Math.max(h ? 3 : 0, h / mx * 56)}px"></i><b>${h ? hm(h) : "·"}</b><span>${DAYS[i]}</span></div>`).join("")}</div>`;
+      if (!reduce) $$(".wr-mbars i", mini).forEach((b, i) => b.animate([{ transform: "scaleY(0)" }, { transform: "none" }], { duration: 500, delay: i * 40, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" }));
+    }
+    $$("[data-k]", el).forEach(b => b.onclick = () => pick(b.dataset.k));
+    pick(rows[0][0]);
+    if (T.splitStyle !== "stack" && T.splitStyle !== "custom") {
+      const R0 = 72, C = 2 * Math.PI * R0; let off = 0;
+      const segs = rows.map(([k, n, h]) => { const len = h / 168 * C, g = `<circle class="wr-dseg wr-dc-${k}" data-k="${k}" r="${R0}" cx="100" cy="100" fill="none" stroke-width="30" stroke-dasharray="${Math.max(0, len - 2).toFixed(1)} ${C.toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" transform="rotate(-90 100 100)"/>`; off += len; return g; }).join("");
+      stack.insertAdjacentHTML("beforebegin", `<div class="wr-donut"><svg viewBox="0 0 200 200" role="img" aria-label="一周 168 小时的分配">${segs}<text class="wr-dc1" x="100" y="94" text-anchor="middle">一周</text><text class="wr-dc2" x="100" y="121" text-anchor="middle">168h</text></svg></div>`);
+      stack.style.display = "none";
+      const dpick = k => { $$(".wr-dseg", el).forEach(q => q.classList.toggle("off", q.dataset.k !== k)); const r = rows.find(q => q[0] === k); if (r) { $(".wr-dc1", el).textContent = r[1]; $(".wr-dc2", el).textContent = hm(r[2]); } };
+      $$(".wr-dseg", el).forEach(g => g.addEventListener("click", () => { pick(g.dataset.k); dpick(g.dataset.k); }));
+      $$(".wr-li", el).forEach(b => b.addEventListener("click", () => dpick(b.dataset.k)));
+      onEnter(el, () => { if (!reduce) $$(".wr-dseg", el).forEach((g, i) => g.animate([{ strokeDasharray: `0 ${C}` }, { strokeDasharray: g.getAttribute("stroke-dasharray") }], { duration: 1100, delay: i * 110, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" })); });
+    }
+    onEnter(el, () => { if (!reduce) $$(".wr-seg", stack).forEach((s, i) => s.animate([{ transform: "scaleX(0)" }, { transform: "none" }], { duration: 600, delay: i * 90, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" })); });
+  }
+
+  /* 成就 */
+  function achievements() {
+    const li = data.achievements.map((a, i) => `<li class="wr-a" data-rv style="--n:${i}">
+      <div class="wr-a-top"><span class="wr-rank">${String(i + 1).padStart(2, "0")}</span><div><div class="wr-a-big">${esc(a.big)}</div>
+      <div class="wr-a-what">${esc(a.what)}${a.when ? `<span> · ${esc(a.when)}</span>` : ""}</div></div></div>
+      ${a.figure ? `<figure class="wr-fig" title="点一下重播">${a.figure}</figure>` : ""}
+      ${a.detail ? `<p class="wr-a-detail">${esc(a.detail)}</p>` : ""}${a.say ? `<p class="wr-say">${esc(a.say)}</p>` : ""}</li>`).join("");
+    return sec("achievements", `<ol class="wr-alist">${li}</ol>`);
+  }
+  function wireAchievements() {
+    $$(".wr-a").forEach(a => { const svg = $(".wr-fig svg", a); onEnter(a, () => drawSvg(svg)); if (svg) a.querySelector(".wr-fig").onclick = () => drawSvg(svg); });
+  }
+
+  /* 时间线：按住拖动，看任何一刻 */
+  function timeline() {
+    if (!TL.length) return "";
+    const rows = DAYS.map((d, i) => `<div class="wr-row" data-i="${i}"><b>${d}</b><span class="wr-track">${
+      TL.filter(e => e.day === i).map(e => `<i class="wr-blk wr-c-${e.cat}" style="left:${mins(e.start) / 14.4}%;width:${Math.max((mins(e.end) - mins(e.start)) / 14.4, .8)}%"></i>`).join("")}</span></div>`).join("");
+    const key = CATS.filter(([k]) => TL.some(e => e.cat === k)).map(([k, n]) => `<span><i class="wr-sw wr-c-${k}"></i>${n}</span>`).join("");
+    return sec("timeline", `<div class="wr-now" aria-live="polite"><b></b><span></span></div>
+      <div class="wr-tl" tabindex="0" role="slider" aria-label="一周时间线，左右键移动时间，上下键换一天">${rows}<i class="wr-cursor" aria-hidden="true"></i></div>
+      <div class="wr-axis"><span></span><div><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></div></div>
+      <div class="wr-key">${key}</div><div class="wr-dayd" aria-live="polite"></div>`);
+  }
+  function wireTimeline() {
+    const el = $("#wr-timeline"); if (!el) return;
+    const tl = $(".wr-tl", el), rows = $$(".wr-row", el), cur = $(".wr-cursor", el);
+    let day = -1, minute = 0;
+    function setDay(i) { if (i === day) return; day = i; rows.forEach((r, k) => r.classList.toggle("on", k === i));
+      const ev = TL.filter(e => e.day === i && e.cat !== "sleep");
+      $(".wr-dayd", el).innerHTML = `<h3>周${DAYS[i]}</h3>${ev.length ? `<ul>${ev.map(e => `<li data-s="${mins(e.start)}"><em>${icon(e.icon)}</em><span>${e.start}–${e.end}</span><span>${esc(e.text)}</span></li>`).join("")}</ul>` : `<p class="wr-note">这天没有记录。</p>`}`; }
+    function set(i, m) { m = clamp(Math.round(m / 10) * 10, 0, 1430); setDay(i); minute = m;
+      const tb = $(".wr-track", rows[0]).getBoundingClientRect(), box = tl.getBoundingClientRect();
+      cur.style.left = (tb.left - box.left + tb.width * m / 1440) + "px";
+      const e = TL.find(x => x.day === i && mins(x.start) <= m && mins(x.end) > m);
+      $(".wr-now b", el).textContent = `周${DAYS[i]} ${clock(m)}`;
+      $(".wr-now span", el).textContent = e ? (e.cat === "sleep" ? "在睡觉" : e.text) : "这段没有记录";
+      $$(".wr-dayd li", el).forEach(li => { const s = +li.dataset.s, ev = TL.find(x => x.day === i && mins(x.start) === s); li.classList.toggle("on", !!ev && mins(ev.start) <= m && mins(ev.end) > m); }); }
+    function fromPointer(ev) { const tb = $(".wr-track", rows[0]).getBoundingClientRect();
+      let i = rows.findIndex(r => { const b = r.getBoundingClientRect(); return ev.clientY >= b.top - 2 && ev.clientY <= b.bottom + 2; }); if (i < 0) i = day;
+      set(i, (ev.clientX - tb.left) / tb.width * 1440); }
+    let drag = false;
+    tl.addEventListener("pointerdown", e => { drag = true; try { tl.setPointerCapture(e.pointerId); } catch (x) { } fromPointer(e); });
+    tl.addEventListener("pointermove", e => { if (drag) fromPointer(e); });
+    addEventListener("pointerup", () => drag = false); addEventListener("pointercancel", () => drag = false);
+    tl.addEventListener("keydown", e => { if (!e.key.startsWith("Arrow")) return; e.preventDefault();
+      set(clamp(day + (e.key === "ArrowDown") - (e.key === "ArrowUp"), 0, 6), minute + (e.key === "ArrowRight" ? 30 : e.key === "ArrowLeft" ? -30 : 0)); });
+    const busy = DAYS.map((_, i) => TL.filter(e => e.day === i && e.cat !== "sleep").length), d0 = busy.indexOf(Math.max(...busy));
+    const first = TL.find(e => e.day === d0 && e.cat !== "sleep");
+    set(d0, first ? mins(first.start) + 30 : 600); addEventListener("resize", () => set(day, minute));
+    ctx.setTime = set;
+    onEnter(el, () => { if (!reduce) $$(".wr-blk", el).forEach((b, i) => b.animate([{ transform: "scaleX(0)" }, { transform: "none" }], { duration: 500, delay: (+b.closest(".wr-row").dataset.i) * 60 + 100, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" })); });
+  }
+
+  /* 专注时段：7×24，学习和高光按小时累计 */
+  function heat() {
+    if (!TL.length || !((T.extras || []).includes("heat") || (T.modules || []).includes("heat"))) return "";
+    return sec("heat", `<div class="wr-heat" role="grid" aria-label="一周每小时的专注时长"></div><div class="wr-hax"><span></span><div><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></div></div><p class="wr-hread" aria-live="polite"></p>`);
+  }
+  function wireHeat() {
+    const el = $("#wr-heat"); if (!el) return;
+    const g = DAYS.map(() => Array(24).fill(0)), what = DAYS.map(() => Array(24).fill(""));
+    TL.filter(e => e.cat === "study" || e.cat === "star").forEach(e => { for (let h = 0; h < 24; h++) {
+      const ov = Math.max(0, Math.min(mins(e.end), h * 60 + 60) - Math.max(mins(e.start), h * 60)); if (ov) { g[e.day][h] += ov; what[e.day][h] = e.text; } } });
+    const box = $(".wr-heat", el);
+    box.innerHTML = DAYS.map((d, i) => `<b>${d}</b>` + g[i].map((m, h) => `<button class="wr-cell" data-d="${i}" data-h="${h}" style="--a:${m ? (.25 + .75 * Math.min(m, 60) / 60).toFixed(2) : 0}" aria-label="周${d} ${h} 点 ${m} 分钟"></button>`).join("")).join("");
+    const total = g.flat().reduce((a, b) => a + b, 0), hours = g.flat().filter(m => m >= 45).length;
+    const read = $(".wr-hread", el), base = `深色的格子是学进去的小时。整小时专注的有 ${hours} 格，累计 ${hm(total / 60)}。`;
+    read.textContent = base;
+    $$(".wr-cell", box).forEach(c => c.onclick = () => { const d = +c.dataset.d, h = +c.dataset.h, m = g[d][h];
+      $$(".wr-cell", box).forEach(x => x.classList.toggle("on", x === c));
+      read.textContent = `周${DAYS[d]} ${h}:00–${h + 1}:00 · ${m ? `${m} 分钟 · ${what[d][h]}` : "这一小时没有学习记录"}`; });
+    onEnter(el, () => { if (!reduce) $$(".wr-cell", box).forEach(c => { if (+getComputedStyle(c).getPropertyValue("--a") > 0) c.animate([{ opacity: 0, transform: "scale(.3)" }, { opacity: 1, transform: "none" }], { duration: 380, delay: (+c.dataset.d * 3 + +c.dataset.h) * 14, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" }); }); });
+  }
+
+  /* 目标对账：结果写成「3 / 4」的自动画进度条 */
+  const ratio = g => { const m = String(g.result || "").match(/([\d.]+)\s*\/\s*([\d.]+)/); return m ? clamp(+m[1] / +m[2]) : g.status === "done" ? 1 : null; };
+  function goals() {
+    if (!data.goals?.length) return "";
+    return sec("goals", `<div class="wr-goals">${data.goals.map(g => { const r = ratio(g);
+      return `<button class="wr-g" aria-expanded="false" data-s="${g.status}">
+      <span class="wr-g-top"><span><span class="wr-g-n">${esc(g.name)}</span><span class="wr-g-r">${esc(g.result)}</span></span><span class="wr-stamp">${esc(STATUS[g.status] || g.status)}</span></span>
+      ${r != null ? `<span class="wr-g-bar"><i style="--p:${r}"></i></span><em class="wr-g-pct" data-p="${r}">${Math.round(r * 100)}%</em>` : ""}
+      <span class="wr-more"><span>${g.good ? `<span class="wr-g-p"><b>做成的：</b>${esc(g.good)}</span>` : ""}${g.gap ? `<span class="wr-g-p"><b>差在哪：</b>${esc(g.gap)}</span>` : ""}</span></span></button>`; }).join("")}</div>`);
+  }
+
+  /* 起伏 */
+  function mood() {
+    const m = data.mood; if (!m?.days?.length) return "";
+    const note = m.source === "self" ? "曲线是本人每天打的分。" : `曲线高低是${esc(reader)}读当天的话和做的事画的，不是本人打的分。读不出来的那天留空。`;
+    return sec("mood", `<div class="wr-curve"></div><div class="wr-days wr-mdays">${DAYS.map(d => `<span>${d}</span>`).join("")}</div>
+      <div class="wr-read" aria-live="polite"></div><p class="wr-note">${note}</p>`);
+  }
+  function wireMood() {
+    const el = $("#wr-mood"); if (!el) return;
+    const D = data.mood.days, W = 700, H = 200, x = i => 40 + 620 * i / 6, y = v => 170 - (v - 1) * 35;
+    let g = ""; for (let k = 0; k < 5; k++) g += `<line x1="0" x2="${W}" y1="${170 - k * 35}" y2="${170 - k * 35}" class="wr-grid"/>`;
+    const pts = D.map((d, i) => d.level == null ? null : [x(i), y(d.level), i]).filter(Boolean);
+    let p = ""; pts.forEach((q, k) => { if (!k) { p = `M${q[0]} ${q[1]}`; return; } const a = pts[k - 1], mx = (a[0] + q[0]) / 2; p += ` C${mx} ${a[1]} ${mx} ${q[1]} ${q[0]} ${q[1]}`; });
+    g += `<path class="wr-area" d="${p} L${pts.at(-1)[0]} 175 L${pts[0][0]} 175 Z"/><path class="wr-line" d="${p}"/>`;
+    pts.forEach(([cx, cy, i]) => g += `<circle class="wr-pt" data-n="${i}" cx="${cx}" cy="${cy}" r="9"/>`);
+    D.forEach((d, i) => { if (d.level == null) g += `<text x="${x(i)}" y="${y(3) + 7}" class="wr-gap" text-anchor="middle">?</text>`; });
+    const box = $(".wr-curve", el);
+    box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="七天的起伏曲线">${g}</svg>`;
+    function pick(i) { const d = D[i]; $$(".wr-pt", box).forEach(c => c.classList.toggle("on", +c.dataset.n === i));
+      $$(".wr-mdays span", el).forEach((s, k) => s.classList.toggle("on", k === i));
+      const by = d.by || data.mood.source;
+      $(".wr-read", el).innerHTML = `<div class="wr-who">周${DAYS[i]}${d.quote ? " · 原话" : ""}</div>${d.quote ? `<div class="wr-her">「${esc(d.quote)}」</div>` : `<div class="wr-note">这天没有留下话。</div>`}
+        ${d.reading ? `<div class="wr-who">${by === "self" ? "本人" : esc(reader) + "读到的"}</div><div class="wr-mine">${esc(d.reading)}</div>` : ""}`;
+      if (!reduce) $(".wr-read", el).animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 300, easing: "cubic-bezier(.2,.8,.2,1)" }); }
+    D.forEach((d, i) => { const b = document.createElement("button"); b.className = "wr-hit"; b.setAttribute("aria-label", "周" + DAYS[i]);
+      b.style.left = x(i) / W * 100 + "%"; b.style.top = (d.level == null ? y(3) : y(d.level)) / H * 100 + "%"; b.onclick = () => pick(i); box.appendChild(b); });
+    const low = pts.reduce((a, q) => D[q[2]].level < D[a].level ? q[2] : a, pts[0]?.[2] ?? 0); pick(low);
+    ctx.pickMood = pick;
+    onEnter(el, () => drawSvg($("svg", box)));
+  }
+
+  /* 值得记住的话 */
+  function quotes() {
+    if (!data.quotes?.length) return "";
+    return sec("quotes", `<div class="wr-qtrack">${data.quotes.map((q, k) => `<figure class="wr-qcard" style="--k:${k}"><svg class="wr-qdeco" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C 6 25 4 15 11 10 C 16 7 20 11 20 14 C 20 11 24 7 29 10 C 36 15 34 25 20 34Z"/></svg>
+      <blockquote class="wr-q-t">${esc(q.text)}</blockquote><figcaption class="wr-q-m">${esc([q.when, q.after].filter(Boolean).join(" · "))}</figcaption>
+      ${q.note ? `<p class="wr-q-note"><b>${esc(reader)}：</b>${esc(q.note)}</p>` : ""}</figure>`).join("")}</div>
+      ${data.quotes.length > 1 ? `<div class="wr-qdots">${data.quotes.map((_, k) => `<i class="${k ? "" : "on"}"></i>`).join("")}</div>` : ""}`);
+  }
+  function wireQuotes() {
+    const el = $("#wr-quotes"); if (!el) return; const tr = $(".wr-qtrack", el), dots = $$(".wr-qdots i", el), cards = $$(".wr-qcard", el);
+    tr.addEventListener("scroll", () => { const k = Math.round(tr.scrollLeft / Math.max(1, cards[0].offsetWidth + 12)); dots.forEach((d, j) => d.classList.toggle("on", j === k)); }, { passive: true });
+    dots.forEach((d, j) => d.addEventListener("click", () => tr.scrollTo({ left: j * (cards[0].offsetWidth + 12), behavior: reduce ? "auto" : "smooth" })));
+    onEnter(el, () => { if (!reduce) cards.forEach((c, k) => c.animate([{ opacity: 0, transform: "translateX(60px) rotate(3deg)" }, { opacity: 1, transform: "none" }], { duration: 700, delay: k * 120, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" })); });
+  }
+
+  /* 复盘 */
+  function review() {
+    const r = data.review; if (!r) return "";
+    const keys = ["good", "improve", "next"].filter(k => r[k]?.length);
+    return sec("review", `<div class="wr-tabs" role="group">${keys.map((k, i) => `<button class="wr-tab" data-k="${k}" aria-pressed="${!i}">${esc(REVIEW[k])}</button>`).join("")}</div><ol class="wr-rlist" aria-live="polite"></ol>`);
+  }
+  function wireReview() {
+    const el = $("#wr-review"); if (!el) return;
+    const show = k => { $$(".wr-tab", el).forEach(b => b.setAttribute("aria-pressed", b.dataset.k === k));
+      const ol = $(".wr-rlist", el); ol.dataset.k = k; ol.innerHTML = data.review[k].map(t => `<li>${esc(t)}</li>`).join("");
+      if (!reduce) $$("li", ol).forEach((li, j) => li.animate([{ opacity: 0, transform: "translateX(14px)" }, { opacity: 1, transform: "none" }], { duration: 380, delay: j * 60, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" })); };
+    $$(".wr-tab", el).forEach(b => b.onclick = () => show(b.dataset.k)); show($(".wr-tab", el).dataset.k);
+  }
+
+  /* 信 */
+  function letter() {
+    const l = data.letter; if (!l?.paragraphs?.length) return "";
+    if (l.title) LABEL.letter.title = l.title;
+    return sec("letter", `<div class="wr-letter">${l.paragraphs.map(p => typeof p === "string" ? `<p>${esc(p)}</p>` : `<p class="wr-lsec"><b class="wr-ltag">${esc(p.tag)}</b>${esc(p.text)}</p>`).join("")}<p class="wr-sign">${esc(l.sign || reader)}</p></div>`);
+  }
+
+  const m = data.meta;
+  /* 主题可以用 story(ctx) 在封面后面插一段自己的叙事，用 modules 选后面跟哪些模块、按什么顺序 */
+  const BUILD = { core, split, achievements, timeline, heat, goals, mood, quotes, review, letter };
+  root.innerHTML = (m.fictional ? `<div class="wr-fict">示例数据 · 人物虚构</div>` : "") + `<i class="wr-progress" aria-hidden="true"></i>` +
+    cover() + (T.story ? T.story(ctx) : "") + (T.modules || ["core", "split", "achievements", "timeline", "heat", "goals", "mood", "quotes", "review", "letter"]).map(k => BUILD[k]()).join("") +
+    `<footer class="wr-foot">${m.fictional ? "<p>本页是示例：人物和数据都是虚构的。</p>" : ""}<p>${esc(m.source)}</p><p>标了「${esc(reader)}读到的」的地方是解读，不是记录。</p></footer>`;
+  wireCore(); wireSplit(); wireAchievements(); wireTimeline(); wireHeat(); wireMood(); wireQuotes(); wireReview();
+  /* 目标：进场时条和百分比一起从 0 长上去 */
+  onEnter($("#wr-goals"), () => $$(".wr-g-pct").forEach((e, k) => { const p = +e.dataset.p; if (reduce) return;
+    const t0 = performance.now() + k * 120; (function step(t) { const q = clamp((t - t0) / 1200); e.textContent = Math.round(p * 100 * ease(q)) + "%"; if (q < 1) requestAnimationFrame(step); })(t0); }));
+  /* 信：一段一段亮起来（主题自己做了滚动版的就跳过） */
+  if (!T.letterScrub) onEnter($("#wr-letter"), () => { if (!reduce) $$("#wr-letter .wr-letter p").forEach((p, k) => p.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }], { duration: 600, delay: k * 160, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" })); });
+  $$(".wr-g").forEach(b => b.onclick = () => b.setAttribute("aria-expanded", b.getAttribute("aria-expanded") !== "true"));
+
+  /* 封面数字滚动 */
+  $$(".wr-cu").forEach(b => { if (b.dataset.v !== "") countUp(b, +b.dataset.v, b.dataset.k, 1100); });
+  /* 进场：每一节一次，内容默认可见 */
+  $$(".wr-sec, [data-rv]").forEach(el => onEnter(el));
+  /* 顶部阅读进度 */
+  const prog = $(".wr-progress");
+  const onScroll = () => { const max = document.documentElement.scrollHeight - innerHeight; prog.style.transform = `scaleX(${max > 0 ? clamp(scrollY / max) : 0})`; };
+  addEventListener("scroll", () => requestAnimationFrame(onScroll), { passive: true }); onScroll();
+  if (T.after) T.after(ctx);
+  /* 重播封面（录视频时用）：数字重新滚，主题自己的开场再来一遍 */
+  ctx.replayCover = () => { $$("header .wr-cu").forEach(b => { if (b.dataset.v !== "") countUp(b, +b.dataset.v, b.dataset.k, 1100); }); if (T.replay) T.replay(ctx); };
+  window.WR = ctx;   // 给录视频和调试用
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>周报 skill 宣传视频</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500;700;900&family=Inter:wght@800&display=swap">
+<script src="../tools/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+/* 竖屏 1080×1920。整条片子是一根暂停的 GSAP 时间线，录制时逐帧 seek：画面 = f(时间)。
+   手机里的周报照常运行自己的动效；录制脚本用假时钟推进，每帧把页面里的动画对齐到同一个时间，所以动效也逐帧确定。 */
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#F3F2EE;font-family:"Noto Sans SC",system-ui,sans-serif;color:#1C1C1A}
+#bg{position:absolute;inset:0;background:#F3F2EE}
+.phone{position:absolute;left:162px;top:330px;width:756px;height:1404px;border-radius:64px;background:#111;padding:18px;box-shadow:0 30px 70px rgba(0,0,0,.22),0 0 0 3px rgba(255,255,255,.14);transform-origin:50% 50%}
+.phone .scr{width:720px;height:1368px;border-radius:48px;overflow:hidden;position:relative;background:#fff}
+.phone iframe{width:400px;height:760px;border:0;transform:scale(1.8);transform-origin:0 0;display:block}
+.cap{position:absolute;left:0;right:0;top:96px;text-align:center}
+.cap .k{display:block;font-weight:900;font-size:78px;line-height:1.1;letter-spacing:-.01em}
+.cap .s{display:block;font-weight:700;font-size:40px;margin-top:14px;opacity:.7}
+.sub{position:absolute;left:60px;right:60px;bottom:70px;text-align:center;font-weight:900;font-size:44px;line-height:1.35}
+.sub span{background:#1C1C1A;color:#fff;padding:8px 22px;-webkit-box-decoration-break:clone;box-decoration-break:clone;border-radius:10px}
+#intro{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 90px}
+#intro .l{font-weight:900;font-size:120px;line-height:1.1;letter-spacing:-.02em}
+#intro .l b{color:#F5572F}
+#intro .m{font-weight:700;font-size:44px;margin-top:40px;color:#4A4945;line-height:1.5}
+#outro{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 90px;background:#1C1C1A;color:#F0EFEB}
+#outro .n{font-family:Inter,sans-serif;font-weight:800;font-size:300px;line-height:.8;letter-spacing:-.06em}
+#outro .n span{color:#F5572F}
+#outro .z{font-weight:900;font-size:84px;margin-top:40px}
+#outro ul{list-style:none;padding:0;margin:50px 0 0;font-weight:700;font-size:44px;line-height:1.85;border-top:2px solid #F0EFEB;padding-top:24px}
+#outro li::before{content:"→ ";color:#F5572F}
+#outro .gh{margin-top:60px;font-size:38px;font-weight:700;opacity:.6}
+.tag{position:absolute;right:40px;top:36px;font-size:26px;font-weight:700;padding:6px 18px;border-radius:99px;background:rgba(0,0,0,.72);color:#fff;z-index:9}
+.tap{position:absolute;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;border:6px solid #F5572F;opacity:0;pointer-events:none;z-index:8}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div id="intro">
+  <div class="l">每一周的周报，<br>都长得<b>不一样</b>。</div>
+  <div class="m">一个 Claude skill：把你一周的日历，<br>做成一份会动、能点的周报网页。</div>
+</div>
+<div class="cap" id="cap"><span class="k" id="capk"></span><span class="s" id="caps"></span></div>
+<div class="phone" id="p0"><div class="scr"><iframe id="f0" src="../examples/exam.html"></iframe></div></div>
+<div class="phone" id="p1"><div class="scr"><iframe id="f1" src="../examples/swiss.html"></iframe></div></div>
+<div class="phone" id="p2"><div class="scr"><iframe id="f2" src="../examples/vinyl.html"></iframe></div></div>
+<div class="phone" id="p3"><div class="scr"><iframe id="f3" src="../examples/terminal.html"></iframe></div></div>
+<div class="tap" id="tap"></div>
+<div class="sub" id="sub"><span id="subt"></span></div>
+<div id="outro">
+  <div class="n">4<span>.</span></div>
+  <div class="z">四种主题，同一套数据</div>
+  <ul><li>主题从这一周里长出来</li><li>数字会滚，线会画，格子会亮</li><li>情绪是读出来的，标明出处</li><li>没记录就留空，不编</li></ul>
+  <div class="gh">个人周报 · 开源 Claude skill</div>
+</div>
+<div class="tag">示例数据 · 人物虚构</div>
+
+<script>
+const N = 4, F = [...Array(N).keys()].map(i => document.getElementById("f" + i));
+const W = i => F[i].contentWindow, D = i => F[i].contentDocument;
+const scroll = F.map(() => ({ y: 0 }));
+const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.inOut" } });
+const events = [], fired = new Set(), CAP = [], SUB = [];
+const cap = (t, k, s) => CAP.push([t, k, s]), sub = (t, s) => SUB.push([t, s]), at$ = (t, fn) => events.push([t, fn]);
+let ready = false;
+
+function y(i, sel, pad = 30) { const el = D(i).querySelector(sel); return el ? Math.max(0, el.getBoundingClientRect().top + W(i).scrollY - pad) : 0; }
+function tap(i, sel) {
+  const el = D(i).querySelector(sel); if (!el) return;
+  el.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  const r = el.getBoundingClientRect(), p = document.getElementById("p" + i).getBoundingClientRect();
+  tapAt = [p.left + 18 + (r.left + r.width / 2) * 1.8, p.top + 18 + (r.top + r.height / 2) * 1.8, now];
+}
+let tapAt = null, now = 0;
+function enter(i, t, from = 1) { tl.fromTo("#p" + i, { x: 1100 * from, y: 0, rotation: 6 * from }, { x: 0, rotation: 0, duration: .9 }, t); at$(t + .3, () => W(i).WR.replayCover()); }
+function leave(i, t) { tl.to("#p" + i, { x: -1100, rotation: -6, duration: .9 }, t); }
+
+function build() {
+  gsap.set(".phone", { x: 1100, y: 0 }); gsap.set(["#cap", "#sub", "#outro"], { opacity: 0 });
+  /* 0–3s 开场 */
+  tl.from("#intro .l", { y: 80, opacity: 0, duration: .9, ease: "power3.out" }, .2)
+    .from("#intro .m", { y: 40, opacity: 0, duration: .8, ease: "power3.out" }, .9)
+    .to("#intro", { opacity: 0, y: -120, duration: .6 }, 2.8)
+    .to("#cap,#sub", { opacity: 1, duration: .4 }, 3.1);
+
+  /* 3–11s 考卷 */
+  enter(0, 3.0);
+  cap(3.1, "考试周", "一张批改过的周测卷"); sub(3.3, "墨色写数据，红笔只管批改");
+  tl.to(scroll[0], { y: y(0, "#wr-core"), duration: 1.2 }, 5.4);
+  at$(6.8, () => tap(0, '#wr-core .wr-tab[data-i="2"]')); sub(6.6, "点一下，换一组数据");
+  tl.to(scroll[0], { y: y(0, "#wr-achievements .wr-a:nth-child(4)"), duration: 1.3 }, 8.0); sub(8.2, "每件成就一张小画，一笔一笔画出来");
+
+  /* 11–18s 编辑部（同一周，换个主题） */
+  leave(0, 11); enter(1, 11);
+  cap(11.1, "还是这一周", "换成瑞士编辑部风格"); sub(11.3, "纸、墨、一个橙色");
+  tl.to(scroll[1], { y: y(1, "#wr-split"), duration: 1.3 }, 13.4); sub(13.6, "168 小时去了哪里");
+  at$(15.0, () => tap(1, '#wr-split .wr-li[data-k="sleep"]'));
+  tl.to(scroll[1], { y: y(1, "#wr-heat"), duration: 1.3 }, 15.8); sub(16.0, "哪几个小时真的学进去了");
+  at$(17.3, () => tap(1, '#wr-heat .wr-cell[data-d="2"][data-h="9"]'));
+
+  /* 18–26s 唱片 */
+  leave(1, 18.6); enter(2, 18.6);
+  tl.to("#bg", { backgroundColor: "#EEF0E8", duration: .9 }, 18.6);
+  cap(18.7, "演出周", "这一周被压成一张唱片"); sub(18.9, "唱片上三圈：学习、运动、睡眠");
+  tl.to(scroll[2], { y: y(2, "#wr-split"), duration: 1.3 }, 20.8); sub(21.0, "时间变成调音台的推子");
+  at$(22.4, () => tap(2, '.vn-ch[data-k="life"]'));
+  tl.to(scroll[2], { y: y(2, "#wr-timeline"), duration: 1.2 }, 23.2); sub(23.4, "按下播放，唱针走完一天");
+  at$(24.4, () => { const r = D(2).querySelectorAll("#wr-timeline .wr-row"); r[5].dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, clientX: r[5].getBoundingClientRect().left + 200, clientY: r[5].getBoundingClientRect().top + 10 })); W(2).dispatchEvent(new PointerEvent("pointerup")); tap(2, ".vn-play"); });
+
+  /* 26–33.5s 终端 */
+  leave(2, 26.6); enter(3, 26.6);
+  tl.to("#bg", { backgroundColor: "#111214", duration: .9 }, 26.6).to("#cap,#sub", { color: "#ECEAE4", duration: .9 }, 26.6);
+  cap(26.7, "写代码的一周", "变成一个终端"); sub(26.9, "命令敲下去，这周的数就出来了");
+  tl.to(scroll[3], { y: y(3, "#wr-heat"), duration: 1.4 }, 29.6); sub(29.8, "专注热力图，像代码贡献图");
+  at$(31.3, () => tap(3, '#wr-heat .wr-cell[data-d="5"][data-h="9"]'));
+
+  /* 33.5–37s 四台并排 */
+  tl.to(["#cap", "#sub"], { opacity: 0, duration: .3 }, 33.4).to("#bg", { backgroundColor: "#F3F2EE", duration: .8 }, 33.4)
+    .to(scroll, { y: 0, duration: .01 }, 33.8);
+  [[-390, -30, -6], [-130, -30, -2], [130, -30, 2], [390, -30, 6]].forEach(([x, yy, r], i) => tl.to("#p" + i, { x, y: yy, rotation: r, scale: .33, duration: 1 }, 33.8 + i * .08));
+  tl.to("#cap", { opacity: 1, color: "#1C1C1A", duration: .4 }, 34.2); cap(34.2, "主题从这一周里长出来", "不是一个模板换数字");
+  at$(34.3, () => F.forEach((_, i) => W(i).WR.replayCover()));
+
+  /* 37–41s 结尾 */
+  tl.to("#outro", { opacity: 1, duration: .5 }, 37.2)
+    .from("#outro > *", { y: 50, opacity: 0, stagger: .1, duration: .6, ease: "power3.out" }, 37.3)
+    .to({}, { duration: .1 }, 40.9);
+  ready = true;
+}
+
+/* 把页面里所有动画（CSS 过渡、CSS 动画、Web Animations）对齐到片子的时间 */
+const seen = new WeakMap();
+function syncAnims(doc, t) {
+  for (const a of doc.getAnimations()) {
+    if (!seen.has(a)) { seen.set(a, t - (a.currentTime || 0) / 1000); a.pause(); }
+    a.currentTime = Math.max(0, (t - seen.get(a)) * 1000);
+  }
+}
+const textAt = (list, t) => { let v = null; for (const x of list) if (x[0] <= t) v = x; return v; };
+
+window.seek = t => {
+  now = t;
+  for (const [et, fn] of events) if (t >= et && !fired.has(et)) { fired.add(et); fn(); }
+  tl.seek(t, false);
+  scroll.forEach((s, i) => W(i).scrollTo(0, s.y));
+  F.forEach((_, i) => syncAnims(D(i), t));
+  const c = textAt(CAP, t), s = textAt(SUB, t);
+  document.getElementById("capk").textContent = c ? c[1] : "";
+  document.getElementById("caps").textContent = c ? c[2] : "";
+  document.getElementById("subt").textContent = s ? s[1] : "";
+  document.getElementById("sub").style.visibility = s ? "visible" : "hidden";
+  const k = tapAt ? (t - tapAt[2]) / .6 : 9;
+  gsap.set("#tap", tapAt ? { left: tapAt[0], top: tapAt[1], scale: .4 + Math.min(k, 1), opacity: k >= 0 && k < 1 ? 1 - k : 0 } : { opacity: 0 });
+};
+window.duration = () => tl.duration();
+window.isReady = () => ready;
+window.addEventListener("load", () => Promise.all([document.fonts.ready, ...F.map((f, i) => new Promise(r => { const ok = () => W(i).WR ? r() : setTimeout(ok, 50); ok(); }))]).then(() => setTimeout(build, 600)));
+</script>
+</body>
+</html>

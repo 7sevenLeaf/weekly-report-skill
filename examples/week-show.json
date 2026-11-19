@@ -1,0 +1,469 @@
+{
+  "meta": {
+    "title": "个人周报",
+    "week": 19,
+    "start": "2027-05-10",
+    "end": "2027-05-16",
+    "name": "小满",
+    "reader": "助手",
+    "fictional": true,
+    "source": "示例数据：虚构人物「林小满」（生物科学大二）这一周的日历和对话"
+  },
+  "core": [
+    {
+      "key": "study",
+      "label": "有效学习",
+      "kind": "hours",
+      "value": 24,
+      "goal": 30,
+      "prev": 32,
+      "daily_goal": 4,
+      "daily": [
+        4,
+        5,
+        3.5,
+        4,
+        2.5,
+        0,
+        5
+      ],
+      "note": "周六是演出日，没有安排学习。"
+    },
+    {
+      "key": "sport",
+      "label": "运动",
+      "kind": "count",
+      "value": 3,
+      "goal": 4,
+      "prev": 4,
+      "daily": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "key": "sleep",
+      "label": "平均睡眠",
+      "kind": "avg_hours",
+      "value": 7.21,
+      "goal": 8,
+      "prev": 7.37,
+      "daily": [
+        7.5,
+        7,
+        6.8,
+        7.2,
+        6.5,
+        7,
+        8.5
+      ],
+      "note": "按醒来那天算。演出后那晚 2 点才睡，睡到 10 点半。"
+    }
+  ],
+  "achievements": [
+    {
+      "big": "12 首",
+      "what": "乐队春季专场，完整演完",
+      "when": "周六",
+      "detail": "你是贝斯手。90 分钟、12 首，台下 140 人。第 7 首断了一根弦，换琴的 40 秒里鼓手和吉他即兴顶住了。",
+      "say": "断弦那 40 秒，你们没停。",
+      "figure": "<svg viewBox='0 0 300 112' role='img' aria-label='12 首歌的时长，第 7 首断弦后即兴 40 秒'><g fill='var(--c-sleep)'><rect x='12' y='38' width='16' height='52'/><rect x='36' y='30' width='16' height='60'/><rect x='60' y='46' width='16' height='44'/><rect x='84' y='20' width='16' height='70'/><rect x='108' y='32' width='16' height='58'/><rect x='132' y='42' width='16' height='48'/><rect x='180' y='36' width='16' height='54'/><rect x='204' y='28' width='16' height='62'/><rect x='228' y='50' width='16' height='40'/><rect x='252' y='18' width='16' height='72'/><rect x='276' y='32' width='16' height='58'/></g><rect x='156' y='24' width='16' height='66' fill='var(--accent)'/><path d='M150 52 l8 -6 l6 8 l8 -6' fill='none' stroke='var(--c-sport)' stroke-width='3' stroke-linecap='round'/><line x1='164' y1='22' x2='164' y2='12' stroke='var(--c-sport)' stroke-width='2'/><text x='170' y='12' style='font-size:12px;font-weight:700;fill:var(--c-sport)'>断弦 · 即兴 40 秒</text><g text-anchor='middle' style='font-size:10px'><text x='20' y='104'>1</text><text x='44' y='104'>2</text><text x='68' y='104'>3</text><text x='92' y='104'>4</text><text x='116' y='104'>5</text><text x='140' y='104'>6</text><text x='164' y='104'>7</text><text x='188' y='104'>8</text><text x='212' y='104'>9</text><text x='236' y='104'>10</text><text x='260' y='104'>11</text><text x='284' y='104'>12</text></g></svg>"
+    },
+    {
+      "big": "首演",
+      "what": "第一首原创《慢车》",
+      "when": "周六 · 第 9 首",
+      "detail": "贝斯 riff 和副歌是你写的，排了三周。周二那晚第一次从头到尾顺下来。",
+      "say": "这是你第一次在台上弹自己写的东西。",
+      "figure": "<svg viewBox='0 0 300 100' role='img' aria-label='五线谱上的贝斯 riff'><g stroke='var(--bg)' stroke-width='1' opacity='.6'><line x1='0' x2='300' y1='30' y2='30'/><line x1='0' x2='300' y1='40' y2='40'/><line x1='0' x2='300' y1='50' y2='50'/><line x1='0' x2='300' y1='60' y2='60'/><line x1='0' x2='300' y1='70' y2='70'/></g><g fill='var(--c-sport)'><ellipse cx='30' cy='70' rx='7' ry='5' transform='rotate(-18 30 70)'/><ellipse cx='64' cy='60' rx='7' ry='5' transform='rotate(-18 64 60)'/><ellipse cx='98' cy='65' rx='7' ry='5' transform='rotate(-18 98 65)'/><ellipse cx='132' cy='50' rx='7' ry='5' transform='rotate(-18 132 50)'/><ellipse cx='166' cy='55' rx='7' ry='5' transform='rotate(-18 166 55)'/><ellipse cx='200' cy='45' rx='7' ry='5' transform='rotate(-18 200 45)'/><ellipse cx='234' cy='60' rx='7' ry='5' transform='rotate(-18 234 60)'/><ellipse cx='268' cy='40' rx='9' ry='6.5' transform='rotate(-18 268 40)' fill='var(--accent)'/></g><g stroke='var(--c-sport)' stroke-width='2'><line x1='36' y1='70' x2='36' y2='44'/><line x1='70' y1='60' x2='70' y2='34'/><line x1='104' y1='65' x2='104' y2='39'/><line x1='138' y1='50' x2='138' y2='24'/><line x1='172' y1='55' x2='172' y2='29'/><line x1='206' y1='45' x2='206' y2='19'/><line x1='240' y1='60' x2='240' y2='34'/></g><line x1='276' y1='40' x2='276' y2='8' stroke='var(--accent)' stroke-width='2.5'/><text x='0' y='94'>《慢车》贝斯 riff · 原创</text><text x='300' y='94' text-anchor='end' style='fill:var(--accent)'>排了 3 周</text></svg>"
+    },
+    {
+      "big": "120",
+      "what": "节拍器练到 120 bpm",
+      "when": "周一到周日",
+      "detail": "副歌那段 16 分音符，从 100 一路加到 120，每天练 20 分钟。",
+      "say": "演出时最快的那段，就是这一周一格一格加上去的。",
+      "figure": "<svg viewBox='0 0 300 118' role='img' aria-label='节拍器速度从 100 逐日加到 120'><path d='M30 87.2 H70 V74.4 H110 V61.6 H150 V48.8 H190 V36 H230 V29.6 H270 V23.2' fill='none' stroke='var(--accent)' stroke-width='3'/><g text-anchor='middle' style='font-size:11px'><text x='50' y='81'>100</text><text x='90' y='68'>104</text><text x='130' y='55'>108</text><text x='170' y='42'>112</text><text x='210' y='30'>116</text><text x='250' y='23'>118</text><text x='282' y='16' style='font-size:14px;font-weight:700;fill:var(--accent)'>120</text></g><g text-anchor='middle' style='font-size:11px;fill:var(--c-sleep)'><text x='50' y='110'>一</text><text x='90' y='110'>二</text><text x='130' y='110'>三</text><text x='170' y='110'>四</text><text x='210' y='110'>五</text><text x='250' y='110'>六</text><text x='282' y='110'>日</text></g></svg>"
+    },
+    {
+      "big": "A",
+      "what": "生化实验报告",
+      "when": "周五发回",
+      "detail": "酶动力学实验，算出的 Km 和文献值差 6%，报告拿了 A。",
+      "say": "排练最满的一周，报告照样写到了 A。",
+      "figure": "<svg viewBox='0 0 300 118' role='img' aria-label='米氏方程曲线，标出 Km 和 Vmax'><line x1='20' y1='100' x2='292' y2='100' stroke='var(--bg)' stroke-width='1.5'/><line x1='20' y1='100' x2='20' y2='8' stroke='var(--bg)' stroke-width='1.5'/><line x1='20' y1='20' x2='292' y2='20' stroke='var(--c-sleep)' stroke-width='1.2' stroke-dasharray='4 5'/><text x='292' y='14' text-anchor='end' style='fill:var(--c-sleep)'>Vmax</text><path d='M20 100 L33.5 84 L47 73.3 L74 60 L101 52 L128 46.7 L182 40 L236 36 L290 33.3' fill='none' stroke='var(--accent)' stroke-width='3' stroke-linejoin='round'/><path d='M20 60 H74 V100' fill='none' stroke='var(--c-sport)' stroke-width='1.5' stroke-dasharray='3 4'/><circle cx='74' cy='60' r='5' fill='var(--c-sport)'/><text x='78' y='114' style='fill:var(--c-sport)'>Km</text><text x='24' y='55' style='fill:var(--c-sport)'>½Vmax</text><text x='160' y='78'>实测 Km 与文献差 6%</text></svg>"
+    }
+  ],
+  "timeline": [
+    {
+      "day": 0,
+      "start": "00:00",
+      "end": "07:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 0,
+      "start": "09:00",
+      "end": "12:00",
+      "cat": "study",
+      "text": "生化 · 整理实验数据",
+      "icon": "lab"
+    },
+    {
+      "day": 0,
+      "start": "14:00",
+      "end": "15:00",
+      "cat": "study",
+      "text": "英语 · 精读",
+      "icon": "book"
+    },
+    {
+      "day": 0,
+      "start": "18:00",
+      "end": "18:40",
+      "cat": "sport",
+      "text": "慢跑 5 公里",
+      "icon": "run"
+    },
+    {
+      "day": 0,
+      "start": "20:00",
+      "end": "22:30",
+      "cat": "life",
+      "text": "乐队排练",
+      "icon": "music"
+    },
+    {
+      "day": 1,
+      "start": "00:30",
+      "end": "07:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 1,
+      "start": "08:30",
+      "end": "11:30",
+      "cat": "study",
+      "text": "生化 · 写实验报告",
+      "icon": "pen"
+    },
+    {
+      "day": 1,
+      "start": "14:00",
+      "end": "16:00",
+      "cat": "study",
+      "text": "统计 · 作业",
+      "icon": "math"
+    },
+    {
+      "day": 1,
+      "start": "19:30",
+      "end": "22:30",
+      "cat": "life",
+      "text": "排练 ·《慢车》第一次顺下来",
+      "icon": "music"
+    },
+    {
+      "day": 2,
+      "start": "00:42",
+      "end": "07:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 2,
+      "start": "09:00",
+      "end": "11:30",
+      "cat": "study",
+      "text": "细胞 · 读文献",
+      "icon": "book"
+    },
+    {
+      "day": 2,
+      "start": "15:00",
+      "end": "16:00",
+      "cat": "study",
+      "text": "英语 · 单词",
+      "icon": "book"
+    },
+    {
+      "day": 2,
+      "start": "19:00",
+      "end": "23:00",
+      "cat": "life",
+      "text": "全曲目联排",
+      "icon": "music"
+    },
+    {
+      "day": 3,
+      "start": "00:18",
+      "end": "07:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 3,
+      "start": "09:00",
+      "end": "11:00",
+      "cat": "study",
+      "text": "生化 · 报告定稿",
+      "icon": "pen"
+    },
+    {
+      "day": 3,
+      "start": "14:00",
+      "end": "16:00",
+      "cat": "study",
+      "text": "统计 · 作业",
+      "icon": "math"
+    },
+    {
+      "day": 3,
+      "start": "17:00",
+      "end": "18:00",
+      "cat": "sport",
+      "text": "力量 · 练背",
+      "icon": "gym"
+    },
+    {
+      "day": 3,
+      "start": "20:00",
+      "end": "22:00",
+      "cat": "life",
+      "text": "乐队排练",
+      "icon": "music"
+    },
+    {
+      "day": 4,
+      "start": "00:30",
+      "end": "07:00",
+      "cat": "sleep"
+    },
+    {
+      "day": 4,
+      "start": "10:00",
+      "end": "12:30",
+      "cat": "study",
+      "text": "生化 · 预习下一章",
+      "icon": "lab"
+    },
+    {
+      "day": 4,
+      "start": "16:00",
+      "end": "16:30",
+      "cat": "star",
+      "text": "实验报告发回 · A",
+      "icon": "star"
+    },
+    {
+      "day": 4,
+      "start": "19:00",
+      "end": "23:30",
+      "cat": "life",
+      "text": "彩排 + 调音",
+      "icon": "music"
+    },
+    {
+      "day": 5,
+      "start": "00:30",
+      "end": "07:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 5,
+      "start": "14:00",
+      "end": "17:00",
+      "cat": "life",
+      "text": "布置场地 + 试音",
+      "icon": "music"
+    },
+    {
+      "day": 5,
+      "start": "19:30",
+      "end": "21:00",
+      "cat": "star",
+      "text": "春季专场 · 12 首",
+      "icon": "sing"
+    },
+    {
+      "day": 5,
+      "start": "21:00",
+      "end": "24:00",
+      "cat": "life",
+      "text": "庆功",
+      "icon": "heart"
+    },
+    {
+      "day": 6,
+      "start": "02:00",
+      "end": "10:30",
+      "cat": "sleep"
+    },
+    {
+      "day": 6,
+      "start": "12:00",
+      "end": "15:00",
+      "cat": "study",
+      "text": "统计 · 补作业",
+      "icon": "math"
+    },
+    {
+      "day": 6,
+      "start": "16:00",
+      "end": "16:40",
+      "cat": "sport",
+      "text": "慢跑",
+      "icon": "run"
+    },
+    {
+      "day": 6,
+      "start": "19:00",
+      "end": "21:00",
+      "cat": "study",
+      "text": "英语 + 生化",
+      "icon": "book"
+    }
+  ],
+  "goals": [
+    {
+      "name": "专场演出完整演完",
+      "result": "12 / 12 首",
+      "status": "done",
+      "good": "断弦也没停，原创《慢车》首演。"
+    },
+    {
+      "name": "生化实验报告",
+      "result": "A",
+      "status": "done",
+      "good": "周四交，周五发回。"
+    },
+    {
+      "name": "运动 4 次",
+      "result": "3 / 4 次",
+      "status": "partial",
+      "good": "慢跑两次、练背一次。",
+      "gap": "周三联排到 11 点，那天的力量训练没去。"
+    },
+    {
+      "name": "有效学习 30 小时",
+      "result": "24 / 30h",
+      "status": "partial",
+      "good": "周一、周二、周日都过了 4 小时。",
+      "gap": "统计作业拖到了周日才补完。"
+    },
+    {
+      "name": "每晚 12 点前睡",
+      "result": "1 / 7 晚",
+      "status": "missed",
+      "good": "周一做到了。",
+      "gap": "排练周连着五晚过 12 点。"
+    }
+  ],
+  "mood": {
+    "source": "read",
+    "days": [
+      {
+        "level": 3,
+        "quote": "这周只有一件事：周六。",
+        "reading": "一句话把一周定了重心，白天照常学了 4 小时。"
+      },
+      {
+        "level": 4,
+        "quote": "《慢车》终于顺了一遍。",
+        "reading": "「终于」后面是三周的排练。"
+      },
+      {
+        "level": 3,
+        "quote": "联排到 11 点，作业还没写。",
+        "reading": "累，但没抱怨演出，只是在算时间。"
+      },
+      {
+        "level": 3,
+        "quote": null,
+        "reading": "交了报告、练了背、晚上排练。没留下话，按部就班的一天。"
+      },
+      {
+        "level": 2,
+        "quote": "紧张到吃不下饭。",
+        "reading": "这周的低点在演出前一天，报告拿 A 也没让你松下来。"
+      },
+      {
+        "level": 5,
+        "quote": "断弦了！但是我们撑住了！",
+        "reading": "最高点就在出事的那一刻之后。"
+      },
+      {
+        "level": 4,
+        "quote": "想把《慢车》录下来。",
+        "reading": "睡到 10 点半，醒来想的是下一首。"
+      }
+    ]
+  },
+  "quotes": [
+    {
+      "text": "出错的时候别停，让鼓手先顶住。",
+      "when": "周五彩排",
+      "after": "周六断弦时真的用上了。",
+      "note": "这句话是周五说的，周六就用上了。准备好的东西，往往在最乱的时候最管用。"
+    },
+    {
+      "text": "排练不是把歌弹完，是把最难的 8 小节弹 20 遍。",
+      "when": "周二",
+      "note": "知道难点在哪、肯在那里多花时间，这是会进步的人才有的习惯。"
+    },
+    {
+      "text": "想把《慢车》录下来。",
+      "when": "周日",
+      "after": "当晚约了下周的录音棚。",
+      "note": "演完第二天想的不是休息，而是下一首。热爱大概就是这个样子。"
+    }
+  ],
+  "review": {
+    "good": [
+      "演出前就把最难的段落拆出来单练，一周从 100 练到 120 bpm。",
+      "事先约好了出错怎么办，断弦时舞台没冷场。",
+      "排练最满的一周，实验报告照样拿了 A。"
+    ],
+    "improve": [
+      "演出周学习只有 24 小时，统计作业拖到周日。下次演出周提前一周把作业做掉。",
+      "连着五晚过 12 点睡，演出前一晚只睡了 6 个半小时。"
+    ],
+    "next": [
+      "约录音棚，把《慢车》录一个小样。",
+      "统计作业周三前交。",
+      "运动恢复到每周 4 次。"
+    ]
+  },
+  "letter": {
+    "paragraphs": [
+      {
+        "tag": "学习",
+        "text": "这周有效学习 24 小时，比计划少 6 小时，统计作业拖到了周日。演出周能稳住实验报告拿到 A，已经很好。"
+      },
+      {
+        "tag": "身体",
+        "text": "运动 3 次，周三联排挤掉了一次力量训练。节拍器从 100 练到 120，手上的功夫也在长。"
+      },
+      {
+        "tag": "睡眠",
+        "text": "连着五晚过了 12 点才睡，演出前一晚只睡了 6 个半小时。下周先把觉还回来。"
+      },
+      {
+        "tag": "心情",
+        "text": "周五紧张到吃不下饭，周六断弦那一刻反而是这周最高的点。紧张和高光，原来挨得这么近。"
+      },
+      {
+        "tag": "高光",
+        "text": "12 首完整演完，第一首原创《慢车》首演，断弦的 40 秒你们没停。"
+      },
+      {
+        "tag": "下周",
+        "text": "约录音棚录《慢车》、周三前交统计作业、运动回到每周 4 次。"
+      }
+    ],
+    "sign": "助手"
+  }
+}

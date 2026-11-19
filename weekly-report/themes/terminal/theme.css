@@ -1,0 +1,109 @@
+/* 终端：写代码的一周，整页是一个编辑器 + 终端。
+   浅色编辑器：白底、墨字、五级灰，只有一个强调色（橙）。不发光、不用霓虹、不用红绿当唯一信号。
+   等宽字只给数字、命令、标签；中文正文用正常字体，保证好读。 */
+:root{
+  color-scheme:light;
+  --bg:#F6F8FA; --bg2:#FFFFFF; --bg3:#EAEEF2; --ink:#1F2328; --ink2:#59636E; --mute:#8C959F; --rule:rgba(31,35,40,.10);
+  --accent:#F0702A; --accent-ink:#FFFFFF;
+  --c-study:var(--accent); --c-star:var(--ink); --c-sport:color-mix(in oklab,var(--accent) 45%,var(--bg));
+  --c-life:color-mix(in oklab,var(--ink) 34%,var(--bg)); --c-sleep:color-mix(in oklab,var(--ink) 14%,var(--bg));
+  --font:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --font-num:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gap:72px; --r:6px;
+}
+.wr-progress{height:2px}
+
+/* 封面：一个终端窗口，命令一个字一个字敲出来，输出是这周的数 */
+.tm-cover{display:flex;flex-direction:column;gap:22px;min-height:min(86vh,760px);justify-content:center}
+.tm-kick{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--mute)}
+.tm-title{margin:0;font-weight:900;font-size:clamp(60px,19vw,110px);line-height:1;letter-spacing:-.03em}
+.tm-title em{font-style:normal;color:var(--accent)}
+.tm-win{background:var(--bg2);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.tm-bar{display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:11px;color:var(--mute)}
+.tm-bar i{width:10px;height:10px;border-radius:50%;background:var(--bg3)}
+.tm-bar span{margin-left:8px}
+.tm-body{padding:14px 14px 16px;font-family:var(--mono);font-size:13px;line-height:1.75;min-height:210px}
+.tm-cmd{color:var(--ink)} .tm-cmd::before{content:"$ ";color:var(--accent)}
+.tm-caret{display:inline-block;width:.6em;height:1.1em;background:var(--accent);vertical-align:-.2em;margin-left:2px}
+.wr-move .tm-caret{animation:tm-blink 1s steps(2) 5}
+@keyframes tm-blink{50%{opacity:0}}
+.tm-out{display:grid;grid-template-columns:auto 1fr auto;gap:2px 14px;margin-top:10px;align-items:center}
+.tm-out span{color:var(--ink2)} .tm-out b{color:var(--ink);font-weight:700;text-align:right} .tm-out em{font-style:normal;color:var(--mute);font-size:12px}
+.tm-meter{display:block;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.tm-meter i{display:block;height:100%;width:calc(var(--p)*100%);background:var(--accent);border-radius:3px;transform-origin:0 50%}
+.tm-ok{margin-top:10px;color:var(--mute)} .tm-ok b{color:var(--accent);font-weight:700}
+
+/* 标题：mono 小注 + 粗标题 */
+.wr-h{border-bottom:1px solid var(--rule)}
+.wr-h h2{font-size:24px}
+.wr-hint{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.wr-h h2::before{content:attr(data-cmd);display:block;font-family:var(--mono);font-size:12px;font-weight:400;color:var(--accent);margin-bottom:4px;letter-spacing:0}
+
+.wr-tab{font-family:var(--mono);font-size:13px;border-radius:6px;border-color:var(--rule);color:var(--ink2)}
+.wr-tab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.wr-big{font-weight:800;letter-spacing:-.05em}
+.wr-bars{border-bottom-color:var(--rule)}
+.wr-bar b{font-family:var(--mono);font-weight:400}
+.wr-bar i{max-width:20px}
+.wr-goal span{background:var(--bg)}
+
+/* 提交记录 */
+.wr-rank{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.wr-a-big{font-weight:800;letter-spacing:-.04em}
+.wr-fig{background:var(--bg2);border:1px solid var(--rule)}
+.wr-fig text{fill:var(--ink2)}
+.wr-say{font-weight:400;color:var(--ink2);border-left-color:var(--accent)}
+.wr-say::before{content:"// ";font-family:var(--mono);color:var(--mute)}
+
+/* 时间线 */
+.wr-now b{font-family:var(--mono);font-weight:700;font-size:22px}
+.wr-track{background:var(--bg2)}
+.wr-row.on .wr-track{box-shadow:inset 0 0 0 1px var(--ink2)}
+.wr-dayd li span:nth-child(2){font-family:var(--mono);font-size:12px}
+.wr-dayd li.on{background:var(--bg3)}
+
+/* 专注热力：像代码贡献图 */
+.wr-heat{gap:3px}
+.wr-cell{border-radius:2px;background:color-mix(in oklab,var(--accent) calc(var(--a)*100%),var(--bg3))}
+.wr-hread{font-family:var(--mono);font-size:13px;color:var(--ink2)}
+
+/* CI 检查 */
+.wr-stamp{font-family:var(--mono);font-weight:400;border-radius:4px;font-size:12px}
+.wr-g[data-s="done"] .wr-stamp{background:transparent;color:var(--accent);border-color:var(--accent)}
+.wr-g-n{font-weight:700}
+.wr-g-bar{background:var(--bg3)}
+.wr-g-bar i{background:var(--ink2)}
+
+/* 状态 */
+.wr-area{opacity:.1}
+.wr-pt{fill:var(--bg)}
+.wr-her{font-weight:700}
+
+/* 注释 */
+.wr-q-t{font-weight:700}
+.wr-q-t::before{content:"/* ";font-family:var(--mono);color:var(--mute);font-weight:400}
+.wr-q-t::after{content:" */";font-family:var(--mono);color:var(--mute);font-weight:400}
+
+/* diff */
+.wr-rlist li{font-size:15px}
+.wr-rlist[data-k="good"] li::before{content:"+";font-size:18px;color:var(--accent);padding-top:0}
+.wr-rlist[data-k="improve"] li::before{content:"−";font-size:18px;color:var(--ink2);padding-top:0}
+.wr-rlist[data-k="next"] li::before{content:"[ ]";font-size:13px;color:var(--ink2);padding-top:3px}
+
+/* README */
+.wr-letter{background:var(--bg2);border:1px solid var(--rule);border-radius:10px;padding:20px 18px}
+.wr-letter p{font-size:16px;color:var(--ink)}
+.wr-letter .wr-sign{font-family:var(--mono);font-weight:400;color:var(--mute)}
+.wr-letter .wr-sign::before{content:"— "}
+.wr-fict{background:var(--ink);color:var(--bg)}
+.wr-foot{font-family:var(--mono);font-size:12px}
+
+/* v8：原话卡是一段带注释的代码块，暖白底 */
+.wr-qcard{--q1:#FFFFFF;--q2:#FFF4EC;--qmark:var(--accent);--qr:10px;border:1px solid var(--rule);box-shadow:0 6px 18px rgba(31,35,40,.06)}
+.wr-qcard .wr-q-t::before,.wr-qcard .wr-q-t::after{content:none}
+.wr-q-note{font-family:var(--font);background:var(--bg)}
+.wr-q-note b{font-family:var(--mono);font-weight:400}
+.wr-q-note b::before{content:"// "}
+.wr-ltag{font-family:var(--mono);border-radius:4px}
+.wr-ltag::before{content:"#"}

@@ -1,0 +1,124 @@
+/* 唱片（第二版）：一周压成一张唱片。孔版印刷三色（钴蓝、荧光粉、明黄）印在浅色纸上。
+   第一版打 8 分，扣在「动效少」：这版加了能点的唱片圈、调音台（时间花在哪）、播放一天的唱针、均衡器式的柱子。 */
+:root{
+  --bg:#EEF0E8; --bg2:#E2E5DA; --ink:#14163A; --ink2:#4A4D72; --mute:#7C7F9A; --rule:rgba(20,22,58,.16);
+  --accent:#FF4F8B; --accent-ink:#14163A; --blue:#2B3BD9; --yellow:#FFC400; --sky:#8FA2FF; --disc:#101230;
+  --c-study:var(--accent); --c-sport:var(--yellow); --c-sleep:var(--sky); --c-life:var(--blue); --c-star:var(--ink);
+  --font:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --font-num:"Anton","Impact","Arial Narrow",sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,monospace;
+  --gap:60px;
+}
+body{background-image:radial-gradient(var(--bg2) 1.2px,transparent 1.3px);background-size:9px 9px;font-weight:500}
+.wr-progress{height:4px}
+
+/* 封面：封套 + 唱片，三圈可以点 */
+.vn-cover{display:flex;flex-direction:column;gap:14px}
+.vn-top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--ink2)}
+.vn-sw{--S:min(74vw,300px);position:relative;width:var(--S);height:calc(var(--S)*1.72);margin:6px auto 0}
+.vn-sleeve{position:absolute;inset:0 0 auto 0;height:var(--S);background:var(--blue);z-index:2;overflow:hidden;transform:rotate(-2deg);box-shadow:7px 7px 0 var(--ink);color:#fff}
+.wr-move .vn-sleeve{animation:vn-drop .9s var(--ease) both}
+@keyframes vn-drop{from{transform:translateY(-40px) rotate(-9deg);opacity:0}}
+.vn-sleeve::before{content:"";position:absolute;right:-22%;top:-18%;width:78%;aspect-ratio:1;border-radius:50%;background:var(--yellow)}
+.vn-sleeve::after{content:"";position:absolute;left:-30%;bottom:22%;width:170%;height:20%;background:var(--accent);transform:rotate(-24deg)}
+.vn-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.28) 1.4px,transparent 1.5px);background-size:8px 8px;z-index:1}
+.vn-sleeve>*:not(.vn-dots){position:absolute;z-index:2}
+.vn-vol{left:7%;top:5%;font-family:var(--font-num);font-size:calc(var(--S)*.14);line-height:1}
+.vn-sleeve h1{left:7%;bottom:15%;margin:0;font-weight:900;font-size:calc(var(--S)*.215);line-height:1.05;text-shadow:3px 3px 0 var(--ink)}
+.vn-cr{left:7%;right:7%;bottom:6%;font-family:var(--mono);font-size:10px;letter-spacing:.06em;display:flex;justify-content:space-between}
+.vn-disc{position:absolute;left:3%;top:calc(var(--S)*.56);width:94%;aspect-ratio:1;z-index:1;will-change:transform}
+.vn-disc svg{display:block;width:100%;height:100%;filter:drop-shadow(5px 6px 0 rgba(20,22,58,.25))}
+.vn-arc{fill:none;stroke-linecap:round;stroke-width:11;transition:stroke-width .2s}
+.wr-move .vn-arc{transition:stroke-dashoffset 1.6s var(--ease),stroke-width .2s}
+.vn-ring{fill:none;stroke:transparent;stroke-width:16;cursor:pointer;pointer-events:stroke}
+.vn-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.vn-legend button{all:unset;cursor:pointer;border:3px solid var(--ink);padding:8px 6px;text-align:center;background:var(--bg);transition:transform .15s,box-shadow .15s}
+.vn-legend button:active,.vn-legend button.on{transform:translate(-3px,-3px);box-shadow:3px 3px 0 var(--ink)}
+.vn-legend b{display:block;font-family:var(--font-num);font-weight:400;font-size:clamp(26px,8vw,36px);line-height:1.05;color:var(--ink);text-shadow:3px 3px 0 var(--c)}
+.vn-legend span{font-size:13px;font-weight:700}
+
+/* 标题 */
+.wr-h{border-bottom:3px solid var(--ink)}
+.wr-h h2{font-size:30px}
+.wr-hint{font-family:var(--mono);font-size:12px;letter-spacing:.02em}
+
+/* 试听：均衡器 */
+.wr-tab{border:3px solid var(--ink);border-radius:0;color:var(--ink);font-weight:900;transition:transform .15s,box-shadow .15s,background .2s}
+.wr-tab[aria-pressed="true"]{background:var(--accent);color:var(--ink);transform:translate(-3px,-3px);box-shadow:3px 3px 0 var(--ink)}
+.wr-big{font-weight:400;text-shadow:5px 5px 0 var(--accent)}
+.wr-bars{border-bottom:3px solid var(--ink)}
+.wr-bar b{font-family:var(--mono);font-weight:500}
+.wr-bar i{max-width:34px;background:var(--accent);border:3px solid var(--ink);border-bottom:0;border-radius:0;transform-origin:50% 100%}
+.wr-bar i.wr-zero{border-color:var(--rule);background:transparent}
+.wr-bar.on i{opacity:1;background:var(--yellow)}
+
+/* 调音台：时间花在哪 */
+.vn-mixer{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:10px;margin-top:4px}
+.vn-ch{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px}
+.vn-slot{position:relative;width:12px;height:170px;background:var(--ink);border-radius:6px}
+.vn-fill{position:absolute;left:0;right:0;bottom:0;border-radius:6px;background:var(--c)}
+.vn-knob{position:absolute;left:50%;width:38px;height:18px;margin:0 0 -9px -19px;background:var(--bg);border:3px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.vn-knob::after{content:"";position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:var(--ink)}
+.vn-ch b{font-family:var(--font-num);font-weight:400;font-size:20px;line-height:1}
+.vn-ch span{font-size:12px;font-weight:700}
+.vn-ch.off{opacity:.4}
+.wr-s-split .wr-stack,.wr-s-split .wr-legend{display:none}
+.wr-mbars i{border:2px solid var(--ink);border-bottom:0;border-radius:0}
+
+/* 主打歌：排名空心大字，左右交替滑入 */
+.wr-rank{font-family:var(--font-num);font-size:clamp(60px,18vw,96px);line-height:.9;color:transparent;-webkit-text-stroke:2.5px var(--ink)}
+.wr-a-top{align-items:center}
+.wr-a:nth-child(even) .wr-a-top{grid-template-columns:1fr auto;text-align:right}
+.wr-a:nth-child(even) .wr-rank{order:2}
+.wr-a-big{font-weight:400;text-shadow:4px 4px 0 var(--accent);letter-spacing:.01em}
+.wr-a:nth-child(3n+2) .wr-a-big{text-shadow:4px 4px 0 var(--yellow)}
+.wr-a:nth-child(3n) .wr-a-big{text-shadow:4px 4px 0 var(--sky)}
+.wr-move .wr-a .wr-a-top{transition:transform .8s var(--ease),opacity .6s}
+.wr-move .wr-a:not(.wr-in) .wr-a-top{transform:translateX(-60px) rotate(-2deg);opacity:0}
+.wr-move .wr-a:nth-child(even):not(.wr-in) .wr-a-top{transform:translateX(60px) rotate(2deg)}
+.wr-fig{background:var(--ink);border-radius:0}
+.wr-fig text{fill:var(--bg)}
+.wr-say{border-left:0;padding-left:0;color:var(--blue);font-weight:900}
+
+/* 曲目：时间线 + 唱针 */
+.wr-track{background:var(--ink);border-radius:0}
+.wr-row.on .wr-track{box-shadow:4px 4px 0 var(--accent)}
+.wr-cursor{background:var(--yellow);width:3px}
+.wr-now{align-items:center}
+.vn-play{all:unset;cursor:pointer;flex:none;width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--yellow);display:grid;place-items:center;box-shadow:3px 3px 0 var(--accent)}
+.vn-play svg{width:18px;height:18px}
+.wr-now b{font-family:var(--font-num);font-weight:400;font-size:30px}
+
+/* 制作进度 */
+.wr-stamp{border-width:3px;border-radius:0;letter-spacing:.04em;transform:rotate(-4deg)}
+.wr-g:nth-child(even) .wr-stamp{transform:rotate(3deg)}
+.wr-g[data-s="done"] .wr-stamp{background:transparent;color:var(--blue);border-color:var(--blue)}
+.wr-g-bar{height:8px;background:transparent;border:2px solid var(--ink);border-radius:0}
+.wr-g-bar i{background:var(--accent)!important;border-radius:0}
+
+/* 情绪旋律：五线谱 */
+.wr-grid{stroke:var(--ink);stroke-width:1.5}
+.wr-area{opacity:0}
+.wr-line{stroke-width:3}
+.wr-pt{fill:var(--ink);stroke:var(--ink)}
+.wr-pt.on{fill:var(--accent);stroke:var(--accent)}
+.wr-mine{color:var(--blue);font-weight:700}
+
+/* 歌词本 */
+.wr-q-t{background:linear-gradient(var(--yellow),var(--yellow)) no-repeat 0 92%/100% 38%;display:inline;-webkit-box-decoration-break:clone;box-decoration-break:clone;min-height:0}
+.wr-q{min-height:220px}
+.wr-q-m{margin-top:16px}
+
+/* 乐评 */
+.wr-rlist li::before{font-family:var(--font-num);font-size:26px;color:var(--blue);padding-top:0}
+
+/* 内页附言 */
+.wr-letter{background:var(--ink);color:var(--bg);padding:22px 18px;box-shadow:7px 7px 0 var(--accent)}
+.wr-letter .wr-sign{color:var(--yellow)}
+.wr-foot{font-family:var(--mono);font-size:12px}
+
+/* v8：原话卡像唱片内页的歌词卡，黄色便签 + 粗描边 */
+.wr-qcard{--q1:#FFF8D9;--q2:#FFE9A8;--qmark:var(--accent);--qink:var(--ink);--qr:0;border:2px solid var(--ink);box-shadow:6px 6px 0 var(--ink)}
+.wr-q-note{background:#fff;border:2px solid var(--ink);border-radius:0}
+.wr-ltag{border-radius:0;background:var(--yellow);color:var(--ink)}
+.wr-letter .wr-ltag{color:var(--ink)}
