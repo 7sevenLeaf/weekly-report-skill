@@ -1,112 +1,153 @@
 # 个人周报 · weekly-report
 
-一个 AI 助手用的 skill：把你这一周的记录，做成一份**每周换主题**、手机上好看、可以点的周报网页。
+**weekly-report** 是一个 AI 助手技能（skill），将一周的日历或文字记录整理为一份可交互的个人周报网页。每份周报依据当周内容选用主题，在手机浏览器中直接打开即可浏览和操作。
 
-按开放的 [Agent Skills](https://agentskills.io) 格式写成（一个文件夹 + `SKILL.md`），Claude、ChatGPT、Codex 和其他支持这个格式的工具都能装；不支持 skill 的地方也能用：见下面的「在 ChatGPT 的 GPT 里用」和「自己动手跑」。
+本技能遵循开放的 [Agent Skills](https://agentskills.io) 规范（一个文件夹加一份 `SKILL.md`），可用于 Claude、ChatGPT、Codex 及其他支持该规范的工具。
 
 <p>
-<img src="docs/cloud-cover.png" width="18%" alt="云白沉浸版：期中考试周">
+<img src="docs/cloud-cover.png" width="18%" alt="云白主题：期中考试周">
 <img src="docs/swiss-cover.png" width="18%" alt="编辑部主题：期中考试周">
-<img src="docs/exam-cover.png" width="18%" alt="考卷主题：同一个期中考试周">
+<img src="docs/exam-cover.png" width="18%" alt="考卷主题：期中考试周">
 <img src="docs/vinyl-cover.png" width="18%" alt="唱片主题：乐队演出周">
 <img src="docs/terminal-cover.png" width="18%" alt="终端主题：黑客松周">
 </p>
 
-上面几份都是**示例**：人物「林小满」和数据都是虚构的。前三份是同一周换了三个主题。云白是沉浸版：往下滑，时钟从周一早上走到周日晚上，每天按当天的主角换色调和场景。下载 [`examples/`](examples/) 里的 `.html`，用手机或电脑浏览器打开就能点着看。
+> 以上均为示例，人物「林小满」及全部数据为虚构。前三份为同一周套用不同主题的效果。完整页面见 [`examples/`](examples/)，下载 `.html` 文件后用浏览器打开即可。
 
-## 它和别的周报有什么不一样
+## 主要特性
 
-- **滑动就是这一周在过去**（云白）：每天有一个主角（考试、实验、跑步、演出……），色调、小场景、转场和数据面板都跟着换；心情低的那天会下雨。
-- **每周一个主题**：考试周是一张批改过的考卷，演出周是一张唱片，写代码的一周是一个终端，任何一周都可以排成瑞士风格的编辑部版面。主题从这周的内容里长出来，不是套模板换数字。
-- **数据会动、能点**：数字从 0 滚到终值，柱子长出来，线一笔画出来；时间线可以按住拖，看任何一刻在做什么；热力格点一下看那一小时。
-- **成就有自己的小画**：跑步画配速线，考试画分数轴，练琴画节拍器的台阶。
-- **情绪是读出来的**：助手读你当天说的话和做的事，画出一周的起伏，并标明这是它的读法。
-- **不编数据**：没有记录的地方留空。
+1. **沉浸式时间线**
+   云白主题以滚动表示时间推进：页面从周一清晨走到周日夜晚。系统为每一天识别一个「主角」活动（考试、实验、跑步、演出等），据此切换当天的色调、场景插画、转场动画与数据面板；情绪偏低的日子以天气变化呈现。
+
+2. **按周选择主题**
+   主题由当周内容决定，而非固定模板。内置五套主题，覆盖考试周、演出周、项目冲刺周等常见情形，也可以复制现有主题自行扩展。
+
+3. **可交互的数据可视化**
+   核心数据、时间分配、目标完成度均以动画呈现：数字递增、进度条与圆环逐步填满、折线逐段绘出。时间线支持拖动查看任意时刻，热力图、图例与卡片均可点击查看明细。
+
+4. **成就配图**
+   每项成就配有对应的矢量插图，例如跑步配速曲线、考试分数轴、练习节拍阶梯。
+
+5. **情绪曲线与解读标注**
+   助手依据当天的原话与活动描绘一周情绪起伏，并在页面上注明「由助手解读」；用户本人打分的日期以本人评分为准。
+
+6. **数据如实呈现**
+   缺少记录的部分保留为空，不做推测或补全；引用内容均为用户原话。
+
+7. **单文件、本地生成**
+   脚本仅依赖 Python 标准库，在本地运行，输出单个 `.html` 文件，便于保存与分享。
+
+## 内置主题
+
+| 主题 | 适用场景 | 风格 |
+|---|---|---|
+| `cloud` 云白（默认） | 任意一周 | 沉浸式滚动叙事，每天按主角切换场景 |
+| `swiss` 编辑部 | 任意一周，数据较多时 | 瑞士风格版式，冷静清晰 |
+| `exam` 考卷 | 考试周、测验较多的一周 | 批改过的试卷 |
+| `vinyl` 唱片 | 演出、排练、创作为主的一周 | 唱片封套与调音台 |
+| `terminal` 终端 | 编程、项目冲刺的一周 | 浅色编辑器与终端 |
 
 ## 安装
 
-skill 就是 `weekly-report/` 这个文件夹。放到你用的工具认得的位置：
+技能本体为 `weekly-report/` 文件夹，放入所用工具的技能目录即可：
 
-| 工具 | 怎么装 |
+| 工具 | 安装方式 |
 |---|---|
 | Claude Code | `cp -r weekly-report ~/.claude/skills/` |
-| claude.ai | 把 `weekly-report` 文件夹打成 zip，在设置的 Skills 里上传 |
-| Codex（OpenAI） | 放进项目的 `.agents/skills/`（或 `~/.codex/skills/`） |
-| ChatGPT（有 Skills 的账号） | 把 `weekly-report` 打成 zip，在 Skills 里上传 |
-| 其他支持 Agent Skills 的工具 | 按它的文档放到 skills 目录 |
-| ChatGPT 的 GPT（没有 Skills） | 见下面「在 ChatGPT 的 GPT 里用」 |
+| claude.ai | 将 `weekly-report` 文件夹压缩为 zip，在设置的 Skills 中上传 |
+| Codex（OpenAI） | 放入项目的 `.agents/skills/` 或 `~/.codex/skills/` |
+| ChatGPT（已开通 Skills） | 将 `weekly-report` 压缩为 zip，在 Skills 中上传 |
+| 其他支持 Agent Skills 的工具 | 按其文档放入技能目录 |
+| ChatGPT 自定义 GPT（未开通 Skills） | 见下文「在自定义 GPT 中使用」 |
 
-运行时需要 Python 3.9 以上（只用标准库）。沉浸版主题用到 GSAP 动画库：找不到本地文件时页面会从 jsDelivr 加载固定的 3.15.0 版，所以第一次打开要联网。
+**运行环境**：Python 3.9 及以上，无需安装第三方包。
 
-## 用法
+## 使用方法
 
-对助手说：
+向助手发送：
 
 > 出这周的周报。
 
-然后给它这周的记录，三种都行：
+并提供本周记录，支持以下三种形式：
 
-1. **日历导出的 `.ics` 文件**（最省事）。日历分了类可以分别导出：学习、运动、睡眠。
-2. **连上日历**：助手能读你的日历（连接器、插件或接口）时直接读。
-3. **一段文字**：把这周干了什么、几点睡的贴给它。
+| 输入 | 说明 |
+|---|---|
+| 日历导出的 `.ics` 文件 | 推荐。如日历已按类别区分，可分别导出学习、运动、睡眠等日历 |
+| 已连接的日历 | 助手可通过连接器、插件或接口读取日历时，直接读取 |
+| 一段文字记录 | 本周做了什么、几点入睡等，助手只整理可以确定的内容 |
 
-它会问一次这周的目标是什么，然后出一个 `.html` 文件，手机浏览器直接打开。
+助手会询问一次本周目标（用于目标对账）和希望收录的原话，随后生成 `.html` 文件。
 
-## 先试一试
+### 示例
 
-仓库里有一份示例日历 [`examples/week-midterm.ics`](examples/week-midterm.ics)（虚构的一周）。装好 skill 后，把它发给助手，说「出这周的周报」就行。
+仓库提供一份虚构的示例日历 [`examples/week-midterm.ics`](examples/week-midterm.ics)。安装技能后，将其发送给助手并说「出这周的周报」，即可体验完整流程。
 
-不用助手也可以先看看数据长什么样：
+## 命令行用法
 
-```bash
-python weekly-report/scripts/ics_to_week.py examples/week-midterm.ics --week-start 2027-04-12
-```
-
-## 在 ChatGPT 的 GPT 里用
-
-没有 Skills 功能时，可以做一个自己的 GPT：
-
-1. 新建 GPT，把 [`adapters/chatgpt/instructions.md`](adapters/chatgpt/instructions.md) 的内容贴进「指令」；
-2. 把 `weekly-report` 文件夹打成 zip，上传到「知识」；
-3. 打开「代码解释器」。
-
-之后对它说「出这周的周报」，它会解压 zip、整理数据、运行 `build.py`，给你一个可以下载的 `.html`。
-
-## 自己动手跑
+不通过助手时，也可以直接运行脚本：
 
 ```bash
-# .ics → 数据
+# 1. 将 .ics 转换为周数据
 python weekly-report/scripts/ics_to_week.py 我的日历.ics --week-start 2027-04-12 -o week.json
-# （补上成就、评价等内容后）数据 + 主题 → 网页
-python weekly-report/scripts/build.py week.json weekly-report/themes/exam -o 周报.html
+
+# 2. 补充成就、评价等内容后，生成网页
+python weekly-report/scripts/build.py week.json weekly-report/themes/cloud -o 周报.html
 ```
 
-`week.json` 的格式见 [weekly-report/references/data.md](weekly-report/references/data.md)。
+`week.json` 的字段说明见 [references/data.md](weekly-report/references/data.md)，内容写作规范见 [references/writing.md](weekly-report/references/writing.md)。生成前脚本会校验数据，并以中文列出问题。
 
-## 做一个新主题
+## 在自定义 GPT 中使用
 
-复制 `weekly-report/themes/` 下任意一个文件夹，改三个文件。做法见 [weekly-report/references/design.md](weekly-report/references/design.md)。
+未开通 Skills 功能时，可以创建一个自定义 GPT：
 
-## 开发
+1. 新建 GPT，将 [`adapters/chatgpt/instructions.md`](adapters/chatgpt/instructions.md) 的内容粘贴到「指令」；
+2. 将 `weekly-report` 文件夹压缩为 zip，上传到「知识」；
+3. 开启「代码解释器」。
+
+之后发送「出这周的周报」，GPT 会解压文件、整理数据、运行 `build.py`，并提供可下载的 `.html`。
+
+## 自定义主题
+
+复制 `weekly-report/themes/` 下的任一主题文件夹，修改 `theme.json`、`theme.css`、`theme.js` 三个文件即可。设计原则与交付前检查清单见 [references/design.md](weekly-report/references/design.md)。
+
+## 目录结构
+
+```text
+weekly-report/            技能本体
+├── SKILL.md              助手执行步骤
+├── scripts/              build.py（校验并生成网页）、ics_to_week.py（日历转换）
+├── assets/               所有主题共用的页面组件
+├── themes/               五套内置主题
+└── references/           数据格式、写作规范、设计规范
+examples/                 示例数据（虚构）与生成的示例页面
+adapters/chatgpt/         自定义 GPT 的指令
+tests/                    脚本测试
+tools/                    截图、交互与离线检查工具（开发用）
+video/                    宣传视频与封面的制作脚本（开发用）
+```
+
+## 开发与测试
 
 ```bash
-python -m unittest discover tests        # 脚本测试
-cd tools && npm install                  # 截图检查和视频工具（可选）
-node tools/shoot.mjs examples/exam.html out/shots 400
+python -m unittest discover tests                         # 脚本测试
+cd tools && npm install && cd ..                          # 安装检查工具（可选）
+node tools/shoot.mjs examples/cloud.html out/shots 400    # 逐屏截图，检查横向滚动与报错
+node tools/interact.mjs examples/cloud.html               # 逐一触发页面交互
+node tools/offline.mjs examples/cloud.html                # 断网条件下检查页面
 ```
 
-## 隐私
+## 隐私说明
 
-数据只在你和你的助手之间：脚本在本地运行，生成的网页是一个单独的文件，不会把内容上传到任何地方。
-打开网页时会从公共 CDN 加载字体和动画库（Google Fonts、jsDelivr），离线时页面照样能看，只是换成系统字体、少一些动效。
+- 记录的整理与网页的生成均在本地或你所使用的助手中完成；生成的网页为独立文件，不会上传任何内容。
+- 网页打开时会从公共 CDN（Google Fonts、jsDelivr）加载字体与动画库。断网时页面仍可完整阅读，届时使用系统字体，沉浸式主题退回静态版本。
 
 ## 致谢
 
-- 动画：[GSAP](https://gsap.com)（沉浸版主题用，按它的免费许可原样引用，不修改）
-- 原话卡的字体：[霞鹜文楷 LXGW WenKai](https://github.com/lxgw/LxgwWenKai)（SIL OFL 1.1）
-- 其余字体来自 [Google Fonts](https://fonts.google.com)
-- 交付前检查的分档办法参考了 [Hallmark](https://github.com/Nutlope/hallmark)
+- [GSAP](https://gsap.com)：沉浸式主题的动画库，按其免费许可原样引用
+- [霞鹜文楷 LXGW WenKai](https://github.com/lxgw/LxgwWenKai)：原话卡片字体（SIL OFL 1.1）
+- [Google Fonts](https://fonts.google.com)：其余字体
+- [Hallmark](https://github.com/Nutlope/hallmark)：交付前检查的分级方法参考
 
-## 许可
+## 许可证
 
-代码和文档：MIT。上面列出的第三方库和字体按它们各自的许可使用。
+本仓库的代码与文档采用 [MIT 许可证](LICENSE)。第三方库与字体遵循各自的许可证。
