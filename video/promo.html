@@ -83,7 +83,7 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;font-family:"Noto 
 #skill .big{font-weight:900;font-size:84px;line-height:1.2;letter-spacing:-.01em}
 #skill .big b{color:var(--accent)}
 #skill .repo{margin-top:56px;width:100%;border-radius:36px;background:#fff;box-shadow:0 24px 60px rgba(30,40,80,.12);padding:40px 44px;text-align:left}
-#skill .repo .n{font:800 40px Inter,sans-serif} #skill .repo .n span{color:var(--ink2);font-weight:600}
+#skill .repo .n{font-weight:900;font-size:40px}   /* 不放仓库链接和账号名 */
 #skill .repo p{margin:14px 0 0;font-size:30px;color:var(--ink2);line-height:1.5}
 #skill .cmd{margin-top:26px;border-radius:20px;background:#16181D;color:#E8EAF0;padding:22px 26px;font:500 27px "JetBrains Mono",monospace}
 #skill .cmd span{color:#7FD8C6}
@@ -98,7 +98,6 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;font-family:"Noto 
 #end svg{width:240px;height:88px;margin:30px 0 0 auto;display:block}
 #end .bye{margin-top:60px;font-weight:900;font-size:96px;letter-spacing:-.02em}
 #end .bye span{color:var(--accent)}
-#end .gh{margin-top:24px;font-size:32px;color:var(--ink2);font-weight:700}
 </style>
 </head>
 <body>
@@ -136,7 +135,7 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;font-family:"Noto 
 
 <div class="scene" id="skill">
   <div class="big">它是一个<br><b>开源 skill</b></div>
-  <div class="repo"><div class="n"><span>7sevenLeaf /</span> weekly-report-skill</div>
+  <div class="repo"><div class="n">个人周报 skill</div>
     <p>把一周的日历变成一份每周换主题、会动、能点的个人周报网页</p>
     <div class="cmd"><span>$</span> cp -r weekly-report ~/.claude/skills/</div></div>
   <div class="plats"><b>Claude</b><b>ChatGPT</b><b>Codex</b></div>
@@ -148,7 +147,6 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;font-family:"Noto 
   <div class="l" id="endl"></div>
   <svg viewBox="0 0 120 44"><path d="M6 30 C 20 6, 30 40, 44 22 S 64 10, 70 28 S 92 36, 114 14" fill="none" stroke="#3D6BF2" stroke-width="3" stroke-linecap="round"/></svg>
   <div class="bye">下周见<span>.</span></div>
-  <div class="gh">GitHub 搜 weekly-report-skill · 链接在评论区</div>
 </div>
 
 <div class="cap" id="cap"><span class="k" id="capk"></span><span class="s" id="caps"></span></div>
@@ -288,7 +286,6 @@ function build() {
   tl.from("#end .l", { y: 40, opacity: 0, duration: .8, ease: "power3.out" }, T.end + .2)
     .fromTo("#end svg path", { strokeDasharray: 200, strokeDashoffset: 200 }, { strokeDashoffset: 0, duration: 1.2, ease: "power2.inOut" }, T.end + 1.4)
     .from("#end .bye", { y: 50, opacity: 0, duration: .7, ease: "power3.out" }, T.end + 2.4)
-    .from("#end .gh", { opacity: 0, duration: .5 }, T.end + 3.1)
     .to({}, { duration: .1 }, T.fin - .1);
   ready = true;
 }
