@@ -170,8 +170,10 @@ const events = [], CAP = [], SUB = [];
 const cap = (t, k, s = "") => CAP.push([t, k, s]), sub = (t, s) => SUB.push([t, s]), at$ = (t, fn) => events.push({ t, fn, done: false });
 let ready = false, tapAt = null, now = 0;
 
-/* 时间表（秒）：开场 4.6 · 以前 4.6 · 对话 15 · 云白 36.6 · 四个主题各 6.5 · skill 9.5 · 结尾 5.5 */
-const T = { old: 4.6, chat: 9.2, cloud: 24.4, cloudEnd: 61, themes: 61, skill: 87, end: 96.5, fin: 102 };
+/* 时间表（秒）：开场 4.6 · 以前 4.6 · 对话 8.6 · 云白 36.6 · 四个主题各 6.5 · skill 9.5 · 结尾 5.5
+   对话里每条消息的出现时间写在 data-at 上（按正常语速写），再整体乘 CS 加快。 */
+const CS = .55;
+const T = { old: 4.6, chat: 9.2, cloud: 17.8, cloudEnd: 54.4, themes: 54.4, skill: 80.4, end: 89.9, fin: 95.4 };
 
 function y(i, sel, pad = 30) { const el = D(i).querySelector(sel); return el ? Math.max(0, el.getBoundingClientRect().top + W(i).scrollY - pad) : 0; }
 function tap(i, sel, k = 0) {
@@ -234,10 +236,10 @@ function build() {
   cap(T.chat, "现在：交给 Claude", "发日历，说一句话"); sub(T.chat, "");
   show("#chat", T.chat - .2, .3);
   tl.fromTo("#pc", { x: 0, y: 160, opacity: 0 }, { y: 0, opacity: 1, duration: .7, ease: "power3.out", immediateRender: false }, T.chat);
-  document.querySelectorAll("#pc .ty").forEach(el => typeIn(el, T.chat + +el.closest(".it").dataset.at + .1, el.dataset.t.length * .04));
-  cap(T.chat + 5.6, "它自己一步步做", "读技能 · 整理日历 · 写内容 · 定主题 · 出页面");
-  cap(T.chat + 11.1, "几分钟后", "一个文件，手机直接打开");
-  at$(T.chat + 13.4, () => { const r = document.querySelector("#m4").getBoundingClientRect(); tapAt = [r.left + r.width / 2, r.top + r.height / 2, now]; });
+  document.querySelectorAll("#pc .ty").forEach(el => typeIn(el, T.chat + el.closest(".it").dataset.at * CS + .08, el.dataset.t.length * .022));
+  cap(T.chat + 5.6 * CS, "它自己一步步做", "读技能 · 整理日历 · 写内容 · 定主题 · 出页面");
+  cap(T.chat + 11.1 * CS, "几分钟后", "一个文件，手机直接打开");
+  at$(T.chat + 13.2 * CS, () => { const r = document.querySelector("#m4").getBoundingClientRect(); tapAt = [r.left + r.width / 2, r.top + r.height / 2, now]; });
   /* 点开文件：同一台手机里换成周报 */
   tl.to("#pc .scr", { opacity: 0, duration: .45, ease: "power2.in" }, T.cloud - 1.0)
     .fromTo("#p0", { x: 0, y: 0, scale: .94, rotation: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .7, ease: "power3.out", immediateRender: false }, T.cloud - .75)
@@ -301,13 +303,13 @@ function feedAt(t) {
   const r = t - T.chat, feed = document.getElementById("feed");
   if (r < -1 || t > T.cloud + .5) return;
   for (const el of feed.querySelectorAll(".it")) {
-    const a = +el.dataset.at, u = el.dataset.until ? +el.dataset.until : 1e9, on = r >= a && r < u;
+    const a = el.dataset.at * CS, u = el.dataset.until ? el.dataset.until * CS : 1e9, on = r >= a && r < u;
     el.classList.toggle("on", on);
-    if (on) { const k = Math.min(1, (r - a) / .35); el.style.opacity = k; el.style.transform = `translateY(${((1 - k) * 18).toFixed(1)}px)`; }
+    if (on) { const k = Math.min(1, (r - a) / .25); el.style.opacity = k; el.style.transform = `translateY(${((1 - k) * 18).toFixed(1)}px)`; }
   }
-  for (const el of feed.querySelectorAll(".r[data-at]")) el.style.opacity = Math.max(0, Math.min(1, (r - +el.dataset.at) / .3));
+  for (const el of feed.querySelectorAll(".r[data-at]")) el.style.opacity = Math.max(0, Math.min(1, (r - el.dataset.at * CS) / .25));
   const target = Math.max(0, feed.scrollHeight - feed.parentElement.clientHeight);
-  feedY += (target - feedY) * .2; feed.style.transform = `translateY(${(-feedY).toFixed(1)}px)`;
+  feedY += (target - feedY) * .3; feed.style.transform = `translateY(${(-feedY).toFixed(1)}px)`;
 }
 
 /* 把页面里所有 Web Animations / CSS 动画对齐到片子的时间 */
